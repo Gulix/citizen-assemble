@@ -1,0 +1,58 @@
+[
+  {
+        "id": 1,
+        "name": "Tekkna",
+        "level": 2,
+        "role_key": "support",
+        "ap_granted": 4,
+        "minions_granted": 0
+  },
+  {
+        "id": 2,
+        "name": "Ace of Wraiths",
+        "level": 2,
+        "role_key": "blaster",
+        "ap_granted": 2,
+        "minions_granted": 0
+  },
+  {
+        "id": 3,
+        "name": "Wildman",
+        "level": 2,
+        "role_key": "brawler",
+        "ap_granted": 2,
+        "minions_granted": 0
+  },
+  {
+        "id": 4,
+        "name": "Nuke",
+        "level": 2,
+        "role_key": "blaster",
+        "ap_granted": 2,
+        "minions_granted": 0
+  },
+  {
+        "id": 5,
+        "name": "Aurelius",
+        "level": 2,
+        "role_key": "tank",
+        "ap_granted": 3,
+        "minions_granted": 0
+  },
+  {
+        "id": 6,
+        "name": "Anansi",
+        "level": 2,
+        "role_key": "infiltrator",
+        "ap_granted": 4,
+        "minions_granted": 0
+  },
+  {
+        "id": 7,
+        "name": "John Grimmsham",
+        "level": 3,
+        "role_key": "leader",
+        "ap_granted": 4,
+        "minions_granted": 2
+  }
+]

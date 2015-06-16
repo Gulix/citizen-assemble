@@ -1,0 +1,38 @@
+[
+  {
+    "role_key": "0",
+    "role_label": "All"
+  },
+  {
+    "role_key": "leader",
+    "role_label": "leader"
+  },
+  {
+    "role_key": "powerhouse",
+    "role_label": "powerhouse"
+  },
+  {
+    "role_key": "blaster",
+    "role_label": "blaster"
+  },
+  {
+    "role_key": "brawler",
+    "role_label": "brawler"
+  },
+  {
+    "role_key": "support",
+    "role_label": "support"
+  },
+  {
+    "role_key": "tank",
+    "role_label": "tank"
+  },
+  {
+    "role_key": "speeder",
+    "role_label": "speeder"
+  },
+  {
+    "role_key": "infiltrator",
+    "role_label": "infiltrator"
+  }
+]

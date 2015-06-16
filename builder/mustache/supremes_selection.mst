@@ -1,0 +1,10 @@
+{{#supremes}}
+<div class="supreme-selection" id="supreme-selection-{{id}}">
+  <h4>{{name}}</h4>
+  <p class='text-left'><strong>{{role}} lvl.{{level}}</strong></p>
+  <div>
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#supreme-modal-{{id}}">Show</button>
+    <button type="button" class="btn btn-primary btn-unselect-supreme" id="btn-unselect-supreme-{{id}}">Remove</button>
+  </div>
+</div>
+{{/supremes}}
