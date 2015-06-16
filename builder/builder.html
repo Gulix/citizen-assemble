@@ -1,0 +1,200 @@
+<html>
+  <head>
+    <script src="js/mustache.js"></script>
+  
+    <title>Citizen Assemble ! Pulp City Team Builder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <form>
+          <div class="form-group">
+            <label for="selAlignmentFaction">Team Alignment / Faction</label>
+            <select class="form-control" id="selAlignmentFaction">
+              <option>Heroes</option>
+              <option>Villains</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-9 col-md-offset-1">
+        <h1>Citizen Assemble !</h1>
+        <h2>A team builder for <b>Pulp City</b></h2>
+      </div>      
+    </div>
+    
+    <!-- Filters -->
+    <div class="row">
+      <div class='col-md-offset-2 bg-danger'>
+        <div class='col-md-2'>
+          <label for="selRoles">Role</label>
+          <select id="selRoles" class="form-control" ></select>
+        </div>
+      </div>      
+    </div>
+    
+    <div class="row">
+      <!-- Selected items -->
+      <div class="col-md-2 bg-info" id="list-selected">
+        <p>Test</p>
+      </div>
+      <!-- List of items -->
+      <div class="col-md-10 bg-danger" id="list-supremes">
+      </div>
+    </div>
+    
+    <div id="list-modal-supremes">
+    </div>
+  </div>
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+</body>
+<script>
+
+
+function fill_supremes()
+{
+  $.getJSON("json/supremes.json", function(json) {
+    // Filter the Supremes
+    var filteredSupremes = filter_supremes(json);
+  
+    // Render the Supremes with a Mustache template
+    var view = { "supremes": filteredSupremes };
+    
+    $.ajax(
+    {
+      url: "mustache/supremes.mst",
+      success: function( mustacheTemplate ) 
+        {
+          var renderedHtml = Mustache.render(mustacheTemplate, view);
+          $("#list-supremes").html(renderedHtml);
+        },
+      dataType: "text"
+    });
+  });  
+}
+
+function fill_supremes_modal()
+{
+  $.getJSON("json/supremes.json", function(json) {
+      
+    // Render the Supremes with a Mustache template
+    var view = { "supremes": json };
+    $.ajax(
+    {
+      url: "mustache/supremes_modal.mst",
+      success: function( mustacheTemplate ) 
+        {
+          var renderedHtml = Mustache.render(mustacheTemplate, view);
+          $("#list-modal-supremes").html(renderedHtml);
+          // Click on Select Buttons
+          $(".btn-select-supreme").click(function() {
+            var supremeId = getSupremeId("btn-select-supreme-", $(this).attr('id'));
+            $("#supreme-selection-" + supremeId).show();
+          });
+        },
+      dataType: "text"
+    });
+  });  
+}
+
+// Fill the selected list with all the Supremes, then hide them
+function fill_supremes_selection()
+{
+  $.getJSON("json/supremes.json", function(json) {
+      
+    var view = { "supremes": json };
+    $.ajax(
+    {
+      url: "mustache/supremes_selection.mst",
+      success: function( mustacheTemplate ) 
+        {
+          // Render the Supremes with a Mustache template
+          var renderedHtml = Mustache.render(mustacheTemplate, view);
+          $("#list-selected").html(renderedHtml);
+          // Hiding the elements
+          $(".supreme-selection").each(function() { $( this ).hide(); });
+          // Click on Buttons
+          $(".btn-unselect-supreme").click(function() {
+            var supremeId = getSupremeId("btn-unselect-supreme-", $(this).attr('id'));
+            $("#supreme-selection-" + supremeId).hide();
+          });
+        },
+      dataType: "text"
+    });
+  });
+}
+
+function select_supreme(id)
+{
+  $("#supreme-selection-" + id).show();
+}
+
+function filter_supremes(jsonSupremes)
+{
+  var filteredSupremes = [];
+  
+  // Role filter
+  var roleFilter = $('#selRoles').val();
+  if (roleFilter === null)
+    roleFilter = "0";
+  
+  $.each(jsonSupremes, function(i)
+  {
+    // Role
+    if ((roleFilter != "0") && (jsonSupremes[i].role_key != roleFilter))
+      return true; // continue
+      
+    
+    filteredSupremes.push(jsonSupremes[i]);
+  });
+  
+  return filteredSupremes;
+}
+
+// Fill the "Roles" combo box
+function fill_roles()
+{
+  $.getJSON("json/roles.json", function(json) {
+    
+    $.each(json, function(i) 
+    {
+       $('#selRoles').append('<option value=' + json[i].role_key + '>' + json[i].role_label + '</option>');
+    });    
+  });  
+}
+
+function getSupremeId(strStartId, strId)
+{
+  return strId.substring(strStartId.length);
+}
+
+// Page loading
+$(function() {   
+   
+  // Filters
+  fill_roles();
+   
+  // The list of the Supremes
+  fill_supremes();
+  fill_supremes_modal();
+  fill_supremes_selection();
+   
+  // Events on the filters
+  $('#selRoles').on('change', function (e) {
+    fill_supremes();
+  });
+  
+   
+});
+
+</script>
+</html>
+

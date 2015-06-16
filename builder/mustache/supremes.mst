@@ -1,0 +1,9 @@
+{{#supremes}}
+<div class='col-md-2 bg-success'>
+    <h4>{{name}}</h4>
+    <p class='text-right'><strong>{{role}} lvl.{{level}}</strong></p>
+    <p class='text-right'>AP+ : {{ap_granted}}</p>
+    <p class='text-right'>Minions+ : {{minions_granted}}</p>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#supreme-modal-{{id}}">Show</button>
+</div>
+{{/supremes}}
