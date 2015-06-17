@@ -1,0 +1,66 @@
+[
+  {
+    "faction_key": "0",
+    "faction_label": "Any"
+  },
+  {
+    "faction_key": "arc",
+    "faction_label": "A.R.C."
+  },
+  {
+    "faction_key": "bloodwatch",
+    "faction_label": "Blood Watch"
+  },
+  {
+    "faction_key": "coven",
+    "faction_label": "The Coven"
+  },
+  {
+    "faction_key": "forgotten",
+    "faction_label": "The Forgotten"
+  },
+  {
+    "faction_key": "grimm",
+    "faction_label": "Grimm"
+  },
+  {
+    "faction_key": "heavymetal",
+    "faction_label": "Heavy Metal"
+  },
+  {
+    "faction_key": "infinitehourglass",
+    "faction_label": "Infinite Hourglass"
+  },
+  {
+    "faction_key": "jadecult",
+    "faction_label": "Jade Cult"
+  },
+  {
+    "faction_key": "necroplane",
+    "faction_label": "Necroplane"
+  },
+  {
+    "faction_key": "otherside",
+    "faction_label": "Otherside"
+  },
+  {
+    "faction_key": "settlersgreen",
+    "faction_label": "Settler's Green"
+  },
+  {
+    "faction_key": "starmarshalls",
+    "faction_label": "Star Marshalls"
+  },
+  {
+    "faction_key": "supremealliance",
+    "faction_label": "Supreme Alliance"
+  },
+  {
+    "faction_key": "theway",
+    "faction_label": "The Way"
+  },
+  {
+    "faction_key": "ulthar",
+    "faction_label": "Ulthar"
+  }
+]
