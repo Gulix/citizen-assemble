@@ -4,6 +4,14 @@
     "faction_label": "Any"
   },
   {
+    "faction_key": "-1",
+    "faction_label": "Without"
+  },
+  {
+    "faction_key": "-2",
+    "faction_label": "Without (including Freelance)"
+  },
+  {
     "faction_key": "arc",
     "faction_label": "A.R.C."
   },
