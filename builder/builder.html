@@ -62,11 +62,9 @@
 function fill_supremes()
 {
   $.getJSON("json/supremes.json", function(json) {
-    // Filter the Supremes
-    var filteredSupremes = filter_supremes(json);
-  
+    
     // Render the Supremes with a Mustache template
-    var view = { "supremes": filteredSupremes };
+    var view = { "supremes": json };
     
     $.ajax(
     {
@@ -78,6 +76,9 @@ function fill_supremes()
         },
       dataType: "text"
     });
+    
+    // Filter the Supremes
+    filter_supremes();
   });  
 }
 
@@ -137,26 +138,26 @@ function select_supreme(id)
   $("#supreme-selection-" + id).show();
 }
 
-function filter_supremes(jsonSupremes)
+function filter_supremes()
 {
-  var filteredSupremes = [];
+  $.getJSON("json/supremes.json", function(jsonSupremes) {
   
-  // Role filter
-  var roleFilter = $('#selRoles').val();
-  if (roleFilter === null)
-    roleFilter = "0";
-  
-  $.each(jsonSupremes, function(i)
-  {
-    // Role
-    if ((roleFilter != "0") && (jsonSupremes[i].role_key != roleFilter))
-      return true; // continue
+    // Role filter
+    var roleFilter = $('#selRoles').val();
+    if (roleFilter === null)
+      roleFilter = "0";
+     
+    $.each(jsonSupremes, function(i)
+    {
+      // Role
+      if ((roleFilter != "0") && (jsonSupremes[i].role_key != roleFilter))
+        $('#supreme-list-' + jsonSupremes[i].id).hide();
+        
       
-    
-    filteredSupremes.push(jsonSupremes[i]);
+      else
+        $('#supreme-list-' + jsonSupremes[i].id).show();
+    });  
   });
-  
-  return filteredSupremes;
 }
 
 // Fill the "Roles" combo box
@@ -189,7 +190,7 @@ $(function() {
    
   // Events on the filters
   $('#selRoles').on('change', function (e) {
-    fill_supremes();
+    filter_supremes();
   });
   
    
