@@ -13,14 +13,8 @@
       <div class="col-md-2">
         <form>
           <div class="form-group">
-            <label for="selAlignmentFaction">Team Alignment / Faction</label>
-            <select class="form-control" id="selAlignmentFaction">
-              <option>Heroes</option>
-              <option>Villains</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
+            <label for="selTeamAffiliation">Team Alignment / Faction</label>
+            <select class="form-control" id="selTeamAffiliation"></select>
           </div>
         </form>
       </div>
@@ -32,18 +26,32 @@
     
     <!-- Filters -->
     <div class="row">
-      <div class='col-md-offset-2 bg-danger'>
+      
+      <!-- Team Summary -->
+      <div class='col-md-2'>
+        <p>Team Level : <strong id='team-summary-level'></strong></p>
+        <p># of Supremes : <strong id='team-summary-number'></strong></p>
+        <p>AP+ : <strong id='team-summary-apgranted'></strong></p>
+        <p>Minions+ : <strong id='team-summary-minionsgranted'></strong></p>
+      </div>
+      
+      <div class='col-md-10'>
+        <!-- Factions -->
+        <div class='col-md-2'>
+          <label for="selFactions">Faction</label>
+          <select id="selFactions" class="form-control" ></select>
+        </div>
+        <!-- Roles -->
         <div class='col-md-2'>
           <label for="selRoles">Role</label>
           <select id="selRoles" class="form-control" ></select>
         </div>
-      </div>      
+      </div>            
     </div>
     
     <div class="row">
       <!-- Selected items -->
-      <div class="col-md-2 bg-info" id="list-selected">
-        <p>Test</p>
+      <div class="col-md-2 bg-info" id="list-selected">        
       </div>
       <!-- List of items -->
       <div class="col-md-10 bg-danger" id="list-supremes">
@@ -58,15 +66,15 @@
 </body>
 <script>
 
-
+/********************/
+/*** The Supremes ***/
+/********************/
 function fill_supremes()
 {
   $.getJSON("json/supremes.json", function(json) {
-    // Filter the Supremes
-    var filteredSupremes = filter_supremes(json);
-  
+    
     // Render the Supremes with a Mustache template
-    var view = { "supremes": filteredSupremes };
+    var view = { "supremes": json };
     
     $.ajax(
     {
@@ -75,6 +83,8 @@ function fill_supremes()
         {
           var renderedHtml = Mustache.render(mustacheTemplate, view);
           $("#list-supremes").html(renderedHtml);
+          filter_supremes();
+          $(".btn-select-supreme").click(function() { select_supreme(getSupremeId("btn-select-supreme-", $(this).attr('id'))); });
         },
       dataType: "text"
     });
@@ -94,11 +104,10 @@ function fill_supremes_modal()
         {
           var renderedHtml = Mustache.render(mustacheTemplate, view);
           $("#list-modal-supremes").html(renderedHtml);
-          // Click on Select Buttons
-          $(".btn-select-supreme").click(function() {
-            var supremeId = getSupremeId("btn-select-supreme-", $(this).attr('id'));
-            $("#supreme-selection-" + supremeId).show();
-          });
+          // Events on Buttons
+          $(".btn-select-supreme-modal").click(function() { select_supreme(getSupremeId("btn-select-supreme-modal-", $(this).attr('id'))); });
+          $(".btn-unselect-supreme-modal").click(function() { unselect_supreme(getSupremeId("btn-unselect-supreme-modal-", $(this).attr('id'))); });
+          $(".btn-unselect-supreme-modal").hide();
         },
       dataType: "text"
     });
@@ -122,53 +131,128 @@ function fill_supremes_selection()
           // Hiding the elements
           $(".supreme-selection").each(function() { $( this ).hide(); });
           // Click on Buttons
-          $(".btn-unselect-supreme").click(function() {
-            var supremeId = getSupremeId("btn-unselect-supreme-", $(this).attr('id'));
-            $("#supreme-selection-" + supremeId).hide();
-          });
+          $(".btn-unselect-supreme").click(function() { unselect_supreme(getSupremeId("btn-unselect-supreme-", $(this).attr('id'))); });
         },
       dataType: "text"
     });
   });
 }
 
+
+/*************************/
+/*** Selected Supremes ***/
+/*************************/
 function select_supreme(id)
 {
   $("#supreme-selection-" + id).show();
+  // Buttons in the modal view
+  $("#btn-select-supreme-modal-" + id).hide();
+  $("#btn-unselect-supreme-modal-" + id).show();
+  filter_supremes();
+  update_summary();
 }
 
-function filter_supremes(jsonSupremes)
+function unselect_supreme(id)
 {
-  var filteredSupremes = [];
-  
-  // Role filter
-  var roleFilter = $('#selRoles').val();
-  if (roleFilter === null)
-    roleFilter = "0";
-  
-  $.each(jsonSupremes, function(i)
-  {
-    // Role
-    if ((roleFilter != "0") && (jsonSupremes[i].role_key != roleFilter))
-      return true; // continue
-      
-    
-    filteredSupremes.push(jsonSupremes[i]);
-  });
-  
-  return filteredSupremes;
+  $("#supreme-selection-" + id).hide();
+  // Buttons in the modal view
+  $("#btn-select-supreme-modal-" + id).show();
+  $("#btn-unselect-supreme-modal-" + id).hide();
+  filter_supremes();
+  update_summary();
 }
 
+function getSelectedSupremes(afterSelectionFunction)
+{
+  $.getJSON("json/supremes.json", function(jsonSupremes) {
+    var selectedSupremes = [];
+    for(var i=0; i<jsonSupremes.length; i++)
+    {
+      if ($("#supreme-selection-" + jsonSupremes[i].id).is(':visible') == true)
+        selectedSupremes.push(jsonSupremes[i]);
+    }
+    afterSelectionFunction(selectedSupremes);
+  });
+}
+
+/*****************/
+/*** The Roles ***/
+/*****************/
 // Fill the "Roles" combo box
 function fill_roles()
 {
   $.getJSON("json/roles.json", function(json) {
     
-    $.each(json, function(i) 
+    for(var i = 0; i < json.length; i++)
     {
-       $('#selRoles').append('<option value=' + json[i].role_key + '>' + json[i].role_label + '</option>');
-    });    
+       $('#selRoles').append('<option value="' + json[i].role_key + '">' + json[i].role_label + '</option>');
+    }
   });  
+}
+
+/********************/
+/*** The Factions ***/
+/********************/
+function fill_factions()
+{
+  $.getJSON("json/factions.json", function(json) {
+    // Sort factions by name
+    json.sort(function(a, b)
+    {
+      if (a.faction_key < b.faction_key) return -1;
+      if (b.faction_key < a.faction_key) return 1;
+      return 0;
+    });
+    
+    var ignoredFactions = [ "-0", "-1", "-2" ];
+    $('#selTeamAffiliation').append('<optgroup label="Factions" id="optgTeamAffiliationFaction"></optgroup>');
+    for(var i = 0; i < json.length; i++)
+    {
+      // Add the factions in the Affiliation combo box
+      if (!isInTable(ignoredFactions, json[i].faction_key))
+        $('#optgTeamAffiliationFaction').append('<option value="f_' + json[i].faction_key + '">' + json[i].faction_label + '</option>');
+      // Add the factions in the Factions combo box
+      $('#selFactions').append('<option value="' + json[i].faction_key + '">' + json[i].faction_label + '</option>');
+    }
+    
+    $('#selFactions').val("-0");
+  });
+}
+
+/******************/
+/*** Alignments ***/
+/******************/
+function fillAlignments()
+{
+  $('#selTeamAffiliation').append('<optgroup label="Alignments">'
+                                   + '<option value="a_heroes">Heroes</option>'
+                                   + '<option value="a_villains">Villains</option>'
+                                 + '</optgroup>');
+}
+
+/************************/
+/*** Team Affiliation ***/
+/************************/
+function changeAffiliation()
+{
+  var affiliation = $('#selTeamAffiliation').val();
+  if (affiliation === null) return;
+  var isAlignment = (affiliation.indexOf('a_') === 0);
+  var isFaction = (affiliation.indexOf('f_') === 0);
+  
+  if (isFaction)
+  {
+    // The faction filter is set and disabled to the selected Faction in the Affiliation
+    var keyFaction = affiliation.substring(2);
+    $('#selFactions').val(keyFaction);
+    $('#selFactions').prop('disabled', 'disabled');
+  }
+  else if (isAlignment)
+  {
+    $('#selFactions').prop('disabled', false);
+  }
+  
+  filter_supremes();
 }
 
 function getSupremeId(strStartId, strId)
@@ -176,23 +260,136 @@ function getSupremeId(strStartId, strId)
   return strId.substring(strStartId.length);
 }
 
+function confirmAffiliationChange()
+{
+  var countSelectedSupremes = $('.supreme-selection:visible').length;
+  if (countSelectedSupremes > 0)
+  {
+    if (!confirm('Are you sure you want to change your Team Affiliation ?\nYour team composition will be cleared.')) 
+    {
+      var current = $.data(this, 'current');
+      if ((current === null) || (current === undefined))
+        current = "a_heroes";
+      $(this).val(current); // added parenthesis (edit)
+      return false;
+    }
+  }
+  
+  $.data(this, 'current', $(this).val());
+  changeAffiliation();
+}
+
+/**************/
+/*** Filter ***/
+/**************/
+function filter_supremes()
+{
+  $.getJSON("json/supremes.json", function(jsonSupremes) {
+  
+    // Role filter
+    var roleFilter = $('#selRoles').val();
+    if (roleFilter === null)
+      roleFilter = "0";
+    // Faction filter
+    var factionFilter = $('#selFactions').val();
+    if (factionFilter === null)
+      factionFilter = "-0"; 
+    var isFactionSelected = !isInTable(["-0", "-1", "-2"], factionFilter);
+    var isFactionWithout = (factionFilter == "-1");
+    var isFactionWithoutWithFreelance = (factionFilter == "-2");
+    
+    // Heroes / Villains
+    var alignment = $('#selTeamAffiliation').val();
+    var isHeroesOnly = (alignment == 'a_heroes');
+    var isVillainsOnly = (alignment == 'a_villains');
+     
+    for(var i=0; i < jsonSupremes.length; i++)
+    {
+      var isSelected = $('#supreme-selection-' + jsonSupremes[i].id).is(':visible');
+    
+      if (((roleFilter != "0") && (jsonSupremes[i].role_key != roleFilter)) // Role
+       // Factions
+       || (isFactionSelected && !isInTable(jsonSupremes[i].factions, factionFilter))
+       || (isFactionWithout && !(jsonSupremes[i].factions.length == 0))
+       || (isFactionWithoutWithFreelance && !(jsonSupremes[i].factions.length == 0) && !jsonSupremes[i].is_freelance)
+       || (isHeroesOnly && !jsonSupremes[i].is_hero) // Hero
+       || (isVillainsOnly && !jsonSupremes[i].is_villain) // Villain
+       || isSelected)
+      {
+        $('#supreme-list-' + jsonSupremes[i].id).hide();
+      }
+      else
+      {
+        $('#supreme-list-' + jsonSupremes[i].id).show();
+      }
+    }
+  });
+}
+
+/***************/
+/*** Summary ***/
+/***************/
+function update_summary()
+{
+  $.getJSON("json/supremes.json", function(jsonSupremes) {
+    
+    var teamLevel = 0;
+    var teamNumber = 0;
+    var teamAP = 0;
+    var teamMinions = 0;
+    for(var i=0; i<jsonSupremes.length; i++)
+    {
+      if ($("#supreme-selection-" + jsonSupremes[i].id).is(':visible') == true)
+      {
+        teamLevel += jsonSupremes[i].level;
+        teamNumber += 1;
+        teamAP += jsonSupremes[i].ap_granted;
+        teamMinions += jsonSupremes[i].minions_granted;
+      }
+    }
+    
+    $("#team-summary-level").html(teamLevel);
+    $("#team-summary-number").html(teamNumber);
+    $("#team-summary-apgranted").html(teamAP);
+    $("#team-summary-minionsgranted").html(teamMinions);
+  });
+}
+
+/************************/
+/*** Helper Functions ***/
+/************************/
+function isInTable(tableData, searchedData)
+{
+  for(var i=0; i<tableData.length; i++)
+  {
+    if (tableData[i] == searchedData)
+      return true;
+  }
+  return false;
+}
+
 // Page loading
-$(function() {   
-   
+$(function() {     
+  
+  fillAlignments();
   // Filters
   fill_roles();
+  fill_factions();
    
   // The list of the Supremes
   fill_supremes();
   fill_supremes_modal();
   fill_supremes_selection();
+  
+  update_summary();
+   
+  // Events on the Affiliation
+  changeAffiliation();
+  $('#selTeamAffiliation').change(confirmAffiliationChange);
    
   // Events on the filters
-  $('#selRoles').on('change', function (e) {
-    fill_supremes();
-  });
-  
-   
+  $('#selRoles').on('change', function (e) { filter_supremes(); });
+  $('#selFactions').on('change', function (e) { filter_supremes(); });
 });
 
 </script>

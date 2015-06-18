@@ -5,7 +5,11 @@
         "level": 2,
         "role_key": "support",
         "ap_granted": 4,
-        "minions_granted": 0
+        "minions_granted": 0,
+        "factions": [],
+        "is_hero": 1,
+        "is_villain": 0,
+        "is_freelance": 0
   },
   {
         "id": 2,
@@ -13,7 +17,11 @@
         "level": 2,
         "role_key": "blaster",
         "ap_granted": 2,
-        "minions_granted": 0
+        "minions_granted": 0,
+        "factions": [ "bloodwatch" ],
+        "is_hero": 1,
+        "is_villain": 0,
+        "is_freelance": 1
   },
   {
         "id": 3,
@@ -21,7 +29,11 @@
         "level": 2,
         "role_key": "brawler",
         "ap_granted": 2,
-        "minions_granted": 0
+        "minions_granted": 0,
+        "factions": [ ],
+        "is_hero": 1,
+        "is_villain": 0,
+        "is_freelance": 0
   },
   {
         "id": 4,
@@ -29,7 +41,11 @@
         "level": 2,
         "role_key": "blaster",
         "ap_granted": 2,
-        "minions_granted": 0
+        "minions_granted": 0,
+        "factions": [ ],
+        "is_hero": 0,
+        "is_villain": 1,
+        "is_freelance": 0
   },
   {
         "id": 5,
@@ -37,7 +53,11 @@
         "level": 2,
         "role_key": "tank",
         "ap_granted": 3,
-        "minions_granted": 0
+        "minions_granted": 0,
+        "factions": [ ],
+        "is_hero": 0,
+        "is_villain": 1,
+        "is_freelance": 0
   },
   {
         "id": 6,
@@ -45,7 +65,11 @@
         "level": 2,
         "role_key": "infiltrator",
         "ap_granted": 4,
-        "minions_granted": 0
+        "minions_granted": 0,
+        "factions": [ ],
+        "is_hero": 0,
+        "is_villain": 1,
+        "is_freelance": 0
   },
   {
         "id": 7,
@@ -53,6 +77,22 @@
         "level": 3,
         "role_key": "leader",
         "ap_granted": 4,
-        "minions_granted": 2
+        "minions_granted": 2,
+        "factions": [ "grimm" ],
+        "is_hero": 0,
+        "is_villain": 1,
+        "is_freelance": 0
+  },
+  {
+        "id": 8,
+        "name": "Grimm Lee Chan",
+        "level": 1,
+        "role_key": "brawler",
+        "ap_granted": 4,
+        "minions_granted": 1,
+        "factions": [ "grimm", "theway" ],
+        "is_hero": 1,
+        "is_villain": 1,
+        "is_freelance": 0
   }
 ]

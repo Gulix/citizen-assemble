@@ -1,9 +1,10 @@
 {{#supremes}}
-<div class='col-md-2 bg-success'>
+<div class='col-md-2 bg-success' id='supreme-list-{{id}}'>
     <h4>{{name}}</h4>
     <p class='text-right'><strong>{{role}} lvl.{{level}}</strong></p>
     <p class='text-right'>AP+ : {{ap_granted}}</p>
     <p class='text-right'>Minions+ : {{minions_granted}}</p>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#supreme-modal-{{id}}">Show</button>
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#supreme-modal-{{id}}">Show</button>
+    <button type="button" class="btn btn-primary btn-sm btn-select-supreme" id="btn-select-supreme-{{id}}">Add</button>    
 </div>
 {{/supremes}}
