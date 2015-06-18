@@ -164,17 +164,18 @@ function fill_factions()
       return 0;
     });
     
+    var ignoredFactions = [ "-0", "-1", "-2" ];
     $('#selTeamAffiliation').append('<optgroup label="Factions" id="optgTeamAffiliationFaction"></optgroup>');
     for(var i = 0; i < json.length; i++)
     {
       // Add the factions in the Affiliation combo box
-      if ((json[i].faction_key != "0") && (json[i].faction_key != "-1") && (json[i].faction_key != "-2"))
+      if (!isInTable(ignoredFactions, json[i].faction_key))
         $('#optgTeamAffiliationFaction').append('<option value="f_' + json[i].faction_key + '">' + json[i].faction_label + '</option>');
       // Add the factions in the Factions combo box
       $('#selFactions').append('<option value="' + json[i].faction_key + '">' + json[i].faction_label + '</option>');
     }
     
-    $('#selFactions').val("0");
+    $('#selFactions').val("-0");
   });
 }
 
@@ -233,8 +234,8 @@ function filter_supremes()
     // Faction filter
     var factionFilter = $('#selFactions').val();
     if (factionFilter === null)
-      factionFilter = "0"; 
-    var isFactionSelected = (factionFilter != "0") && (factionFilter != "-1") && (factionFilter != "-2");
+      factionFilter = "-0"; 
+    var isFactionSelected = !isInTable(["-0", "-1", "-2"], factionFilter);
     var isFactionWithout = (factionFilter == "-1");
     var isFactionWithoutWithFreelance = (factionFilter == "-2");
     
@@ -277,7 +278,7 @@ function isInTable(tableData, searchedData)
 }
 
 // Page loading
-$(function() {   
+$(function() {     
   
   fillAlignments();
   // Filters
@@ -291,7 +292,20 @@ $(function() {
    
   // Events on the Affiliation
   changeAffiliation();
-  $('#selTeamAffiliation').on('change', function (e) { changeAffiliation(); });  
+  $('#selTeamAffiliation').change(function () 
+  { 
+    if (!confirm('Are you sure you want to change your Team Affiliation ?\nYour team composition will be cleared.')) 
+    {
+      var current = $.data(this, 'current');
+      if ((current === null) || (current === undefined))
+        current = "a_heroes";
+      $(this).val(current); // added parenthesis (edit)
+      return false;
+    }     
+    
+    $.data(this, 'current', $(this).val());
+    changeAffiliation();
+  });  
    
   // Events on the filters
   $('#selRoles').on('change', function (e) { filter_supremes(); });
