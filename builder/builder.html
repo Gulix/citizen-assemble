@@ -26,26 +26,32 @@
     
     <!-- Filters -->
     <div class="row">
-      <!-- Factions -->
-      <div class='col-md-offset-2 bg-danger'>
+      
+      <!-- Team Summary -->
+      <div class='col-md-2'>
+        <p>Team Level : <strong id='team-summary-level'></strong></p>
+        <p># of Supremes : <strong id='team-summary-number'></strong></p>
+        <p>AP+ : <strong id='team-summary-apgranted'></strong></p>
+        <p>Minions+ : <strong id='team-summary-minionsgranted'></strong></p>
+      </div>
+      
+      <div class='col-md-10'>
+        <!-- Factions -->
         <div class='col-md-2'>
           <label for="selFactions">Faction</label>
           <select id="selFactions" class="form-control" ></select>
         </div>
-      </div>      
-      <!-- Role -->
-      <div class='col-md-offset-2 bg-danger'>
+        <!-- Roles -->
         <div class='col-md-2'>
           <label for="selRoles">Role</label>
           <select id="selRoles" class="form-control" ></select>
         </div>
-      </div>
+      </div>            
     </div>
     
     <div class="row">
       <!-- Selected items -->
-      <div class="col-md-2 bg-info" id="list-selected">
-        <p>Test</p>
+      <div class="col-md-2 bg-info" id="list-selected">        
       </div>
       <!-- List of items -->
       <div class="col-md-10 bg-danger" id="list-supremes">
@@ -60,7 +66,9 @@
 </body>
 <script>
 
-
+/********************/
+/*** The Supremes ***/
+/********************/
 function fill_supremes()
 {
   $.getJSON("json/supremes.json", function(json) {
@@ -76,6 +84,7 @@ function fill_supremes()
           var renderedHtml = Mustache.render(mustacheTemplate, view);
           $("#list-supremes").html(renderedHtml);
           filter_supremes();
+          $(".btn-select-supreme").click(function() { select_supreme(getSupremeId("btn-select-supreme-", $(this).attr('id'))); });
         },
       dataType: "text"
     });
@@ -95,11 +104,10 @@ function fill_supremes_modal()
         {
           var renderedHtml = Mustache.render(mustacheTemplate, view);
           $("#list-modal-supremes").html(renderedHtml);
-          // Click on Select Buttons
-          $(".btn-select-supreme").click(function() {
-            var supremeId = getSupremeId("btn-select-supreme-", $(this).attr('id'));
-            $("#supreme-selection-" + supremeId).show();
-          });
+          // Events on Buttons
+          $(".btn-select-supreme-modal").click(function() { select_supreme(getSupremeId("btn-select-supreme-modal-", $(this).attr('id'))); });
+          $(".btn-unselect-supreme-modal").click(function() { unselect_supreme(getSupremeId("btn-unselect-supreme-modal-", $(this).attr('id'))); });
+          $(".btn-unselect-supreme-modal").hide();
         },
       dataType: "text"
     });
@@ -123,10 +131,7 @@ function fill_supremes_selection()
           // Hiding the elements
           $(".supreme-selection").each(function() { $( this ).hide(); });
           // Click on Buttons
-          $(".btn-unselect-supreme").click(function() {
-            var supremeId = getSupremeId("btn-unselect-supreme-", $(this).attr('id'));
-            $("#supreme-selection-" + supremeId).hide();
-          });
+          $(".btn-unselect-supreme").click(function() { unselect_supreme(getSupremeId("btn-unselect-supreme-", $(this).attr('id'))); });
         },
       dataType: "text"
     });
@@ -140,6 +145,21 @@ function fill_supremes_selection()
 function select_supreme(id)
 {
   $("#supreme-selection-" + id).show();
+  // Buttons in the modal view
+  $("#btn-select-supreme-modal-" + id).hide();
+  $("#btn-unselect-supreme-modal-" + id).show();
+  filter_supremes();
+  update_summary();
+}
+
+function unselect_supreme(id)
+{
+  $("#supreme-selection-" + id).hide();
+  // Buttons in the modal view
+  $("#btn-select-supreme-modal-" + id).show();
+  $("#btn-unselect-supreme-modal-" + id).hide();
+  filter_supremes();
+  update_summary();
 }
 
 function getSelectedSupremes(afterSelectionFunction)
@@ -285,13 +305,16 @@ function filter_supremes()
      
     for(var i=0; i < jsonSupremes.length; i++)
     {
+      var isSelected = $('#supreme-selection-' + jsonSupremes[i].id).is(':visible');
+    
       if (((roleFilter != "0") && (jsonSupremes[i].role_key != roleFilter)) // Role
        // Factions
        || (isFactionSelected && !isInTable(jsonSupremes[i].factions, factionFilter))
        || (isFactionWithout && !(jsonSupremes[i].factions.length == 0))
        || (isFactionWithoutWithFreelance && !(jsonSupremes[i].factions.length == 0) && !jsonSupremes[i].is_freelance)
        || (isHeroesOnly && !jsonSupremes[i].is_hero) // Hero
-       || (isVillainsOnly && !jsonSupremes[i].is_villain)) // Villain
+       || (isVillainsOnly && !jsonSupremes[i].is_villain) // Villain
+       || isSelected)
       {
         $('#supreme-list-' + jsonSupremes[i].id).hide();
       }
@@ -300,6 +323,35 @@ function filter_supremes()
         $('#supreme-list-' + jsonSupremes[i].id).show();
       }
     }
+  });
+}
+
+/***************/
+/*** Summary ***/
+/***************/
+function update_summary()
+{
+  $.getJSON("json/supremes.json", function(jsonSupremes) {
+    
+    var teamLevel = 0;
+    var teamNumber = 0;
+    var teamAP = 0;
+    var teamMinions = 0;
+    for(var i=0; i<jsonSupremes.length; i++)
+    {
+      if ($("#supreme-selection-" + jsonSupremes[i].id).is(':visible') == true)
+      {
+        teamLevel += jsonSupremes[i].level;
+        teamNumber += 1;
+        teamAP += jsonSupremes[i].ap_granted;
+        teamMinions += jsonSupremes[i].minions_granted;
+      }
+    }
+    
+    $("#team-summary-level").html(teamLevel);
+    $("#team-summary-number").html(teamNumber);
+    $("#team-summary-apgranted").html(teamAP);
+    $("#team-summary-minionsgranted").html(teamMinions);
   });
 }
 
@@ -328,6 +380,8 @@ $(function() {
   fill_supremes();
   fill_supremes_modal();
   fill_supremes_selection();
+  
+  update_summary();
    
   // Events on the Affiliation
   changeAffiliation();
