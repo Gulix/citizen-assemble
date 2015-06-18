@@ -75,6 +75,7 @@ function fill_supremes()
         {
           var renderedHtml = Mustache.render(mustacheTemplate, view);
           $("#list-supremes").html(renderedHtml);
+          filter_supremes();
         },
       dataType: "text"
     });
@@ -142,10 +143,10 @@ function fill_roles()
 {
   $.getJSON("json/roles.json", function(json) {
     
-    $.each(json, function(i) 
+    for(var i = 0; i < json.length; i++)
     {
        $('#selRoles').append('<option value="' + json[i].role_key + '">' + json[i].role_label + '</option>');
-    });    
+    }
   });  
 }
 
@@ -163,10 +164,8 @@ function fill_factions()
       return 0;
     });
     
-    var ignoredFactions = ["0", "-1", "-2"];
-    
     $('#selTeamAffiliation').append('<optgroup label="Factions" id="optgTeamAffiliationFaction"></optgroup>');
-    for(i = 0; i < json.length; i++)
+    for(var i = 0; i < json.length; i++)
     {
       // Add the factions in the Affiliation combo box
       if ((json[i].faction_key != "0") && (json[i].faction_key != "-1") && (json[i].faction_key != "-2"))
@@ -174,7 +173,9 @@ function fill_factions()
       // Add the factions in the Factions combo box
       $('#selFactions').append('<option value="' + json[i].faction_key + '">' + json[i].faction_label + '</option>');
     }
-  });  
+    
+    $('#selFactions').val("0");
+  });
 }
 
 /******************/
@@ -242,7 +243,7 @@ function filter_supremes()
     var isHeroesOnly = (alignment == 'a_heroes');
     var isVillainsOnly = (alignment == 'a_villains');
      
-    $.each(jsonSupremes, function(i)
+    for(var i=0; i < jsonSupremes.length; i++)
     {
       if (((roleFilter != "0") && (jsonSupremes[i].role_key != roleFilter)) // Role
        // Factions
@@ -251,10 +252,14 @@ function filter_supremes()
        || (isFactionWithoutWithFreelance && !(jsonSupremes[i].factions.length == 0) && !jsonSupremes[i].is_freelance)
        || (isHeroesOnly && !jsonSupremes[i].is_hero) // Hero
        || (isVillainsOnly && !jsonSupremes[i].is_villain)) // Villain
+      {
         $('#supreme-list-' + jsonSupremes[i].id).hide();
+      }
       else
+      {
         $('#supreme-list-' + jsonSupremes[i].id).show();
-    });  
+      }
+    }
   });
 }
 
@@ -263,7 +268,7 @@ function filter_supremes()
 /************************/
 function isInTable(tableData, searchedData)
 {
-  for(i=0; i<tableData.length; i++)
+  for(var i=0; i<tableData.length; i++)
   {
     if (tableData[i] == searchedData)
       return true;
@@ -291,9 +296,6 @@ $(function() {
   // Events on the filters
   $('#selRoles').on('change', function (e) { filter_supremes(); });
   $('#selFactions').on('change', function (e) { filter_supremes(); });
-    
-  // Filter the Supremes
-  filter_supremes();
 });
 
 </script>
