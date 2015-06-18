@@ -133,11 +133,31 @@ function fill_supremes_selection()
   });
 }
 
+
+/*************************/
+/*** Selected Supremes ***/
+/*************************/
 function select_supreme(id)
 {
   $("#supreme-selection-" + id).show();
 }
 
+function getSelectedSupremes(afterSelectionFunction)
+{
+  $.getJSON("json/supremes.json", function(jsonSupremes) {
+    var selectedSupremes = [];
+    for(var i=0; i<jsonSupremes.length; i++)
+    {
+      if ($("#supreme-selection-" + jsonSupremes[i].id).is(':visible') == true)
+        selectedSupremes.push(jsonSupremes[i]);
+    }
+    afterSelectionFunction(selectedSupremes);
+  });
+}
+
+/*****************/
+/*** The Roles ***/
+/*****************/
 // Fill the "Roles" combo box
 function fill_roles()
 {
@@ -220,6 +240,25 @@ function getSupremeId(strStartId, strId)
   return strId.substring(strStartId.length);
 }
 
+function confirmAffiliationChange()
+{
+  var countSelectedSupremes = $('.supreme-selection:visible').length;
+  if (countSelectedSupremes > 0)
+  {
+    if (!confirm('Are you sure you want to change your Team Affiliation ?\nYour team composition will be cleared.')) 
+    {
+      var current = $.data(this, 'current');
+      if ((current === null) || (current === undefined))
+        current = "a_heroes";
+      $(this).val(current); // added parenthesis (edit)
+      return false;
+    }
+  }
+  
+  $.data(this, 'current', $(this).val());
+  changeAffiliation();
+}
+
 /**************/
 /*** Filter ***/
 /**************/
@@ -292,20 +331,7 @@ $(function() {
    
   // Events on the Affiliation
   changeAffiliation();
-  $('#selTeamAffiliation').change(function () 
-  { 
-    if (!confirm('Are you sure you want to change your Team Affiliation ?\nYour team composition will be cleared.')) 
-    {
-      var current = $.data(this, 'current');
-      if ((current === null) || (current === undefined))
-        current = "a_heroes";
-      $(this).val(current); // added parenthesis (edit)
-      return false;
-    }     
-    
-    $.data(this, 'current', $(this).val());
-    changeAffiliation();
-  });  
+  $('#selTeamAffiliation').change(confirmAffiliationChange);
    
   // Events on the filters
   $('#selRoles').on('change', function (e) { filter_supremes(); });
