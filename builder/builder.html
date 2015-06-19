@@ -46,6 +46,18 @@
           <label for="selRoles">Role</label>
           <select id="selRoles" class="form-control" ></select>
         </div>
+        <!-- Levels -->
+        <div class='col-md-2'>
+          <label for="selLevels">Level</label>
+          <select id="selLevels" class="form-control" >
+            <option value='0'>Any</option>
+            <option value='1'>Level 1</option>
+            <option value='2'>Level 2</option>
+            <option value='3'>Level 3</option>
+            <option value='12'>Level 1 or 2</option>
+            <option value='23'>Level 2 or 3</option>
+          </select>
+        </div>
       </div>            
     </div>
     
@@ -292,6 +304,17 @@ function filter_supremes()
     var isFactionSelected = !isInTable(["-0", "-1", "-2"], factionFilter);
     var isFactionWithout = (factionFilter == "-1");
     var isFactionWithoutWithFreelance = (factionFilter == "-2");
+    // Levels
+    var levelsAccepted = [ ];
+    var levelFilter = $("#selLevels").val();
+    if (levelFilter === null)
+      levelFilter = "0";
+    if ((levelFilter == "0") || levelFilter.indexOf("1") > -1)
+      levelsAccepted.push(1);
+    if ((levelFilter == "0") || levelFilter.indexOf("2") > -1)
+      levelsAccepted.push(2);
+    if ((levelFilter == "0") || levelFilter.indexOf("3") > -1)
+      levelsAccepted.push(3);
     
     // Heroes / Villains
     var alignment = $('#selTeamAffiliation').val();
@@ -307,8 +330,12 @@ function filter_supremes()
        || (isFactionSelected && !isInTable(jsonSupremes[i].factions, factionFilter))
        || (isFactionWithout && !(jsonSupremes[i].factions.length == 0))
        || (isFactionWithoutWithFreelance && !(jsonSupremes[i].factions.length == 0) && !jsonSupremes[i].is_freelance)
-       || (isHeroesOnly && !jsonSupremes[i].is_hero) // Hero
-       || (isVillainsOnly && !jsonSupremes[i].is_villain) // Villain
+       // Level
+       || ($.inArray(jsonSupremes[i].level, levelsAccepted) == -1)
+       // Hero
+       || (isHeroesOnly && !jsonSupremes[i].is_hero) 
+       // Villain
+       || (isVillainsOnly && !jsonSupremes[i].is_villain) 
        || isSelected)
       {
         $('#supreme-list-' + jsonSupremes[i].id).hide();
@@ -385,6 +412,7 @@ $(function() {
   // Events on the filters
   $('#selRoles').on('change', function (e) { filter_supremes(); });
   $('#selFactions').on('change', function (e) { filter_supremes(); });
+  $('#selLevels').on('change', function (e) { filter_supremes(); });
 });
 
 </script>
