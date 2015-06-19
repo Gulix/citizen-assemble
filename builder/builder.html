@@ -162,17 +162,11 @@ function unselect_supreme(id)
   update_summary();
 }
 
-function getSelectedSupremes(afterSelectionFunction)
+function clear_selection()
 {
-  $.getJSON("json/supremes.json", function(jsonSupremes) {
-    var selectedSupremes = [];
-    for(var i=0; i<jsonSupremes.length; i++)
-    {
-      if ($("#supreme-selection-" + jsonSupremes[i].id).is(':visible') == true)
-        selectedSupremes.push(jsonSupremes[i]);
-    }
-    afterSelectionFunction(selectedSupremes);
-  });
+  $('.supreme-selection').hide();
+  filter_supremes();
+  update_summary();
 }
 
 /*****************/
@@ -276,6 +270,7 @@ function confirmAffiliationChange()
   }
   
   $.data(this, 'current', $(this).val());
+  clear_selection();
   changeAffiliation();
 }
 
