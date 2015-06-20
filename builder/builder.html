@@ -58,6 +58,26 @@
             <option value='23'>Level 2 or 3</option>
           </select>
         </div>
+        <!-- AP+ -->
+        <div class='col-md-2'>
+          <label for="selAPgranted">AP+</label>
+          <select id="selAPgranted" class="form-control" >
+            <option value='+0'>Any</option>
+            <option value='+1'>1 or more</option>
+            <option value='+2'>2 or more</option>
+            <option value='+3'>3 or more</option>
+            <option value='+4'>4 or more</option>
+            <option value='=0'>0</option>
+            <option value='=1'>1</option>
+            <option value='=2'>2</option>
+            <option value='=3'>3</option>
+            <option value='=4'>4</option>
+            <option value='-1'>1 or less</option>
+            <option value='-2'>2 or less</option>
+            <option value='-3'>3 or less</option>
+            <option value='-4'>4 or less</option>
+          </select>
+        </div>
       </div>            
     </div>
     
@@ -315,6 +335,19 @@ function filter_supremes()
       levelsAccepted.push(2);
     if ((levelFilter == "0") || levelFilter.indexOf("3") > -1)
       levelsAccepted.push(3);
+    // AP+
+    var apFilter = $("#selAPgranted").val();
+    if (apFilter === null)
+      apFilter = "+0";
+    var apValue = Number(apFilter.substring(1));
+    if (isNaN(apValue)) apValue = 0;
+    var apgrantedAccepted = [ ];
+    if (apFilter.indexOf("+") == 0)
+      for(var i = apValue; i <= 6; i++) { apgrantedAccepted.push(i); }
+    else if (apFilter.indexOf("-") == 0)
+      for(var i = apValue; i >= 0; i--) { apgrantedAccepted.push(i); }
+    else if (apFilter.indexOf("=") == 0)
+      apgrantedAccepted.push(apValue);    
     
     // Heroes / Villains
     var alignment = $('#selTeamAffiliation').val();
@@ -332,6 +365,9 @@ function filter_supremes()
        || (isFactionWithoutWithFreelance && !(jsonSupremes[i].factions.length == 0) && !jsonSupremes[i].is_freelance)
        // Level
        || ($.inArray(jsonSupremes[i].level, levelsAccepted) == -1)
+       // AP+
+       || ((jsonSupremes[i].role_key == "powerhouse") && (apgrantedAccepted.indexOf(0) < 0))
+       || ((jsonSupremes[i].role_key != "powerhouse") && (apgrantedAccepted.indexOf(jsonSupremes[i].ap_granted) < 0))
        // Hero
        || (isHeroesOnly && !jsonSupremes[i].is_hero) 
        // Villain
@@ -413,6 +449,7 @@ $(function() {
   $('#selRoles').on('change', function (e) { filter_supremes(); });
   $('#selFactions').on('change', function (e) { filter_supremes(); });
   $('#selLevels').on('change', function (e) { filter_supremes(); });
+  $('#selAPgranted').on('change', function (e) { filter_supremes(); });
 });
 
 </script>
