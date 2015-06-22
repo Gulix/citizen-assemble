@@ -104,10 +104,13 @@
 function fill_supremes()
 {
   $.getJSON("json/supremes.json", function(json) {
+  
+    window.supremes_list_json = json;
     
-    // Render the Supremes with a Mustache template
-    var view = { "supremes": json };
+    // View to render via Mustache
+    var view = { "supremes": window.supremes_list_json };
     
+    // The main list
     $.ajax(
     {
       url: "mustache/supremes.mst",
@@ -120,15 +123,8 @@ function fill_supremes()
         },
       dataType: "text"
     });
-  });  
-}
-
-function fill_supremes_modal()
-{
-  $.getJSON("json/supremes.json", function(json) {
-      
-    // Render the Supremes with a Mustache template
-    var view = { "supremes": json };
+    
+    // The Supremes rendered on a modal view
     $.ajax(
     {
       url: "mustache/supremes_modal.mst",
@@ -143,15 +139,8 @@ function fill_supremes_modal()
         },
       dataType: "text"
     });
-  });  
-}
-
-// Fill the selected list with all the Supremes, then hide them
-function fill_supremes_selection()
-{
-  $.getJSON("json/supremes.json", function(json) {
-      
-    var view = { "supremes": json };
+    
+    // The "Selected Supremes" list
     $.ajax(
     {
       url: "mustache/supremes_selection.mst",
@@ -167,7 +156,7 @@ function fill_supremes_selection()
         },
       dataType: "text"
     });
-  });
+  });  
 }
 
 
@@ -435,9 +424,7 @@ $(function() {
   fill_factions();
    
   // The list of the Supremes
-  fill_supremes();
-  fill_supremes_modal();
-  fill_supremes_selection();
+  fill_supremes();  
   
   update_summary();
    
