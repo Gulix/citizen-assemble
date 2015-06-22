@@ -419,28 +419,25 @@ function filter_supremes()
 /***************/
 function update_summary()
 {
-  $.getJSON("json/supremes.json", function(jsonSupremes) {
-    
-    var teamLevel = 0;
-    var teamNumber = 0;
-    var teamAP = 0;
-    var teamMinions = 0;
-    for(var i=0; i<jsonSupremes.length; i++)
+  var teamLevel = 0;
+  var teamNumber = 0;
+  var teamAP = 0;
+  var teamMinions = 0;
+  for(var i=0; i<window.supremes_list.length; i++)
+  {
+    if ($("#supreme-selection-" + window.supremes_list[i].id).is(':visible') == true)
     {
-      if ($("#supreme-selection-" + jsonSupremes[i].id).is(':visible') == true)
-      {
-        teamLevel += jsonSupremes[i].level;
-        teamNumber += 1;
-        teamAP += jsonSupremes[i].ap_granted;
-        teamMinions += jsonSupremes[i].minions_granted;
-      }
+      teamLevel += window.supremes_list[i].level;
+      teamNumber += 1;
+      teamAP += window.supremes_list[i].ap_granted;
+      teamMinions += window.supremes_list[i].minions_granted;
     }
+  }
     
-    $("#team-summary-level").html(teamLevel);
-    $("#team-summary-number").html(teamNumber);
-    $("#team-summary-apgranted").html(teamAP);
-    $("#team-summary-minionsgranted").html(teamMinions);
-  });
+  $("#team-summary-level").html(teamLevel);
+  $("#team-summary-number").html(teamNumber);
+  $("#team-summary-apgranted").html(teamAP);
+  $("#team-summary-minionsgranted").html(teamMinions);  
 }
 
 /************************/
