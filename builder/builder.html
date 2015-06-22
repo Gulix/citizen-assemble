@@ -98,17 +98,28 @@
 </body>
 <script>
 
+window.supremes_list = [];
+window.selected_supremes_list = [];
+
 /********************/
 /*** The Supremes ***/
 /********************/
 function fill_supremes()
 {
   $.getJSON("json/supremes.json", function(json) {
-  
-    window.supremes_list_json = json;
+    
+    // Sort by Name
+    json.sort(function(a, b)
+    {
+      if (a.name < b.name) return -1;
+      if (b.name < a.name) return 1;
+      return 0;
+    });
+    window.supremes_list = json;
+    window.selected_supremes_list = [];
     
     // View to render via Mustache
-    var view = { "supremes": window.supremes_list_json };
+    var view = { "supremes": window.supremes_list };
     
     // The main list
     $.ajax(
@@ -159,6 +170,13 @@ function fill_supremes()
   });  
 }
 
+function get_json_supreme(id)
+{
+  for(var i=0; i<window.supremes_list.length; i++)
+    if (window.supremes_list[i].id == id) return window.supremes_list[i];
+    
+  return null;
+}
 
 /*************************/
 /*** Selected Supremes ***/
@@ -169,6 +187,7 @@ function select_supreme(id)
   // Buttons in the modal view
   $("#btn-select-supreme-modal-" + id).hide();
   $("#btn-unselect-supreme-modal-" + id).show();
+  window.selected_supremes_list.push(get_json_supreme(id));
   filter_supremes();
   update_summary();
 }
@@ -179,6 +198,15 @@ function unselect_supreme(id)
   // Buttons in the modal view
   $("#btn-select-supreme-modal-" + id).show();
   $("#btn-unselect-supreme-modal-" + id).hide();
+  for(var i=0; i<window.selected_supremes_list.length; i++)
+  {
+    if (window.selected_supremes_list[i].id == id)
+    {
+      window.selected_supremes_list.splice(i, 1);
+      break;
+    }
+  }
+  
   filter_supremes();
   update_summary();
 }
@@ -186,6 +214,7 @@ function unselect_supreme(id)
 function clear_selection()
 {
   $('.supreme-selection').hide();
+  window.selected_supremes_list.splice(0, window.selected_supremes_list.length);
   filter_supremes();
   update_summary();
 }
@@ -300,77 +329,89 @@ function confirmAffiliationChange()
 /**************/
 function filter_supremes()
 {
-  $.getJSON("json/supremes.json", function(jsonSupremes) {
+   
+  // Role filter
+  var roleFilter = $('#selRoles').val();
+  if (roleFilter === null)
+    roleFilter = "0";
+  // Faction filter
+  var factionFilter = $('#selFactions').val();
+  if (factionFilter === null)
+    factionFilter = "-0"; 
+  var isFactionSelected = !isInTable(["-0", "-1", "-2"], factionFilter);
+  var isFactionWithout = (factionFilter == "-1");
+  var isFactionWithoutWithFreelance = (factionFilter == "-2");
+  // Levels
+  var levelsAccepted = [ ];
+  var levelFilter = $("#selLevels").val();
+  if (levelFilter === null)
+    levelFilter = "0";
+  if ((levelFilter == "0") || levelFilter.indexOf("1") > -1)
+    levelsAccepted.push(1);
+  if ((levelFilter == "0") || levelFilter.indexOf("2") > -1)
+    levelsAccepted.push(2);
+  if ((levelFilter == "0") || levelFilter.indexOf("3") > -1)
+    levelsAccepted.push(3);
+  // AP+
+  var apFilter = $("#selAPgranted").val();
+  if (apFilter === null)
+    apFilter = "+0";
+  var apValue = Number(apFilter.substring(1));
+  if (isNaN(apValue)) apValue = 0;
+  var apgrantedAccepted = [ ];
+  if (apFilter.indexOf("+") == 0)
+    for(var i = apValue; i <= 6; i++) { apgrantedAccepted.push(i); }
+  else if (apFilter.indexOf("-") == 0)
+    for(var i = apValue; i >= 0; i--) { apgrantedAccepted.push(i); }
+  else if (apFilter.indexOf("=") == 0)
+    apgrantedAccepted.push(apValue);    
+   
+  // Heroes / Villains
+  var alignment = $('#selTeamAffiliation').val();
+  var isHeroesOnly = (alignment == 'a_heroes');
+  var isVillainsOnly = (alignment == 'a_villains');
+    
+  var excludeLeader = false; // Only one Leader
+  var excludePowerhouse = false; // Only one Powerhouse
+  for (var iSel=0; iSel < window.selected_supremes_list.length; iSel++)
+  {
+    if (window.selected_supremes_list[iSel].role_key == "leader")
+      excludeLeader = true;
+    if (window.selected_supremes_list[iSel].role_key == "powerhouse")
+      excludePowerhouse = true;
+  }
+   
+  for(var i=0; i < window.supremes_list.length; i++)
+  {
+    var isSelected = $('#supreme-selection-' + window.supremes_list[i].id).is(':visible');
   
-    // Role filter
-    var roleFilter = $('#selRoles').val();
-    if (roleFilter === null)
-      roleFilter = "0";
-    // Faction filter
-    var factionFilter = $('#selFactions').val();
-    if (factionFilter === null)
-      factionFilter = "-0"; 
-    var isFactionSelected = !isInTable(["-0", "-1", "-2"], factionFilter);
-    var isFactionWithout = (factionFilter == "-1");
-    var isFactionWithoutWithFreelance = (factionFilter == "-2");
-    // Levels
-    var levelsAccepted = [ ];
-    var levelFilter = $("#selLevels").val();
-    if (levelFilter === null)
-      levelFilter = "0";
-    if ((levelFilter == "0") || levelFilter.indexOf("1") > -1)
-      levelsAccepted.push(1);
-    if ((levelFilter == "0") || levelFilter.indexOf("2") > -1)
-      levelsAccepted.push(2);
-    if ((levelFilter == "0") || levelFilter.indexOf("3") > -1)
-      levelsAccepted.push(3);
-    // AP+
-    var apFilter = $("#selAPgranted").val();
-    if (apFilter === null)
-      apFilter = "+0";
-    var apValue = Number(apFilter.substring(1));
-    if (isNaN(apValue)) apValue = 0;
-    var apgrantedAccepted = [ ];
-    if (apFilter.indexOf("+") == 0)
-      for(var i = apValue; i <= 6; i++) { apgrantedAccepted.push(i); }
-    else if (apFilter.indexOf("-") == 0)
-      for(var i = apValue; i >= 0; i--) { apgrantedAccepted.push(i); }
-    else if (apFilter.indexOf("=") == 0)
-      apgrantedAccepted.push(apValue);    
-    
-    // Heroes / Villains
-    var alignment = $('#selTeamAffiliation').val();
-    var isHeroesOnly = (alignment == 'a_heroes');
-    var isVillainsOnly = (alignment == 'a_villains');
-     
-    for(var i=0; i < jsonSupremes.length; i++)
+    if (((roleFilter != "0") && (window.supremes_list[i].role_key != roleFilter)) // Role
+     // Factions
+     || (isFactionSelected && !isInTable(window.supremes_list[i].factions, factionFilter))
+     || (isFactionWithout && !(window.supremes_list[i].factions.length == 0))
+     || (isFactionWithoutWithFreelance && !(window.supremes_list[i].factions.length == 0) && !window.supremes_list[i].is_freelance)
+     // Level
+     || ($.inArray(window.supremes_list[i].level, levelsAccepted) == -1)
+     // AP+
+     || ((window.supremes_list[i].role_key == "powerhouse") && (apgrantedAccepted.indexOf(0) < 0))
+     || ((window.supremes_list[i].role_key != "powerhouse") && (apgrantedAccepted.indexOf(window.supremes_list[i].ap_granted) < 0))
+     // Hero
+     || (isHeroesOnly && !window.supremes_list[i].is_hero) 
+     // Villain
+     || (isVillainsOnly && !window.supremes_list[i].is_villain) 
+     || isSelected
+     // Only one Leader / Powerhouse
+     || (excludeLeader && (window.supremes_list[i].role_key == "leader"))
+     || (excludePowerhouse && (window.supremes_list[i].role_key == "powerhouse"))
+    )
     {
-      var isSelected = $('#supreme-selection-' + jsonSupremes[i].id).is(':visible');
-    
-      if (((roleFilter != "0") && (jsonSupremes[i].role_key != roleFilter)) // Role
-       // Factions
-       || (isFactionSelected && !isInTable(jsonSupremes[i].factions, factionFilter))
-       || (isFactionWithout && !(jsonSupremes[i].factions.length == 0))
-       || (isFactionWithoutWithFreelance && !(jsonSupremes[i].factions.length == 0) && !jsonSupremes[i].is_freelance)
-       // Level
-       || ($.inArray(jsonSupremes[i].level, levelsAccepted) == -1)
-       // AP+
-       || ((jsonSupremes[i].role_key == "powerhouse") && (apgrantedAccepted.indexOf(0) < 0))
-       || ((jsonSupremes[i].role_key != "powerhouse") && (apgrantedAccepted.indexOf(jsonSupremes[i].ap_granted) < 0))
-       // Hero
-       || (isHeroesOnly && !jsonSupremes[i].is_hero) 
-       // Villain
-       || (isVillainsOnly && !jsonSupremes[i].is_villain) 
-       || isSelected)
-      {
-        $('#supreme-list-' + jsonSupremes[i].id).hide();
-      }
-      else
-      {
-        $('#supreme-list-' + jsonSupremes[i].id).show();
-      }
+      $('#supreme-list-' + window.supremes_list[i].id).hide();
     }
-  });
+    else
+    {
+      $('#supreme-list-' + window.supremes_list[i].id).show();
+    }
+  }
 }
 
 /***************/
