@@ -90,17 +90,11 @@
             <option value='+0'>Any</option>
             <option value='+1'>1 or more</option>
             <option value='+2'>2 or more</option>
-            <option value='+3'>3 or more</option>
-            <option value='+4'>4 or more</option>
             <option value='=0'>0</option>
             <option value='=1'>1</option>
             <option value='=2'>2</option>
-            <option value='=3'>3</option>
-            <option value='=4'>4</option>
             <option value='-1'>1 or less</option>
-            <option value='-2'>2 or less</option>
-            <option value='-3'>3 or less</option>
-            <option value='-4'>4 or less</option>
+            <option value='-2'>2 or less</option>            
           </select>
         </div>
         <!-- Text filter -->
@@ -421,7 +415,7 @@ function filter_supremes()
   if (isNaN(minionsValue)) minionsValue = 0;
   var minionsGrantedAccepted = [ ];
   if (minionsFilter.indexOf("+") == 0)
-    for(var i = minionsValue; i <= 6; i++) { minionsGrantedAccepted.push(i); }
+    for(var i = minionsValue; i <= 3; i++) { minionsGrantedAccepted.push(i); }
   else if (minionsFilter.indexOf("-") == 0)
     for(var i = minionsValue; i >= 0; i--) { minionsGrantedAccepted.push(i); }
   else if (minionsFilter.indexOf("=") == 0)
