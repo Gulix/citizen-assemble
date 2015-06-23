@@ -83,6 +83,26 @@
             <option value='-4'>4 or less</option>
           </select>
         </div>
+        <!-- Minions+ -->
+        <div class='col-md-2'>
+          <label for="selMinionsGranted">Minions+</label>
+          <select id="selMinionsGranted" class="form-control" >
+            <option value='+0'>Any</option>
+            <option value='+1'>1 or more</option>
+            <option value='+2'>2 or more</option>
+            <option value='+3'>3 or more</option>
+            <option value='+4'>4 or more</option>
+            <option value='=0'>0</option>
+            <option value='=1'>1</option>
+            <option value='=2'>2</option>
+            <option value='=3'>3</option>
+            <option value='=4'>4</option>
+            <option value='-1'>1 or less</option>
+            <option value='-2'>2 or less</option>
+            <option value='-3'>3 or less</option>
+            <option value='-4'>4 or less</option>
+          </select>
+        </div>
         <!-- Text filter -->
         <div class='col-md-4'>
           <label for="txtFilterName">Supreme name</label>
@@ -393,6 +413,19 @@ function filter_supremes()
     for(var i = apValue; i >= 0; i--) { apgrantedAccepted.push(i); }
   else if (apFilter.indexOf("=") == 0)
     apgrantedAccepted.push(apValue);    
+  // Minions+
+  var minionsFilter = $("#selMinionsGranted").val();
+  if (minionsFilter === null)
+    minionsFilter = "+0";
+  var minionsValue = Number(minionsFilter.substring(1));
+  if (isNaN(minionsValue)) minionsValue = 0;
+  var minionsGrantedAccepted = [ ];
+  if (minionsFilter.indexOf("+") == 0)
+    for(var i = minionsValue; i <= 6; i++) { minionsGrantedAccepted.push(i); }
+  else if (minionsFilter.indexOf("-") == 0)
+    for(var i = minionsValue; i >= 0; i--) { minionsGrantedAccepted.push(i); }
+  else if (minionsFilter.indexOf("=") == 0)
+    minionsGrantedAccepted.push(minionsValue);    
   // Filter on name
   var filterName = $('#txtFilterName').val();
   if (filterName === null)
@@ -429,6 +462,8 @@ function filter_supremes()
      // AP+
      || ((window.supremes_list[i].role_key == "powerhouse") && (apgrantedAccepted.indexOf(0) < 0))
      || ((window.supremes_list[i].role_key != "powerhouse") && (apgrantedAccepted.indexOf(window.supremes_list[i].ap_granted) < 0))
+     // Minions+
+     || (minionsGrantedAccepted.indexOf(window.supremes_list[i].minions_granted) < 0)
      // Filter on name
      || ((filterName != '') && (window.supremes_list[i].name.toUpperCase().indexOf(filterName) < 0))
      // Hero
@@ -513,6 +548,7 @@ $(function() {
   $('#selFactions').on('change', function (e) { filter_supremes(); });
   $('#selLevels').on('change', function (e) { filter_supremes(); });
   $('#selAPgranted').on('change', function (e) { filter_supremes(); });
+  $('#selMinionsGranted').on('change', function (e) { filter_supremes(); });
   $('#txtFilterName').on('input', function (e) { filter_supremes(); });
 });
 
