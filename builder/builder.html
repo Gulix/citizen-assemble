@@ -41,6 +41,11 @@
           <label for="selFactions">Faction</label>
           <select id="selFactions" class="form-control" ></select>
         </div>
+        <!-- Origins -->
+        <div class='col-md-2'>
+          <label for="selOrigins">Origin</label>
+          <select id="selOrigins" class="form-control" ></select>
+        </div>
         <!-- Roles -->
         <div class='col-md-2'>
           <label for="selRoles">Role</label>
@@ -234,6 +239,20 @@ function fill_roles()
   });  
 }
 
+/*******************/
+/*** The Origins ***/
+/*******************/
+function fill_origins()
+{
+  $.getJSON("json/origins.json", function(json) {
+    
+    for(var i = 0; i < json.length; i++)
+    {
+       $('#selOrigins').append('<option value="' + json[i].origin_key + '">' + json[i].origin_label + '</option>');
+    }
+  });  
+}
+
 /********************/
 /*** The Factions ***/
 /********************/
@@ -334,6 +353,10 @@ function filter_supremes()
   var roleFilter = $('#selRoles').val();
   if (roleFilter === null)
     roleFilter = "0";
+  // Origin filter
+  var originFilter = $('#selOrigins').val();
+  if (originFilter === null)
+    originFilter = "0";
   // Faction filter
   var factionFilter = $('#selFactions').val();
   if (factionFilter === null)
@@ -386,6 +409,7 @@ function filter_supremes()
     var isSelected = $('#supreme-selection-' + window.supremes_list[i].id).is(':visible');
   
     if (((roleFilter != "0") && (window.supremes_list[i].role_key != roleFilter)) // Role
+     || ((originFilter != "0") && (window.supremes_list[i].origin != originFilter)) // Origin
      // Factions
      || (isFactionSelected && !isInTable(window.supremes_list[i].factions, factionFilter))
      || (isFactionWithout && !(window.supremes_list[i].factions.length == 0))
@@ -459,6 +483,7 @@ $(function() {
   fillAlignments();
   // Filters
   fill_roles();
+  fill_origins();
   fill_factions();
    
   // The list of the Supremes
@@ -472,6 +497,7 @@ $(function() {
    
   // Events on the filters
   $('#selRoles').on('change', function (e) { filter_supremes(); });
+  $('#selOrigins').on('change', function (e) { filter_supremes(); });
   $('#selFactions').on('change', function (e) { filter_supremes(); });
   $('#selLevels').on('change', function (e) { filter_supremes(); });
   $('#selAPgranted').on('change', function (e) { filter_supremes(); });

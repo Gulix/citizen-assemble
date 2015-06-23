@@ -9,7 +9,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 1,
 "name": "Androida",
@@ -20,7 +21,8 @@
 "factions": [  "heavymetal" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 2,
 "name": "Arquero",
@@ -31,7 +33,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 3,
 "name": "C.O.R.E. Charlemagne",
@@ -42,7 +45,8 @@
 "factions": [  "heavymetal" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 4,
 "name": "C.O.R.E. Genghis Khan",
@@ -53,7 +57,8 @@
 "factions": [  "heavymetal" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 5,
 "name": "C.O.R.E. Patton",
@@ -64,7 +69,8 @@
 "factions": [  "heavymetal" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 6,
 "name": "Twilight",
@@ -75,7 +81,8 @@
 "factions": [  "coven", "theway" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 7,
 "name": "Guerilla",
@@ -86,7 +93,8 @@
 "factions": [  "arc" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 8,
 "name": "Francis Gator",
@@ -97,7 +105,8 @@
 "factions": [  "coven" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 9,
 "name": "Rook",
@@ -108,7 +117,8 @@
 "factions": [  "coven" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 10,
 "name": "Iron Train",
@@ -119,7 +129,8 @@
 "factions": [  "heavymetal" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 11,
 "name": "Dead Eye",
@@ -130,7 +141,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 12,
 "name": "Captain Hadron",
@@ -141,7 +153,8 @@
 "factions": [  "heavymetal" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 13,
 "name": "Mini Hadron",
@@ -152,7 +165,8 @@
 "factions": [  "heavymetal" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 14,
 "name": "Chronin",
@@ -163,7 +177,8 @@
 "factions": [  "heavymetal", "theway" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 15,
 "name": "Lady Cyburn",
@@ -174,7 +189,8 @@
 "factions": [  "heavymetal" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 16,
 "name": "Nuclear Jones",
@@ -185,7 +201,8 @@
 "factions": [  "heavymetal" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 17,
 "name": "Dr. Mercury",
@@ -196,7 +213,8 @@
 "factions": [  "heavymetal" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 18,
 "name": "Dr. Tenebrous",
@@ -207,7 +225,8 @@
 "factions": [  "necroplane" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 19,
 "name": "Night Fright & Leech",
@@ -218,7 +237,8 @@
 "factions": [  "necroplane" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 20,
 "name": "Mourn",
@@ -229,7 +249,8 @@
 "factions": [  "necroplane" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 21,
 "name": "Sanguine (jour)",
@@ -240,7 +261,8 @@
 "factions": [  "necroplane" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 1
+"is_freelance": 1,
+"origin": "science"
 },{
 "id": 22,
 "name": "Sanguine (nuit)",
@@ -251,7 +273,8 @@
 "factions": [  "necroplane" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 1
+"is_freelance": 1,
+"origin": "mystery"
 },{
 "id": 23,
 "name": "Supreme Zed",
@@ -262,7 +285,8 @@
 "factions": [  "necroplane" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 24,
 "name": "Doom Train",
@@ -273,7 +297,8 @@
 "factions": [  "necroplane" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 25,
 "name": "Skyline",
@@ -284,7 +309,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 26,
 "name": "Trail",
@@ -295,7 +321,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 27,
 "name": "Perun",
@@ -306,7 +333,8 @@
 "factions": [  "supremealliance" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 1
+"is_freelance": 1,
+"origin": "nature"
 },{
 "id": 28,
 "name": "Nuke",
@@ -317,7 +345,8 @@
 "factions": [   ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 29,
 "name": "Kitty Cheshire",
@@ -328,7 +357,8 @@
 "factions": [  "otherside" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 1
+"is_freelance": 1,
+"origin": "mystery"
 },{
 "id": 30,
 "name": "Vector",
@@ -339,7 +369,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 31,
 "name": "Herald #778",
@@ -350,7 +381,8 @@
 "factions": [  "infinitehourglass" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 32,
 "name": "Red Bella",
@@ -361,7 +393,8 @@
 "factions": [  "arc", "theway" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 33,
 "name": "Papa Zombie",
@@ -372,7 +405,8 @@
 "factions": [  "coven" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 34,
 "name": "Comte Vendredi",
@@ -383,7 +417,8 @@
 "factions": [  "coven" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 35,
 "name": "Anansi",
@@ -394,7 +429,8 @@
 "factions": [   ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 36,
 "name": "Tekkna",
@@ -405,7 +441,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 37,
 "name": "Aurelius",
@@ -416,7 +453,8 @@
 "factions": [   ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 38,
 "name": "Grimmancer",
@@ -427,7 +465,8 @@
 "factions": [  "grimm" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 39,
 "name": "Grimm Digger",
@@ -438,7 +477,8 @@
 "factions": [  "grimm" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 40,
 "name": "Grimmrock",
@@ -449,7 +489,8 @@
 "factions": [  "grimm" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 41,
 "name": "Toxic Grimmvenger",
@@ -460,7 +501,8 @@
 "factions": [  "grimm" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 42,
 "name": "Supreme Grimm",
@@ -471,7 +513,8 @@
 "factions": [  "grimm" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 43,
 "name": "Gravito Grimm",
@@ -482,7 +525,8 @@
 "factions": [  "grimm" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 44,
 "name": "Grimm Lee Chan",
@@ -493,7 +537,8 @@
 "factions": [  "grimm", "theway" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 45,
 "name": "Spartagrimm",
@@ -504,7 +549,8 @@
 "factions": [  "grimm" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 46,
 "name": "John Grimmsham",
@@ -515,7 +561,8 @@
 "factions": [  "grimm" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 47,
 "name": "Wonder Wight",
@@ -526,7 +573,8 @@
 "factions": [  "necroplane" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 48,
 "name": "Feartigo",
@@ -537,7 +585,8 @@
 "factions": [  "coven", "necroplane" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 49,
 "name": "Mambo",
@@ -548,7 +597,8 @@
 "factions": [  "coven" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 50,
 "name": "Ace of Wraiths",
@@ -559,7 +609,8 @@
 "factions": [  "bloodwatch" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 1
+"is_freelance": 1,
+"origin": "mystery"
 },{
 "id": 51,
 "name": "Chimp Chi",
@@ -570,7 +621,8 @@
 "factions": [  "arc", "theway" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 52,
 "name": "Silverager (calme)",
@@ -581,7 +633,8 @@
 "factions": [  "arc" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 53,
 "name": "Howler",
@@ -592,7 +645,8 @@
 "factions": [  "arc" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 1
+"is_freelance": 1,
+"origin": "science"
 },{
 "id": 54,
 "name": "Grimmbiote",
@@ -603,7 +657,8 @@
 "factions": [  "grimm" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 55,
 "name": "White Tiger",
@@ -614,7 +669,8 @@
 "factions": [  "theway" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 56,
 "name": "Hellsmith",
@@ -625,7 +681,8 @@
 "factions": [  "forgotten" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 57,
 "name": "Avatar of the Jaguar",
@@ -636,7 +693,8 @@
 "factions": [   ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 58,
 "name": "Gentleman",
@@ -647,7 +705,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 59,
 "name": "Jade Hawk",
@@ -658,7 +717,8 @@
 "factions": [  "theway" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 1
+"is_freelance": 1,
+"origin": "nature"
 },{
 "id": 60,
 "name": "Sgt.Bale",
@@ -669,7 +729,8 @@
 "factions": [  "bloodwatch", "theway" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 61,
 "name": "Blood Rose",
@@ -680,7 +741,8 @@
 "factions": [  "bloodwatch" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 62,
 "name": "Boreas",
@@ -691,7 +753,8 @@
 "factions": [  "forgotten" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 63,
 "name": "Foxxy Blade",
@@ -702,7 +765,8 @@
 "factions": [  "theway" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 1
+"is_freelance": 1,
+"origin": "nature"
 },{
 "id": 64,
 "name": "Moon Coyote",
@@ -713,7 +777,8 @@
 "factions": [  "bloodwatch" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 65,
 "name": "Moonchild",
@@ -724,7 +789,8 @@
 "factions": [  "bloodwatch" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 66,
 "name": "Red Riding Hoodoo",
@@ -735,7 +801,8 @@
 "factions": [  "bloodwatch" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 67,
 "name": "Tanuki",
@@ -746,7 +813,8 @@
 "factions": [  "jadecult", "theway" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 68,
 "name": "V.H.",
@@ -757,7 +825,8 @@
 "factions": [  "bloodwatch" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 69,
 "name": "Six Feet Under",
@@ -768,7 +837,8 @@
 "factions": [  "bloodwatch" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 70,
 "name": "Tomcat",
@@ -779,7 +849,8 @@
 "factions": [  "heavymetal" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 1
+"is_freelance": 1,
+"origin": "science"
 },{
 "id": 71,
 "name": "Giant Hadron",
@@ -790,7 +861,8 @@
 "factions": [  "heavymetal" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 72,
 "name": "Gorgoroth",
@@ -801,7 +873,8 @@
 "factions": [  "ulthar" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 73,
 "name": "Stygian (True)",
@@ -812,7 +885,8 @@
 "factions": [  "forgotten" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 74,
 "name": "Grimm BunBun",
@@ -823,7 +897,8 @@
 "factions": [  "grimm" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 75,
 "name": "Tiny !",
@@ -834,7 +909,8 @@
 "factions": [  "grimm" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 76,
 "name": "Apebot",
@@ -845,7 +921,8 @@
 "factions": [  "arc" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 77,
 "name": "Soul Golem",
@@ -856,7 +933,8 @@
 "factions": [  "necroplane" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 78,
 "name": "Cro Mag",
@@ -867,7 +945,8 @@
 "factions": [   ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 79,
 "name": "Yeti",
@@ -878,7 +957,8 @@
 "factions": [  "jadecult" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 1
+"is_freelance": 1,
+"origin": "nature"
 },{
 "id": 80,
 "name": "L.O.A.",
@@ -889,7 +969,8 @@
 "factions": [  "coven" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 81,
 "name": "Father Oak",
@@ -900,7 +981,8 @@
 "factions": [  "settlersgreen" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 82,
 "name": "Rosie \"Baby\" Rude",
@@ -911,7 +993,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 83,
 "name": "Amok",
@@ -922,7 +1005,8 @@
 "factions": [  "theway" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 84,
 "name": "Slug Muldoon",
@@ -930,10 +1014,11 @@
 "role_key": "blaster",
 "ap_granted": 2,
 "minions_granted": 0,
-"factions": [  "starmasharlls" ],
+"factions": [  "starmarshals" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 1
+"is_freelance": 1,
+"origin": "science"
 },{
 "id": 85,
 "name": "100 Voices",
@@ -944,7 +1029,8 @@
 "factions": [   ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 86,
 "name": "Acorn",
@@ -955,7 +1041,8 @@
 "factions": [  "settlersgreen" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 87,
 "name": "Virus",
@@ -966,7 +1053,8 @@
 "factions": [  "arc" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 88,
 "name": "Dr.Red",
@@ -977,7 +1065,8 @@
 "factions": [  "arc" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 89,
 "name": "Green Emperor",
@@ -988,7 +1077,8 @@
 "factions": [  "jadecult" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 90,
 "name": "Harrier",
@@ -999,7 +1089,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 91,
 "name": "Mysterious Man",
@@ -1010,7 +1101,8 @@
 "factions": [   ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 92,
 "name": "Riposte",
@@ -1021,7 +1113,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 93,
 "name": "Sister Bedlam",
@@ -1032,7 +1125,8 @@
 "factions": [   ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 94,
 "name": "Solar",
@@ -1043,7 +1137,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 95,
 "name": "Green Serpent",
@@ -1054,7 +1149,8 @@
 "factions": [  "jadecult", "theway" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 96,
 "name": "Red Baron",
@@ -1065,7 +1161,8 @@
 "factions": [   ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 97,
 "name": "M.O.D.",
@@ -1076,7 +1173,8 @@
 "factions": [  "heavymetal" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 98,
 "name": "Seabolt",
@@ -1087,7 +1185,8 @@
 "factions": [   ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 99,
 "name": "Loup Garou II",
@@ -1098,7 +1197,8 @@
 "factions": [  "coven" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 100,
 "name": "Terror Cotta Warrior",
@@ -1109,7 +1209,8 @@
 "factions": [  "jadecult" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 101,
 "name": "Jade Oni",
@@ -1120,7 +1221,8 @@
 "factions": [  "jadecult" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 102,
 "name": "Sovereign",
@@ -1131,7 +1233,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 103,
 "name": "Shadow Mask",
@@ -1142,7 +1245,8 @@
 "factions": [  "jadecult" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 104,
 "name": "Xenobi",
@@ -1153,7 +1257,8 @@
 "factions": [   ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 105,
 "name": "Tangent",
@@ -1164,7 +1269,8 @@
 "factions": [   ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 106,
 "name": "Crimson Oni",
@@ -1175,7 +1281,8 @@
 "factions": [  "theway" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 1
+"is_freelance": 1,
+"origin": "mystery"
 },{
 "id": 107,
 "name": "Blacksmith",
@@ -1186,7 +1293,8 @@
 "factions": [  "bloodwatch" ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 108,
 "name": "Stone Hawk",
@@ -1197,7 +1305,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 109,
 "name": "Tritonious",
@@ -1208,7 +1317,8 @@
 "factions": [  "starmarshals" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 1
+"is_freelance": 1,
+"origin": "nature"
 },{
 "id": 110,
 "name": "Bigfoot",
@@ -1219,7 +1329,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 0,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 111,
 "name": "Virgo",
@@ -1230,7 +1341,8 @@
 "factions": [  "starmarshals" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 1
+"is_freelance": 1,
+"origin": "nature"
 },{
 "id": 112,
 "name": "Stalker",
@@ -1241,7 +1353,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 113,
 "name": "Dark Solar",
@@ -1252,7 +1365,8 @@
 "factions": [   ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 114,
 "name": "Mecha Spartan",
@@ -1263,7 +1377,8 @@
 "factions": [  "forgotten" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 115,
 "name": "Ba-Boom",
@@ -1274,7 +1389,8 @@
 "factions": [  "arc" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 116,
 "name": "Silverager (rage)",
@@ -1285,7 +1401,8 @@
 "factions": [  "arc" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 117,
 "name": "Primate of Mystery",
@@ -1296,7 +1413,8 @@
 "factions": [  "arc" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 118,
 "name": "Primate of Nature",
@@ -1307,7 +1425,8 @@
 "factions": [  "arc" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 119,
 "name": "Primate of Science",
@@ -1318,7 +1437,8 @@
 "factions": [  "arc" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 120,
 "name": "Hooligrimm",
@@ -1329,7 +1449,8 @@
 "factions": [  "grimm" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 121,
 "name": "The Big Grimmowski",
@@ -1340,7 +1461,8 @@
 "factions": [  "grimm" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 122,
 "name": "Grimmtorch",
@@ -1351,7 +1473,8 @@
 "factions": [  "grimm" ],
 "is_hero": 1,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 123,
 "name": "Phalanx",
@@ -1362,7 +1485,8 @@
 "factions": [  "forgotten" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 124,
 "name": "Lady in Red",
@@ -1373,7 +1497,8 @@
 "factions": [  "forgotten" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 1
+"is_freelance": 1,
+"origin": "mystery"
 },{
 "id": 125,
 "name": "Mr.Kraken",
@@ -1384,7 +1509,8 @@
 "factions": [  "forgotten" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 126,
 "name": "Stygian (Queen)",
@@ -1395,7 +1521,8 @@
 "factions": [  "forgotten" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 127,
 "name": "Scarab",
@@ -1406,7 +1533,8 @@
 "factions": [  "forgotten" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "mystery"
 },{
 "id": 128,
 "name": "Gemini X",
@@ -1417,7 +1545,8 @@
 "factions": [  "ulthar" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 129,
 "name": "Gemini Y",
@@ -1428,7 +1557,8 @@
 "factions": [  "ulthar" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 130,
 "name": "Kitharion",
@@ -1439,7 +1569,8 @@
 "factions": [  "ulthar" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 131,
 "name": "Xyllian",
@@ -1450,7 +1581,8 @@
 "factions": [  "ulthar" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 },{
 "id": 132,
 "name": "Ra'leigh",
@@ -1461,7 +1593,8 @@
 "factions": [  "ulthar" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 133,
 "name": "Taurus Shock Trooper",
@@ -1472,7 +1605,8 @@
 "factions": [  "ulthar" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 134,
 "name": "Stormblades",
@@ -1483,7 +1617,8 @@
 "factions": [  "ulthar", "theway" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "nature"
 },{
 "id": 135,
 "name": "Stinger",
@@ -1494,6 +1629,7 @@
 "factions": [  "ulthar" ],
 "is_hero": 0,
 "is_villain": 1,
-"is_freelance": 0
+"is_freelance": 0,
+"origin": "science"
 }
 ]
