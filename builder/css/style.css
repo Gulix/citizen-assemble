@@ -1,37 +1,56 @@
-.dice-category {
-    padding-left: 50px;
-    background-position: 15px 3px;
-    background-repeat: no-repeat;
-    background-size: 28px 28px;
+/* List of Supremes */
+.supremes-list {
+    background-color: #333333;
 }
 
-.dice-detail {
-    padding-left: 42px;
-    background-position: 15px 7px;
-    background-repeat: no-repeat;
+.supreme-list-element {
+    height: 200px;
+    margin: 2px;
+    border-width: 4px;
+    border-style: inset;
+    padding: 5px;
+    background-position: right top;
     background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    background-color: #111111;
+    color: #DDDDDD;
 }
 
-.dice1 {
-    background-image: url("../img/dice1.png");
+/* Selected supremes */
+.supremes-selected-list {
+    background-color: #222222;
+    border-width: 4px;
+    border-style: inset;
+    border-color: #CCCCCC;
+    color: #CCCCCC;
 }
 
-.dice2 {
-    background-image: url("../img/dice2.png");
+.supreme-selected-list-element {
+    margin: 10px 0px;
+    border-width: 4px;
+    border-style: inset;
+    padding: 5px;
+    background-position: right top;
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    background-color: #111111;
+    color: #DDDDDD;
 }
 
-.dice3 {
-    background-image: url("../img/dice3.png");
+/* Supreme Origin */
+.supreme-origin-mystery {
+    background-image: url("../img/origin_mystery.png");
+    border-color: #DD0000;
 }
 
-.dice4 {
-    background-image: url("../img/dice4.png");
+.supreme-origin-nature {
+    background-image: url("../img/origin_nature.png");    
+    border-color: #0050DD;
 }
 
-.dice5 {
-    background-image: url("../img/dice5.png");
-}
-
-.dice6 {
-    background-image: url("../img/dice6.png");
+.supreme-origin-science {
+    background-image: url("../img/origin_science.png");
+    border-color: #F8C70D;
 }

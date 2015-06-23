@@ -107,10 +107,10 @@
     
     <div class="row">
       <!-- Selected items -->
-      <div class="col-md-2 bg-info" id="list-selected">        
+      <div class="col-md-2 bg-info supremes-selected-list" id="list-selected">        
       </div>
       <!-- List of items -->
-      <div class="col-md-10 bg-danger" id="list-supremes">
+      <div class="col-md-10 supremes-list" id="list-supremes">
       </div>
     </div>
     
@@ -141,6 +141,12 @@ function fill_supremes()
     });
     window.supremes_list = json;
     window.selected_supremes_list = [];
+    
+    // Fill some fields (key to value)
+    for(var i = 0; i < window.supremes_list.length; i++)
+    {
+      window.supremes_list[i].role = get_role_value(window.supremes_list[i].role_key);
+    }
     
     // View to render via Mustache
     var view = { "supremes": window.supremes_list };
@@ -251,11 +257,23 @@ function fill_roles()
 {
   $.getJSON("json/roles.json", function(json) {
     
-    for(var i = 0; i < json.length; i++)
+    window.supremes_roles = json;
+    for(var i = 0; i < window.supremes_roles.length; i++)
     {
-       $('#selRoles').append('<option value="' + json[i].role_key + '">' + json[i].role_label + '</option>');
+       $('#selRoles').append('<option value="' + window.supremes_roles[i].role_key + '">' + window.supremes_roles[i].role_label + '</option>');
     }
   });  
+}
+
+function get_role_value(role_key)
+{
+  for(var i = 0; i < window.supremes_roles.length; i++)
+  {
+    if (role_key == window.supremes_roles[i].role_key)
+      return window.supremes_roles[i].role_label;    
+  }
+  
+  return "???";
 }
 
 /*******************/
