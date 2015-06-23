@@ -512,7 +512,8 @@ function update_summary()
     {
       teamLevel += window.supremes_list[i].level;
       teamNumber += 1;
-      teamAP += window.supremes_list[i].ap_granted;
+      if (window.supremes_list[i].role_key != "powerhouse")
+        teamAP += window.supremes_list[i].ap_granted;
       teamMinions += window.supremes_list[i].minions_granted;
     }
   }
