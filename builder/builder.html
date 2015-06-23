@@ -83,7 +83,12 @@
             <option value='-4'>4 or less</option>
           </select>
         </div>
-      </div>            
+        <!-- Text filter -->
+        <div class='col-md-4'>
+          <label for="txtFilterName">Supreme name</label>
+          <input id='txtFilterName' type="text" class="form-control" placeholder="Search for..."></input>          
+        </div>
+      </div>
     </div>
     
     <div class="row">
@@ -388,6 +393,11 @@ function filter_supremes()
     for(var i = apValue; i >= 0; i--) { apgrantedAccepted.push(i); }
   else if (apFilter.indexOf("=") == 0)
     apgrantedAccepted.push(apValue);    
+  // Filter on name
+  var filterName = $('#txtFilterName').val();
+  if (filterName === null)
+    filterName = '';
+  filterName = filterName.trim().toUpperCase();
    
   // Heroes / Villains
   var alignment = $('#selTeamAffiliation').val();
@@ -419,6 +429,8 @@ function filter_supremes()
      // AP+
      || ((window.supremes_list[i].role_key == "powerhouse") && (apgrantedAccepted.indexOf(0) < 0))
      || ((window.supremes_list[i].role_key != "powerhouse") && (apgrantedAccepted.indexOf(window.supremes_list[i].ap_granted) < 0))
+     // Filter on name
+     || ((filterName != '') && (window.supremes_list[i].name.toUpperCase().indexOf(filterName) < 0))
      // Hero
      || (isHeroesOnly && !window.supremes_list[i].is_hero) 
      // Villain
@@ -501,6 +513,7 @@ $(function() {
   $('#selFactions').on('change', function (e) { filter_supremes(); });
   $('#selLevels').on('change', function (e) { filter_supremes(); });
   $('#selAPgranted').on('change', function (e) { filter_supremes(); });
+  $('#txtFilterName').on('input', function (e) { filter_supremes(); });
 });
 
 </script>
