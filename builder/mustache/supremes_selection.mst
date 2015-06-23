@@ -1,5 +1,6 @@
+<h4><u>Selected Supremes</u></h4>
 {{#supremes}}
-<div class="supreme-selection" id="supreme-selection-{{id}}">
+<div class="supreme-selection supreme-origin-{{origin}} supreme-selected-list-element" id="supreme-selection-{{id}}">
   <h4>{{name}}</h4>
   <p class='text-left'><strong>{{role}} lvl.{{level}}</strong></p>
   <div>

@@ -1,0 +1,18 @@
+[
+  {
+    "origin_key": "0",
+    "origin_label": "Any"
+  },
+  {
+    "origin_key": "mystery",
+    "origin_label": "Mystery"
+  },
+  {
+    "origin_key": "nature",
+    "origin_label": "Nature"
+  },
+  {
+    "origin_key": "science",
+    "origin_label": "Science"
+  }
+]

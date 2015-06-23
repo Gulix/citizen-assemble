@@ -41,20 +41,76 @@
           <label for="selFactions">Faction</label>
           <select id="selFactions" class="form-control" ></select>
         </div>
+        <!-- Origins -->
+        <div class='col-md-2'>
+          <label for="selOrigins">Origin</label>
+          <select id="selOrigins" class="form-control" ></select>
+        </div>
         <!-- Roles -->
         <div class='col-md-2'>
           <label for="selRoles">Role</label>
           <select id="selRoles" class="form-control" ></select>
         </div>
-      </div>            
+        <!-- Levels -->
+        <div class='col-md-2'>
+          <label for="selLevels">Level</label>
+          <select id="selLevels" class="form-control" >
+            <option value='0'>Any</option>
+            <option value='1'>Level 1</option>
+            <option value='2'>Level 2</option>
+            <option value='3'>Level 3</option>
+            <option value='12'>Level 1 or 2</option>
+            <option value='23'>Level 2 or 3</option>
+          </select>
+        </div>
+        <!-- AP+ -->
+        <div class='col-md-2'>
+          <label for="selAPgranted">AP+</label>
+          <select id="selAPgranted" class="form-control" >
+            <option value='+0'>Any</option>
+            <option value='+1'>1 or more</option>
+            <option value='+2'>2 or more</option>
+            <option value='+3'>3 or more</option>
+            <option value='+4'>4 or more</option>
+            <option value='=0'>0</option>
+            <option value='=1'>1</option>
+            <option value='=2'>2</option>
+            <option value='=3'>3</option>
+            <option value='=4'>4</option>
+            <option value='-1'>1 or less</option>
+            <option value='-2'>2 or less</option>
+            <option value='-3'>3 or less</option>
+            <option value='-4'>4 or less</option>
+          </select>
+        </div>
+        <!-- Minions+ -->
+        <div class='col-md-2'>
+          <label for="selMinionsGranted">Minions+</label>
+          <select id="selMinionsGranted" class="form-control" >
+            <option value='+0'>Any</option>
+            <option value='+1'>1 or more</option>
+            <option value='+2'>2 or more</option>
+            <option value='=0'>0</option>
+            <option value='=1'>1</option>
+            <option value='=2'>2</option>
+            <option value='-1'>1 or less</option>
+            <option value='-2'>2 or less</option>            
+          </select>
+        </div>
+        <!-- Text filter -->
+        <div class='col-md-4'>
+          <label for="txtFilterName">Supreme name</label>
+          <input id='txtFilterName' type="text" class="form-control" placeholder="Search for..."></input>          
+        </div>
+      </div>
     </div>
     
     <div class="row">
       <!-- Selected items -->
-      <div class="col-md-2 bg-info" id="list-selected">        
+      <div class="col-md-2 bg-info supremes-selected-list" id="list-selected">        
       </div>
       <!-- List of items -->
-      <div class="col-md-10 bg-danger" id="list-supremes">
+      <div class="col-md-10 supremes-list" id="list-supremes">
       </div>
     </div>
     
@@ -66,6 +122,9 @@
 </body>
 <script>
 
+window.supremes_list = [];
+window.selected_supremes_list = [];
+
 /********************/
 /*** The Supremes ***/
 /********************/
@@ -73,9 +132,26 @@ function fill_supremes()
 {
   $.getJSON("json/supremes.json", function(json) {
     
-    // Render the Supremes with a Mustache template
-    var view = { "supremes": json };
+    // Sort by Name
+    json.sort(function(a, b)
+    {
+      if (a.name < b.name) return -1;
+      if (b.name < a.name) return 1;
+      return 0;
+    });
+    window.supremes_list = json;
+    window.selected_supremes_list = [];
     
+    // Fill some fields (key to value)
+    for(var i = 0; i < window.supremes_list.length; i++)
+    {
+      window.supremes_list[i].role = get_role_value(window.supremes_list[i].role_key);
+    }
+    
+    // View to render via Mustache
+    var view = { "supremes": window.supremes_list };
+    
+    // The main list
     $.ajax(
     {
       url: "mustache/supremes.mst",
@@ -88,15 +164,8 @@ function fill_supremes()
         },
       dataType: "text"
     });
-  });  
-}
-
-function fill_supremes_modal()
-{
-  $.getJSON("json/supremes.json", function(json) {
-      
-    // Render the Supremes with a Mustache template
-    var view = { "supremes": json };
+    
+    // The Supremes rendered on a modal view
     $.ajax(
     {
       url: "mustache/supremes_modal.mst",
@@ -111,15 +180,8 @@ function fill_supremes_modal()
         },
       dataType: "text"
     });
-  });  
-}
-
-// Fill the selected list with all the Supremes, then hide them
-function fill_supremes_selection()
-{
-  $.getJSON("json/supremes.json", function(json) {
-      
-    var view = { "supremes": json };
+    
+    // The "Selected Supremes" list
     $.ajax(
     {
       url: "mustache/supremes_selection.mst",
@@ -135,9 +197,16 @@ function fill_supremes_selection()
         },
       dataType: "text"
     });
-  });
+  });  
 }
 
+function get_json_supreme(id)
+{
+  for(var i=0; i<window.supremes_list.length; i++)
+    if (window.supremes_list[i].id == id) return window.supremes_list[i];
+    
+  return null;
+}
 
 /*************************/
 /*** Selected Supremes ***/
@@ -148,6 +217,7 @@ function select_supreme(id)
   // Buttons in the modal view
   $("#btn-select-supreme-modal-" + id).hide();
   $("#btn-unselect-supreme-modal-" + id).show();
+  window.selected_supremes_list.push(get_json_supreme(id));
   filter_supremes();
   update_summary();
 }
@@ -158,21 +228,25 @@ function unselect_supreme(id)
   // Buttons in the modal view
   $("#btn-select-supreme-modal-" + id).show();
   $("#btn-unselect-supreme-modal-" + id).hide();
+  for(var i=0; i<window.selected_supremes_list.length; i++)
+  {
+    if (window.selected_supremes_list[i].id == id)
+    {
+      window.selected_supremes_list.splice(i, 1);
+      break;
+    }
+  }
+  
   filter_supremes();
   update_summary();
 }
 
-function getSelectedSupremes(afterSelectionFunction)
+function clear_selection()
 {
-  $.getJSON("json/supremes.json", function(jsonSupremes) {
-    var selectedSupremes = [];
-    for(var i=0; i<jsonSupremes.length; i++)
-    {
-      if ($("#supreme-selection-" + jsonSupremes[i].id).is(':visible') == true)
-        selectedSupremes.push(jsonSupremes[i]);
-    }
-    afterSelectionFunction(selectedSupremes);
-  });
+  $('.supreme-selection').hide();
+  window.selected_supremes_list.splice(0, window.selected_supremes_list.length);
+  filter_supremes();
+  update_summary();
 }
 
 /*****************/
@@ -183,9 +257,35 @@ function fill_roles()
 {
   $.getJSON("json/roles.json", function(json) {
     
+    window.supremes_roles = json;
+    for(var i = 0; i < window.supremes_roles.length; i++)
+    {
+       $('#selRoles').append('<option value="' + window.supremes_roles[i].role_key + '">' + window.supremes_roles[i].role_label + '</option>');
+    }
+  });  
+}
+
+function get_role_value(role_key)
+{
+  for(var i = 0; i < window.supremes_roles.length; i++)
+  {
+    if (role_key == window.supremes_roles[i].role_key)
+      return window.supremes_roles[i].role_label;    
+  }
+  
+  return "???";
+}
+
+/*******************/
+/*** The Origins ***/
+/*******************/
+function fill_origins()
+{
+  $.getJSON("json/origins.json", function(json) {
+    
     for(var i = 0; i < json.length; i++)
     {
-       $('#selRoles').append('<option value="' + json[i].role_key + '">' + json[i].role_label + '</option>');
+       $('#selOrigins').append('<option value="' + json[i].origin_key + '">' + json[i].origin_label + '</option>');
     }
   });  
 }
@@ -276,6 +376,7 @@ function confirmAffiliationChange()
   }
   
   $.data(this, 'current', $(this).val());
+  clear_selection();
   changeAffiliation();
 }
 
@@ -284,46 +385,116 @@ function confirmAffiliationChange()
 /**************/
 function filter_supremes()
 {
-  $.getJSON("json/supremes.json", function(jsonSupremes) {
+   
+  // Role filter
+  var roleFilter = $('#selRoles').val();
+  if (roleFilter === null)
+    roleFilter = "0";
+  // Origin filter
+  var originFilter = $('#selOrigins').val();
+  if (originFilter === null)
+    originFilter = "0";
+  // Faction filter
+  var factionFilter = $('#selFactions').val();
+  if (factionFilter === null)
+    factionFilter = "-0"; 
+  var isFactionSelected = !isInTable(["-0", "-1", "-2"], factionFilter);
+  var isFactionWithout = (factionFilter == "-1");
+  var isFactionWithoutWithFreelance = (factionFilter == "-2");
+  // Levels
+  var levelsAccepted = [ ];
+  var levelFilter = $("#selLevels").val();
+  if (levelFilter === null)
+    levelFilter = "0";
+  if ((levelFilter == "0") || levelFilter.indexOf("1") > -1)
+    levelsAccepted.push(1);
+  if ((levelFilter == "0") || levelFilter.indexOf("2") > -1)
+    levelsAccepted.push(2);
+  if ((levelFilter == "0") || levelFilter.indexOf("3") > -1)
+    levelsAccepted.push(3);
+  // AP+
+  var apFilter = $("#selAPgranted").val();
+  if (apFilter === null)
+    apFilter = "+0";
+  var apValue = Number(apFilter.substring(1));
+  if (isNaN(apValue)) apValue = 0;
+  var apgrantedAccepted = [ ];
+  if (apFilter.indexOf("+") == 0)
+    for(var i = apValue; i <= 6; i++) { apgrantedAccepted.push(i); }
+  else if (apFilter.indexOf("-") == 0)
+    for(var i = apValue; i >= 0; i--) { apgrantedAccepted.push(i); }
+  else if (apFilter.indexOf("=") == 0)
+    apgrantedAccepted.push(apValue);    
+  // Minions+
+  var minionsFilter = $("#selMinionsGranted").val();
+  if (minionsFilter === null)
+    minionsFilter = "+0";
+  var minionsValue = Number(minionsFilter.substring(1));
+  if (isNaN(minionsValue)) minionsValue = 0;
+  var minionsGrantedAccepted = [ ];
+  if (minionsFilter.indexOf("+") == 0)
+    for(var i = minionsValue; i <= 3; i++) { minionsGrantedAccepted.push(i); }
+  else if (minionsFilter.indexOf("-") == 0)
+    for(var i = minionsValue; i >= 0; i--) { minionsGrantedAccepted.push(i); }
+  else if (minionsFilter.indexOf("=") == 0)
+    minionsGrantedAccepted.push(minionsValue);    
+  // Filter on name
+  var filterName = $('#txtFilterName').val();
+  if (filterName === null)
+    filterName = '';
+  filterName = filterName.trim().toUpperCase();
+   
+  // Heroes / Villains
+  var alignment = $('#selTeamAffiliation').val();
+  var isHeroesOnly = (alignment == 'a_heroes');
+  var isVillainsOnly = (alignment == 'a_villains');
+    
+  var excludeLeader = false; // Only one Leader
+  var excludePowerhouse = false; // Only one Powerhouse
+  for (var iSel=0; iSel < window.selected_supremes_list.length; iSel++)
+  {
+    if (window.selected_supremes_list[iSel].role_key == "leader")
+      excludeLeader = true;
+    if (window.selected_supremes_list[iSel].role_key == "powerhouse")
+      excludePowerhouse = true;
+  }
+   
+  for(var i=0; i < window.supremes_list.length; i++)
+  {
+    var isSelected = $('#supreme-selection-' + window.supremes_list[i].id).is(':visible');
   
-    // Role filter
-    var roleFilter = $('#selRoles').val();
-    if (roleFilter === null)
-      roleFilter = "0";
-    // Faction filter
-    var factionFilter = $('#selFactions').val();
-    if (factionFilter === null)
-      factionFilter = "-0"; 
-    var isFactionSelected = !isInTable(["-0", "-1", "-2"], factionFilter);
-    var isFactionWithout = (factionFilter == "-1");
-    var isFactionWithoutWithFreelance = (factionFilter == "-2");
-    
-    // Heroes / Villains
-    var alignment = $('#selTeamAffiliation').val();
-    var isHeroesOnly = (alignment == 'a_heroes');
-    var isVillainsOnly = (alignment == 'a_villains');
-     
-    for(var i=0; i < jsonSupremes.length; i++)
+    if (((roleFilter != "0") && (window.supremes_list[i].role_key != roleFilter)) // Role
+     || ((originFilter != "0") && (window.supremes_list[i].origin != originFilter)) // Origin
+     // Factions
+     || (isFactionSelected && !isInTable(window.supremes_list[i].factions, factionFilter))
+     || (isFactionWithout && !(window.supremes_list[i].factions.length == 0))
+     || (isFactionWithoutWithFreelance && !(window.supremes_list[i].factions.length == 0) && !window.supremes_list[i].is_freelance)
+     // Level
+     || ($.inArray(window.supremes_list[i].level, levelsAccepted) == -1)
+     // AP+
+     || ((window.supremes_list[i].role_key == "powerhouse") && (apgrantedAccepted.indexOf(0) < 0))
+     || ((window.supremes_list[i].role_key != "powerhouse") && (apgrantedAccepted.indexOf(window.supremes_list[i].ap_granted) < 0))
+     // Minions+
+     || (minionsGrantedAccepted.indexOf(window.supremes_list[i].minions_granted) < 0)
+     // Filter on name
+     || ((filterName != '') && (window.supremes_list[i].name.toUpperCase().indexOf(filterName) < 0))
+     // Hero
+     || (isHeroesOnly && !window.supremes_list[i].is_hero) 
+     // Villain
+     || (isVillainsOnly && !window.supremes_list[i].is_villain) 
+     || isSelected
+     // Only one Leader / Powerhouse
+     || (excludeLeader && (window.supremes_list[i].role_key == "leader"))
+     || (excludePowerhouse && (window.supremes_list[i].role_key == "powerhouse"))
+    )
     {
-      var isSelected = $('#supreme-selection-' + jsonSupremes[i].id).is(':visible');
-    
-      if (((roleFilter != "0") && (jsonSupremes[i].role_key != roleFilter)) // Role
-       // Factions
-       || (isFactionSelected && !isInTable(jsonSupremes[i].factions, factionFilter))
-       || (isFactionWithout && !(jsonSupremes[i].factions.length == 0))
-       || (isFactionWithoutWithFreelance && !(jsonSupremes[i].factions.length == 0) && !jsonSupremes[i].is_freelance)
-       || (isHeroesOnly && !jsonSupremes[i].is_hero) // Hero
-       || (isVillainsOnly && !jsonSupremes[i].is_villain) // Villain
-       || isSelected)
-      {
-        $('#supreme-list-' + jsonSupremes[i].id).hide();
-      }
-      else
-      {
-        $('#supreme-list-' + jsonSupremes[i].id).show();
-      }
+      $('#supreme-list-' + window.supremes_list[i].id).hide();
     }
-  });
+    else
+    {
+      $('#supreme-list-' + window.supremes_list[i].id).show();
+    }
+  }
 }
 
 /***************/
@@ -331,28 +502,26 @@ function filter_supremes()
 /***************/
 function update_summary()
 {
-  $.getJSON("json/supremes.json", function(jsonSupremes) {
-    
-    var teamLevel = 0;
-    var teamNumber = 0;
-    var teamAP = 0;
-    var teamMinions = 0;
-    for(var i=0; i<jsonSupremes.length; i++)
+  var teamLevel = 0;
+  var teamNumber = 0;
+  var teamAP = 0;
+  var teamMinions = 0;
+  for(var i=0; i<window.supremes_list.length; i++)
+  {
+    if ($("#supreme-selection-" + window.supremes_list[i].id).is(':visible') == true)
     {
-      if ($("#supreme-selection-" + jsonSupremes[i].id).is(':visible') == true)
-      {
-        teamLevel += jsonSupremes[i].level;
-        teamNumber += 1;
-        teamAP += jsonSupremes[i].ap_granted;
-        teamMinions += jsonSupremes[i].minions_granted;
-      }
+      teamLevel += window.supremes_list[i].level;
+      teamNumber += 1;
+      if (window.supremes_list[i].role_key != "powerhouse")
+        teamAP += window.supremes_list[i].ap_granted;
+      teamMinions += window.supremes_list[i].minions_granted;
     }
+  }
     
-    $("#team-summary-level").html(teamLevel);
-    $("#team-summary-number").html(teamNumber);
-    $("#team-summary-apgranted").html(teamAP);
-    $("#team-summary-minionsgranted").html(teamMinions);
-  });
+  $("#team-summary-level").html(teamLevel);
+  $("#team-summary-number").html(teamNumber);
+  $("#team-summary-apgranted").html(teamAP);
+  $("#team-summary-minionsgranted").html(teamMinions);  
 }
 
 /************************/
@@ -374,12 +543,11 @@ $(function() {
   fillAlignments();
   // Filters
   fill_roles();
+  fill_origins();
   fill_factions();
    
   // The list of the Supremes
-  fill_supremes();
-  fill_supremes_modal();
-  fill_supremes_selection();
+  fill_supremes();  
   
   update_summary();
    
@@ -389,7 +557,12 @@ $(function() {
    
   // Events on the filters
   $('#selRoles').on('change', function (e) { filter_supremes(); });
+  $('#selOrigins').on('change', function (e) { filter_supremes(); });
   $('#selFactions').on('change', function (e) { filter_supremes(); });
+  $('#selLevels').on('change', function (e) { filter_supremes(); });
+  $('#selAPgranted').on('change', function (e) { filter_supremes(); });
+  $('#selMinionsGranted').on('change', function (e) { filter_supremes(); });
+  $('#txtFilterName').on('input', function (e) { filter_supremes(); });
 });
 
 </script>
