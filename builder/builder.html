@@ -452,17 +452,26 @@ function filter_supremes()
   var excludeLeader = false; // Only one Leader
   var excludePowerhouse = false; // Only one Powerhouse
   var excludedSupremesId = []; // List of excluded Supremes
+  var shownSupremesId = []; // Special shown Supremes
   for (var iSel=0; iSel < window.selected_supremes_list.length; iSel++)
   {
     if (window.selected_supremes_list[iSel].role_key == "leader")
       excludeLeader = true;
     if (window.selected_supremes_list[iSel].role_key == "powerhouse")
       excludePowerhouse = true;
-      
+     
+    // Excluded supremes
     if (window.selected_supremes_list[iSel].excluded_supremes)
     {
       for (var iExcl = 0; iExcl < window.selected_supremes_list[iSel].excluded_supremes.length; iExcl++)
         excludedSupremesId.push(window.selected_supremes_list[iSel].excluded_supremes[iExcl]);
+    }
+    
+    // Shown supremes only when another is selected
+    if (window.selected_supremes_list[iSel].shown_supremes)
+    {
+      for (var iShwn = 0; iShwn < window.selected_supremes_list[iSel].shown_supremes.length; iShwn++)
+        shownSupremesId.push(window.selected_supremes_list[iSel].shown_supremes[iShwn]);
     }
   }
   
@@ -473,7 +482,9 @@ function filter_supremes()
   {
     var isSelected = $('#supreme-selection-' + window.supremes_list[i].id).is(':visible');
   
-    if (((roleFilter != "0") && (window.supremes_list[i].role_key != roleFilter)) // Role
+    if (
+     (window.supremes_list[i].supreme_is_hidden && !isInTable(shownSupremesId, window.supremes_list[i].id)) // Special shown Supremes
+     || ((roleFilter != "0") && (window.supremes_list[i].role_key != roleFilter)) // Role
      || ((originFilter != "0") && (window.supremes_list[i].origin != originFilter)) // Origin
      // Factions
      || (isFactionSelected && !isInTable(window.supremes_list[i].factions, factionFilter))
