@@ -414,7 +414,8 @@
 "exclusive_minions": "",
 "elements": [   ],
 "ap_limit": 4,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ], 
+"excluded_supremes": [ 13, 71 ]
 },{
 "id": 13,
 "name": "Mini Hadron",
@@ -446,7 +447,8 @@
 "exclusive_minions": "",
 "elements": [   ],
 "ap_limit": 4,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ], 
+"excluded_supremes": [ 12, 71 ]
 },{
 "id": 14,
 "name": "Chronin",
@@ -1854,7 +1856,8 @@
 "exclusive_minions": "",
 "elements": [   ],
 "ap_limit": 4,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ], 
+"excluded_supremes": [ 94, 113 ]
 },{
 "id": 58,
 "name": "Gentleman",
@@ -2078,7 +2081,8 @@
 "exclusive_minions": "",
 "elements": [   ],
 "ap_limit": 4,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ], 
+"excluded_supremes": [ 65 ]
 },{
 "id": 65,
 "name": "Moonchild",
@@ -2110,7 +2114,8 @@
 "exclusive_minions": "",
 "elements": [   ],
 "ap_limit": 4,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ], 
+"excluded_supremes": [ 64 ]
 },{
 "id": 66,
 "name": "Red Riding Hoodoo",
@@ -2302,7 +2307,8 @@
 "exclusive_minions": "",
 "elements": [   ],
 "ap_limit": 4,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ], 
+"excluded_supremes": [ 12, 13 ]
 },{
 "id": 72,
 "name": "Gorgoroth",
@@ -3038,7 +3044,8 @@
 "exclusive_minions": "",
 "elements": [  "light" ],
 "ap_limit": 4,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ], 
+"excluded_supremes": [ 57, 113 ]
 },{
 "id": 95,
 "name": "Green Serpent",
@@ -3646,7 +3653,8 @@
 "exclusive_minions": "",
 "elements": [  "light", "darkness" ],
 "ap_limit": 5,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ], 
+"excluded_supremes": [ 57, 94 ]
 },{
 "id": 114,
 "name": "Mecha Spartan",

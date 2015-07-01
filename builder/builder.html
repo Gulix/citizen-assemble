@@ -451,13 +451,23 @@ function filter_supremes()
     
   var excludeLeader = false; // Only one Leader
   var excludePowerhouse = false; // Only one Powerhouse
+  var excludedSupremesId = []; // List of excluded Supremes
   for (var iSel=0; iSel < window.selected_supremes_list.length; iSel++)
   {
     if (window.selected_supremes_list[iSel].role_key == "leader")
       excludeLeader = true;
     if (window.selected_supremes_list[iSel].role_key == "powerhouse")
       excludePowerhouse = true;
+      
+    if (window.selected_supremes_list[iSel].excluded_supremes)
+    {
+      for (var iExcl = 0; iExcl < window.selected_supremes_list[iSel].excluded_supremes.length; iExcl++)
+        excludedSupremesId.push(window.selected_supremes_list[iSel].excluded_supremes[iExcl]);
+    }
   }
+  
+  
+  
    
   for(var i=0; i < window.supremes_list.length; i++)
   {
@@ -486,6 +496,8 @@ function filter_supremes()
      // Only one Leader / Powerhouse
      || (excludeLeader && (window.supremes_list[i].role_key == "leader"))
      || (excludePowerhouse && (window.supremes_list[i].role_key == "powerhouse"))
+     // Excluded supremes
+     || (isInTable(excludedSupremesId, window.supremes_list[i].id))
     )
     {
       $('#supreme-list-' + window.supremes_list[i].id).hide();
