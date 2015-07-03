@@ -5,6 +5,7 @@
     <title>Citizen Assemble ! Pulp City Team Builder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link href="css/bootstrap-toggle.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
 <body>
@@ -107,7 +108,14 @@
     
     <div class="row">
       <!-- Selected items -->
-      <div class="col-md-2 bg-info supremes-selected-list" id="list-selected">        
+      <div class="col-md-2">        
+        <div id="divHonoraryMember">
+        <input id="togHonoraryMember"
+               data-toggle="toggle" data-onstyle="warning" data-offstyle="default"
+               data-on="Honorary<br />Member" data-off="Normal<br/>Members" type="checkbox" >
+        </div>
+        <div class="supremes-selected-list" id="list-selected">        
+        </div>
       </div>
       <!-- List of items -->
       <div class="col-md-10 supremes-list" id="list-supremes">
@@ -119,6 +127,7 @@
   </div>
   <script src="http://code.jquery.com/jquery.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-toggle.min.js"></script>
 </body>
 <script>
 
@@ -175,7 +184,7 @@ function fill_supremes()
           $("#list-modal-supremes").html(renderedHtml);
           // Events on Buttons
           $(".btn-select-supreme-modal").click(function() { select_supreme(getSupremeId("btn-select-supreme-modal-", $(this).attr('id'))); });
-          $(".btn-unselect-supreme-modal").click(function() { unselect_supreme(getSupremeId("btn-unselect-supreme-modal-", $(this).attr('id'))); });
+          $(".btn-unselect-supreme-modal").click(function() { unselect_supreme(getSupremeId("btn-unselect-supreme-modal-", $(this).attr('id')), true); });
           $(".btn-unselect-supreme-modal").hide();
         },
       dataType: "text"
@@ -193,7 +202,7 @@ function fill_supremes()
           // Hiding the elements
           $(".supreme-selection").each(function() { $( this ).hide(); });
           // Click on Buttons
-          $(".btn-unselect-supreme").click(function() { unselect_supreme(getSupremeId("btn-unselect-supreme-", $(this).attr('id'))); });
+          $(".btn-unselect-supreme").click(function() { unselect_supreme(getSupremeId("btn-unselect-supreme-", $(this).attr('id')), true); });
         },
       dataType: "text"
     });
@@ -217,12 +226,28 @@ function select_supreme(id)
   // Buttons in the modal view
   $("#btn-select-supreme-modal-" + id).hide();
   $("#btn-unselect-supreme-modal-" + id).show();
-  window.selected_supremes_list.push(get_json_supreme(id));
+  var supremeSelected = get_json_supreme(id);
+  // Is this Supreme an Honorary Member ?  
+  if ($('#togHonoraryMember').prop('checked'))
+  {
+    var alignment = $('#selTeamAffiliation').val();
+    if (
+      ((alignment == 'a_heroes') && !supremeSelected.is_hero)
+      || ((alignment == 'a_villains') && !supremeSelected.is_villain)
+      //|| ((alignment.substring(0,2) == 'f_') && isInTable(supremeSelected.factions, alignment.substring(2)))
+      )
+    {
+      supremeSelected.is_honorary_member = true;
+      $('#togHonoraryMember').bootstrapToggle('off');
+    }
+  }
+  window.selected_supremes_list.push(supremeSelected);
   filter_supremes();
   update_summary();
+  check_honorary_member();
 }
 
-function unselect_supreme(id)
+function unselect_supreme(id, refreshAll)
 {
   $("#supreme-selection-" + id).hide();
   // Buttons in the modal view
@@ -232,13 +257,30 @@ function unselect_supreme(id)
   {
     if (window.selected_supremes_list[i].id == id)
     {
+      // If this is a Leader, all the Honorary Members are also removed
+      var isLeader = window.selected_supremes_list[i].role_key == 'leader';
       window.selected_supremes_list.splice(i, 1);
       break;
     }
   }
+  // Removing the Honorary Member
+  if (isLeader)
+  {
+    for(var i=0; i<window.selected_supremes_list.length; i++)
+    {
+      if (window.selected_supremes_list[i].is_honorary_member)
+      {
+        unselect_supreme(window.selected_supremes_list[i].id, false);
+      }
+    }
+  }
   
-  filter_supremes();
-  update_summary();
+  if (refreshAll)
+  {
+    filter_supremes();
+    update_summary();
+    check_honorary_member();
+  }
 }
 
 function clear_selection()
@@ -380,6 +422,34 @@ function confirmAffiliationChange()
   changeAffiliation();
 }
 
+/*********************/
+/*** Honorary Member */
+/*********************/
+function check_honorary_member()
+{
+  var displayed = false;
+  var disabled = false;
+  for (var iSel = 0; iSel < window.selected_supremes_list.length; iSel++)
+  {
+    if (window.selected_supremes_list[iSel].role_key == "leader")
+      displayed = true;
+    if (window.selected_supremes_list[iSel].is_honorary_member)
+      disabled = true;
+  }
+  
+  // Toggle button is displayed if there is a Leader in the selected list
+  if (displayed)
+    $('#divHonoraryMember').show();
+  else 
+    $('#divHonoraryMember').hide();
+  
+  // If there is already an Honorary Member, the button is disabled
+  if (disabled)
+    $('#togHonoraryMember').bootstrapToggle('disable');
+  else 
+    $('#togHonoraryMember').bootstrapToggle('enable');  
+}
+
 /**************/
 /*** Filter ***/
 /**************/
@@ -448,6 +518,13 @@ function filter_supremes()
   var alignment = $('#selTeamAffiliation').val();
   var isHeroesOnly = (alignment == 'a_heroes');
   var isVillainsOnly = (alignment == 'a_villains');
+  
+  // Honorary Member active ?
+  var isHonoraryMember = $('#togHonoraryMember').prop('checked');
+  if (isHonoraryMember && isFactionSelected && ('#selFactions').is(':disabled'))
+  {
+    isFactionSelected = false; // Honorary Member means we can select from any faction
+  }
     
   var excludeLeader = false; // Only one Leader
   var excludePowerhouse = false; // Only one Powerhouse
@@ -473,10 +550,7 @@ function filter_supremes()
       for (var iShwn = 0; iShwn < window.selected_supremes_list[iSel].shown_supremes.length; iShwn++)
         shownSupremesId.push(window.selected_supremes_list[iSel].shown_supremes[iShwn]);
     }
-  }
-  
-  
-  
+  }  
    
   for(var i=0; i < window.supremes_list.length; i++)
   {
@@ -500,9 +574,9 @@ function filter_supremes()
      // Filter on name
      || ((filterName != '') && (window.supremes_list[i].name.toUpperCase().indexOf(filterName) < 0))
      // Hero
-     || (isHeroesOnly && !window.supremes_list[i].is_hero) 
+     || (!isHonoraryMember && isHeroesOnly && !window.supremes_list[i].is_hero) 
      // Villain
-     || (isVillainsOnly && !window.supremes_list[i].is_villain) 
+     || (!isHonoraryMember && isVillainsOnly && !window.supremes_list[i].is_villain) 
      || isSelected
      // Only one Leader / Powerhouse
      || (excludeLeader && (window.supremes_list[i].role_key == "leader"))
@@ -573,6 +647,7 @@ $(function() {
   fill_supremes();  
   
   update_summary();
+  check_honorary_member();
    
   // Events on the Affiliation
   changeAffiliation();
@@ -586,6 +661,8 @@ $(function() {
   $('#selAPgranted').on('change', function (e) { filter_supremes(); });
   $('#selMinionsGranted').on('change', function (e) { filter_supremes(); });
   $('#txtFilterName').on('input', function (e) { filter_supremes(); });
+  $('#togHonoraryMember').bootstrapToggle('off');
+  $('#togHonoraryMember').change(function() { filter_supremes(); });  
 });
 
 </script>
