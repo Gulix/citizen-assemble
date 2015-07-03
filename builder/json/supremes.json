@@ -2982,7 +2982,8 @@
 "exclusive_minions": "",
 "elements": [   ],
 "ap_limit": 4,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ],
+"excluded_factions": [ "coven" ]
 },{
 "id": 93,
 "name": "Sister Bedlam",
@@ -3529,7 +3530,8 @@
 "exclusive_minions": "",
 "elements": [  "water" ],
 "ap_limit": 3,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ],
+"excluded_factions": [ "ulthar" ]
 },{
 "id": 110,
 "name": "Bigfoot",
@@ -3593,7 +3595,8 @@
 "exclusive_minions": "",
 "elements": [  "water" ],
 "ap_limit": 4,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ],
+"excluded_factions": [ "ulthar" ]
 },{
 "id": 112,
 "name": "Stalker",

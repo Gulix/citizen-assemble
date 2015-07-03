@@ -91,11 +91,16 @@
             <option value='+0'>Any</option>
             <option value='+1'>1 or more</option>
             <option value='+2'>2 or more</option>
+            <option value='+3'>3 or more</option>
+            <option value='+4'>4 or more</option>
             <option value='=0'>0</option>
             <option value='=1'>1</option>
             <option value='=2'>2</option>
+            <option value='=3'>3</option>
+            <option value='=4'>4</option>
             <option value='-1'>1 or less</option>
-            <option value='-2'>2 or less</option>            
+            <option value='-2'>2 or less</option>
+            <option value='-3'>3 or less</option>
           </select>
         </div>
         <!-- Text filter -->
@@ -452,6 +457,7 @@ function confirmAffiliationChange()
   
   $.data(this, 'current', $(this).val());
   clear_selection();
+  check_honorary_member();
   changeAffiliation();
 }
 
@@ -536,7 +542,7 @@ function filter_supremes()
   if (isNaN(minionsValue)) minionsValue = 0;
   var minionsGrantedAccepted = [ ];
   if (minionsFilter.indexOf("+") == 0)
-    for(var i = minionsValue; i <= 3; i++) { minionsGrantedAccepted.push(i); }
+    for(var i = minionsValue; i <= 6; i++) { minionsGrantedAccepted.push(i); }
   else if (minionsFilter.indexOf("-") == 0)
     for(var i = minionsValue; i >= 0; i--) { minionsGrantedAccepted.push(i); }
   else if (minionsFilter.indexOf("=") == 0)
@@ -551,10 +557,11 @@ function filter_supremes()
   var alignment = $('#selTeamAffiliation').val();
   var isHeroesOnly = (alignment == 'a_heroes');
   var isVillainsOnly = (alignment == 'a_villains');
+  var isAlignementFaction = alignment.substring(0, 2) == "f_";
   
   // Honorary Member active ?
   var isHonoraryMember = $('#togHonoraryMember').prop('checked');
-  if (isHonoraryMember && isFactionSelected && ('#selFactions').is(':disabled'))
+  if (isHonoraryMember && isFactionSelected && isAlignementFaction)
   {
     isFactionSelected = false; // Honorary Member means we can select from any faction
   }
@@ -616,6 +623,8 @@ function filter_supremes()
      || (excludePowerhouse && (window.supremes_list[i].role_key == "powerhouse"))
      // Excluded supremes
      || (isInTable(excludedSupremesId, window.supremes_list[i].id))
+     // Excluded factions
+     || (isAlignementFaction && window.supremes_list[i].excluded_factions && isInTable(window.supremes_list[i].excluded_factions, factionFilter))
     )
     {
       $('#supreme-list-' + window.supremes_list[i].id).hide();
