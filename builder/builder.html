@@ -242,6 +242,8 @@ function select_supreme(id)
     }
   }
   window.selected_supremes_list.push(supremeSelected);
+    
+  sort_selected_supremes();
   filter_supremes();
   update_summary();
   check_honorary_member();
@@ -250,6 +252,7 @@ function select_supreme(id)
 function unselect_supreme(id, refreshAll)
 {
   $("#supreme-selection-" + id).hide();
+  $("#supreme-selection-" + id).removeAttr("data-sort");
   // Buttons in the modal view
   $("#btn-select-supreme-modal-" + id).show();
   $("#btn-unselect-supreme-modal-" + id).hide();
@@ -277,6 +280,7 @@ function unselect_supreme(id, refreshAll)
   
   if (refreshAll)
   {
+    sort_selected_supremes();
     filter_supremes();
     update_summary();
     check_honorary_member();
@@ -289,6 +293,35 @@ function clear_selection()
   window.selected_supremes_list.splice(0, window.selected_supremes_list.length);
   filter_supremes();
   update_summary();
+}
+
+function sort_selected_supremes()
+{
+  // Apply sort index
+  $(".supreme-selection:hidden").attr("data-sort", window.selected_supremes_list.length + 1);
+  for (var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
+  {
+    $("#supreme-selection-" + window.selected_supremes_list[iSup].id).attr("data-sort", iSup);
+  }
+  
+  var $supreme_list = $('#list-selected');
+  var $supremes = $supreme_list.children();
+
+  $supremes.sort(function(a,b){
+    var aSort = a.getAttribute('data-sort');
+    var bSort = b.getAttribute('data-sort');
+    
+    if (aSort === undefined) aSort = window.selected_supremes_list.length + 1;
+    if (bSort === undefined) bSort = window.selected_supremes_list.length + 1;
+	
+    if (aSort > bSort)
+      return 1;
+	if (aSort < bSort)
+      return -1;
+	return 0;
+  });
+
+  $supremes.detach().appendTo($supreme_list);
 }
 
 /*****************/
