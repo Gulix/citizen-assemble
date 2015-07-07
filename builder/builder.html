@@ -604,6 +604,9 @@ function filter_supremes()
      || (isFactionSelected && !isInTable(window.supremes_list[i].factions, factionFilter))
      || (isFactionWithout && !(window.supremes_list[i].factions.length == 0))
      || (isFactionWithoutWithFreelance && !(window.supremes_list[i].factions.length == 0) && !window.supremes_list[i].is_freelance)
+     // Exclusive factions (Supreme only available in some factions, such as #2 & #3 of Troopers)
+     || ((window.supremes_list[i].exclusive_factions !== undefined)
+         && (!isAlignementFaction || !isInTable(window.supremes_list[i].exclusive_factions, factionFilter)))
      // Level
      || ($.inArray(window.supremes_list[i].level, levelsAccepted) == -1)
      // AP+
