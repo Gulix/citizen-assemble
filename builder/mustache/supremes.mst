@@ -1,10 +1,18 @@
 {{#supremes}}
-<div class='col-md-2 supreme-list-element supreme-origin-{{origin}}' id='supreme-list-{{id}}'>
-    <h4>{{name}}</h4>
-    <p class='text-right'><strong>{{role}} lvl.{{level}}</strong></p>
-    <p class='text-right'>AP+ : {{ap_granted}}</p>
-    <p class='text-right'>Minions+ : {{minions_granted}}</p>
-    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#supreme-modal-{{id}}">Show</button>
-    <button type="button" class="btn btn-primary btn-sm btn-select-supreme" id="btn-select-supreme-{{id}}">Add</button>    
+<div class='col-md-2 supreme-list-element' style='position:relative;' id='supreme-list-{{id}}'>
+    <div class='supreme-name'>{{name}}</div>
+    <div class='info-icons'>
+      <div class='info-icon supreme-origin-{{origin}}' />
+      <div class='info-icon hero-villain-{{is_hero}}{{is_villain}}'/>
+    </div>
+    <div style='clear: both;' />
+    <p class='text-left' class='supreme-role'>{{role}} <strong>lvl.{{level}}</strong></p>
+    <p class='text-right'>AP+ : {{ap_granted}}<br />Minions+ : {{minions_granted}}</p>
+    <div class='bottom-footer'>
+      <img src="img/supremes/01_thumb.jpg" width="45px" />
+      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#supreme-modal-{{id}}">Show</button>
+      <button type="button" class="btn btn-primary btn-sm btn-select-supreme" id="btn-select-supreme-{{id}}">Add</button>    
+    </div>
+    
 </div>
 {{/supremes}}
