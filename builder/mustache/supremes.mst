@@ -12,8 +12,14 @@
     <p class='text-right'>AP+ : {{ap_granted}}<br />Minions+ : {{minions_granted}}</p>
     <div class='bottom-footer'>
       <img src="img/supremes/01_thumb.jpg" width="45px" />
-      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#supreme-modal-{{id}}">Show</button>
-      <button type="button" class="btn btn-primary btn-sm btn-select-supreme" id="btn-select-supreme-{{id}}">Add</button>    
+	  <div class='footer-buttons'>
+        <button type="button" class="btn btn-sm" title='Show details' data-toggle="modal" data-target="#supreme-modal-{{id}}">
+          <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+	    </button>
+        <button type="button" class="btn btn-sm btn-select-supreme" title='Add Supreme to your Team Selection' id="btn-select-supreme-{{id}}">
+		  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+		</button>    
+	  </div>
     </div>
     
 </div>
