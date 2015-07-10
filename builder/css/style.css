@@ -12,6 +12,7 @@
     background-color: #DDDDDD;
     background:  linear-gradient(#BBBBBB, #DDDDDD 15%, #FFFFFF 25%);
     color: #000000;
+	position: relative;
 }
 
 .supreme-list-element .bottom-footer {
@@ -19,9 +20,10 @@
     bottom:0px;
 }
 
-.supreme-list-element .supreme-name {
-    float: left; 
-    width: 130px; 
+.header .supreme-name {
+    float: none; 
+    width: auto;
+	overflow: hidden;
     height: 50px;
     margin-left: 3px;
     font-size: 16;
@@ -29,8 +31,14 @@
     text-align: center;
 }
 
-.supreme-list-element .info-icons {
-    float: right;
+.header {
+	height: auto;
+	overflow: hidden;
+}
+
+.header .info-icons {
+    width: 27px;
+	float: right;
 }
 
 .info-icon {
