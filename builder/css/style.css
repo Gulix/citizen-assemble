@@ -21,6 +21,11 @@
 	width:100%;
 }
 
+.supreme-list-element .supreme-additional-data {
+	margin-right: 3px;
+	
+}
+
 .footer-buttons {
 	position: absolute;
 	bottom: 2px;
@@ -81,6 +86,24 @@
     background-origin: content-box;
     background-color: #111111;
     color: #DDDDDD;
+}
+
+/* Supreme Role & Level */
+.supreme-role {
+	margin-left: 2px;
+	font-weight: bold;
+}
+
+.supreme-role .role-level-1 {
+	font-weight: normal;
+}
+
+.supreme-role .role-level-2 {
+	font-weight: bold;
+}
+
+.supreme-role .role-level-3 {
+	font-weight: bolder;
 }
 
 /* Supreme Origin */
