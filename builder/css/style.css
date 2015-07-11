@@ -57,6 +57,11 @@ img.supreme-freelance {
 	float: right;
 }
 
+.header .supreme-thumbnail {
+	width: 40px;
+	float: left;
+}
+
 .info-icon {
     height: 25px; 
     width: 25px; 
@@ -80,16 +85,28 @@ img.supreme-freelance {
 }
 
 .supreme-selected-list-element {
-    margin: 10px 0px;
-    border-width: 4px;
-    border-style: inset;
-    padding: 5px;
-    background-position: right top;
+    border-width: 1px;
+    border-color: #777777;
+    border-style: solid;
+    padding: 0px;
+    background-color: #DDDDDD;
+    background: linear-gradient(#BBBBBB, #DDDDDD 15%, #FFFFFF 25%);
+    color: #000000;
+	position: relative;
+}
+
+.footer-icon {
+    height: 20px; 
+    width: 20px; 
+    margin-top:0px;
+    margin-bottom: 0px;
+    margin-left: 2px;
+    margin-right: 0px;
+    background-position: left top;
     background-size: 20px 20px;
     background-repeat: no-repeat;
     background-origin: content-box;
-    background-color: #111111;
-    color: #DDDDDD;
+	display: inline-block;
 }
 
 /* Supreme Role & Level */

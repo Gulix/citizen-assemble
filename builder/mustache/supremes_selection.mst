@@ -1,11 +1,22 @@
 <h4><u>Selected Supremes</u></h4>
 {{#supremes}}
-<div class="supreme-selection supreme-origin-{{origin}} supreme-selected-list-element" id="supreme-selection-{{id}}">
-  <h4>{{name}}</h4>
-  <p class='text-left'><strong>{{role}} lvl.{{level}}</strong></p>
-  <div>
-    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#supreme-modal-{{id}}">Show</button>
-    <button type="button" class="btn btn-primary btn-sm btn-unselect-supreme" id="btn-unselect-supreme-{{id}}">Remove</button>
+<div class="supreme-selection supreme-selected-list-element" id="supreme-selection-{{id}}">
+  <div class='header'>
+		<img src="img/supremes/01_thumb.jpg" class='supreme-thumbnail' width="40px" />
+		<div class='supreme-name'>{{name}}</div>
+	</div>
+  <div class='text-right supreme-role'>{{role}} <span class='role-level-{{level}}'>lvl.{{level}}</span></div>
+  <div class='bottom-footer'>
+    <div class='footer-icon supreme-origin-{{origin}}' />
+	<div class='footer-icon hero-villain-{{is_hero}}{{is_villain}}'/>
+    <div class='footer-buttons'>
+      <button type="button" class="btn btn-sm" title='Show details' data-toggle="modal" data-target="#supreme-modal-{{id}}">
+	    <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+	  </button>
+      <button type="button" class="btn btn-sm btn-unselect-supreme" title='Remove from selection' id="btn-unselect-supreme-{{id}}">
+	    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+	  </button>
+    </div>
   </div>
 </div>
 {{/supremes}}
