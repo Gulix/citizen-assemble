@@ -173,6 +173,8 @@ function fill_supremes()
         {
           var renderedHtml = Mustache.render(mustacheTemplate, view);
           $("#list-supremes").html(renderedHtml);
+          fill_factions_name();
+		  fill_freelancer();
           filter_supremes();
           $(".btn-select-supreme").click(function() { select_supreme(getSupremeId("btn-select-supreme-", $(this).attr('id'))); });
         },
@@ -208,6 +210,9 @@ function fill_supremes()
           $(".supreme-selection").each(function() { $( this ).hide(); });
           // Click on Buttons
           $(".btn-unselect-supreme").click(function() { unselect_supreme(getSupremeId("btn-unselect-supreme-", $(this).attr('id')), true); });
+		  $('#btnHideSelectionFooter').click(function() { hide_selection_footer(); });
+          $('#btnShowSelectionFooter').click(function() { show_selection_footer(); });
+		  $(".supreme-selection").click(function() { toggle_selection_footer(getSupremeId("supreme-selection-", $(this).attr('id'))); });
         },
       dataType: "text"
     });
@@ -220,6 +225,49 @@ function get_json_supreme(id)
     if (window.supremes_list[i].id == id) return window.supremes_list[i];
     
   return null;
+}
+
+function fill_factions_name()
+{
+  $.getJSON("json/factions.json", function(jsonFactions) {
+    
+	$('.supreme-factions').each(function () {      
+	  var supremeFactions = $(this).html();
+      if ((supremeFactions === undefined) || (supremeFactions.length == 0))
+        $(this).html('<span class="faction-independant">Independant</span>');
+      else 
+      {
+        var splitFactions = supremeFactions.split(',');
+        var newHtml = '';
+        var separator = '';
+        for(var iSupFac = 0; iSupFac < splitFactions.length; iSupFac++)
+        {
+		  var faction;
+		  for (var iFaction = 0; iFaction <= jsonFactions.length; iFaction++)
+		  {
+		    if (jsonFactions[iFaction]["faction_key"] == splitFactions[iSupFac])
+			{
+			  faction = jsonFactions[iFaction]["faction_label"];
+			  break;
+			}
+		  }
+		  if (faction !== undefined)
+		  {
+            newHtml = newHtml + separator +
+              '<span class="faction-' + splitFactions[iSupFac] + '">' + faction + '</span>';
+            separator = ', ';
+	      }
+        }
+		$(this).html(newHtml);
+      }
+    });
+  }); 
+}
+
+function fill_freelancer()
+{
+  $('.supreme-freelance-0').remove();
+  $('.supreme-freelance-1').replaceWith("<img class='supreme-freelance' title='Freelancer' src='img/freelancer.png' />");
 }
 
 /*************************/
@@ -318,15 +366,33 @@ function sort_selected_supremes()
     
     if (aSort === undefined) aSort = window.selected_supremes_list.length + 1;
     if (bSort === undefined) bSort = window.selected_supremes_list.length + 1;
-	
+  
     if (aSort > bSort)
       return 1;
-	if (aSort < bSort)
+  if (aSort < bSort)
       return -1;
-	return 0;
+  return 0;
   });
 
   $supremes.detach().appendTo($supreme_list);
+}
+
+function hide_selection_footer()
+{
+  $('.supreme-selected-list-element .supreme-role').slideUp(300);
+  $('.supreme-selected-list-element .bottom-footer').slideUp(300);
+}
+
+function show_selection_footer()
+{
+  $('.supreme-selected-list-element .supreme-role').slideDown(300);
+  $('.supreme-selected-list-element .bottom-footer').slideDown(300);
+}
+
+function toggle_selection_footer(id)
+{
+  $('#supreme-selection-' + id +' .supreme-role').slideToggle(300);
+  $('#supreme-selection-' + id +' .bottom-footer').slideToggle(300);
 }
 
 /*****************/
@@ -604,6 +670,9 @@ function filter_supremes()
      || (isFactionSelected && !isInTable(window.supremes_list[i].factions, factionFilter))
      || (isFactionWithout && !(window.supremes_list[i].factions.length == 0))
      || (isFactionWithoutWithFreelance && !(window.supremes_list[i].factions.length == 0) && !window.supremes_list[i].is_freelance)
+     // Exclusive factions (Supreme only available in some factions, such as #2 & #3 of Troopers)
+     || ((window.supremes_list[i].exclusive_factions !== undefined)
+         && (!isAlignementFaction || !isInTable(window.supremes_list[i].exclusive_factions, factionFilter)))
      // Level
      || ($.inArray(window.supremes_list[i].level, levelsAccepted) == -1)
      // AP+
@@ -690,6 +759,8 @@ $(function() {
   
   update_summary();
   check_honorary_member();
+   
+  
    
   // Events on the Affiliation
   changeAffiliation();

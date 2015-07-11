@@ -1,10 +1,30 @@
 {{#supremes}}
-<div class='col-md-2 supreme-list-element supreme-origin-{{origin}}' id='supreme-list-{{id}}'>
-    <h4>{{name}}</h4>
-    <p class='text-right'><strong>{{role}} lvl.{{level}}</strong></p>
-    <p class='text-right'>AP+ : {{ap_granted}}</p>
-    <p class='text-right'>Minions+ : {{minions_granted}}</p>
-    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#supreme-modal-{{id}}">Show</button>
-    <button type="button" class="btn btn-primary btn-sm btn-select-supreme" id="btn-select-supreme-{{id}}">Add</button>    
+<div class='col-md-2 supreme-list-element' id='supreme-list-{{id}}'>
+    <div class='header'>
+		<div class='info-icons'>
+		  <div class='info-icon supreme-origin-{{origin}}' />
+		  <div class='info-icon hero-villain-{{is_hero}}{{is_villain}}'/>
+		</div>
+		<div class='supreme-name'>{{name}}</div>
+	</div>
+    
+    <p class='text-left supreme-role'>{{role}} <span class='role-level-{{level}}'>lvl.{{level}}</span></p>
+    <div class='text-right supreme-additional-data'>
+		AP+ : {{ap_granted}}
+		<br />Minions+ : {{minions_granted}}
+		<br /><span class='supreme-factions'>{{factions}}</span><span class='supreme-freelance-{{is_freelance}}' />
+	</div>
+    <div class='bottom-footer'>
+      <img src="img/supremes/01_thumb.jpg" width="45px" />
+	  <div class='footer-buttons'>
+        <button type="button" class="btn btn-sm btn-default" title='Show details' data-toggle="modal" data-target="#supreme-modal-{{id}}">
+          <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+	    </button>
+        <button type="button" class="btn btn-sm btn-default btn-select-supreme" title='Add Supreme to your Team Selection' id="btn-select-supreme-{{id}}">
+		  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+		</button>    
+	  </div>
+    </div>
+    
 </div>
 {{/supremes}}
