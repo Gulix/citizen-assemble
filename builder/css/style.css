@@ -22,8 +22,12 @@
 }
 
 .supreme-list-element .supreme-additional-data {
-	margin-right: 3px;
-	
+	margin-right: 3px;	
+}
+
+img.supreme-freelance {
+	margin-top: 0px;
+	height: 14px;
 }
 
 .footer-buttons {
@@ -131,4 +135,51 @@
 }
 .hero-villain-11 {
     background-image: url("../img/herovillain.png");
+}
+
+/* Supreme factions */
+.faction-arc {
+	color: #804010;
+}
+.faction-bloodwatch {
+	color: #A02820;
+}
+.faction-coven {
+	color: #8028E0;
+}
+.faction-forgotten{
+	color: #708090;
+}
+.faction-grimm {
+	color: #A05030;
+}
+.faction-heavymetal{
+	color: #0000FF;
+}
+.faction-infinitehourglass{
+	color: #B08800;
+}
+.faction-jadecult{
+	color: #006000;
+}
+.faction-necroplane{
+	color: #800080;
+}
+.faction-otherside{
+	color: #008080;
+}
+.faction-settlersgreen{
+	color: #208820;
+}
+.faction-starmarshals{
+	color: #000080;
+}
+.faction-supremealliance{
+	color: #B02020;
+}
+.faction-theway{
+	color: #FF4000;
+}
+.faction-ulthar{
+	color: #2090FF;
 }

@@ -9,7 +9,11 @@
 	</div>
     
     <p class='text-left supreme-role'>{{role}} <span class='role-level-{{level}}'>lvl.{{level}}</span></p>
-    <p class='text-right supreme-additional-data'>AP+ : {{ap_granted}}<br />Minions+ : {{minions_granted}}</p>
+    <div class='text-right supreme-additional-data'>
+		AP+ : {{ap_granted}}
+		<br />Minions+ : {{minions_granted}}
+		<br /><span class='supreme-factions'>{{factions}}</span><span class='supreme-freelance-{{is_freelance}}' />
+	</div>
     <div class='bottom-footer'>
       <img src="img/supremes/01_thumb.jpg" width="45px" />
 	  <div class='footer-buttons'>
