@@ -17,10 +17,10 @@
     <div class='bottom-footer'>
       <img src="img/supremes/01_thumb.jpg" width="45px" />
 	  <div class='footer-buttons'>
-        <button type="button" class="btn btn-sm" title='Show details' data-toggle="modal" data-target="#supreme-modal-{{id}}">
+        <button type="button" class="btn btn-sm btn-default" title='Show details' data-toggle="modal" data-target="#supreme-modal-{{id}}">
           <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
 	    </button>
-        <button type="button" class="btn btn-sm btn-select-supreme" title='Add Supreme to your Team Selection' id="btn-select-supreme-{{id}}">
+        <button type="button" class="btn btn-sm btn-default btn-select-supreme" title='Add Supreme to your Team Selection' id="btn-select-supreme-{{id}}">
 		  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 		</button>    
 	  </div>

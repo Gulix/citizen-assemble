@@ -210,6 +210,9 @@ function fill_supremes()
           $(".supreme-selection").each(function() { $( this ).hide(); });
           // Click on Buttons
           $(".btn-unselect-supreme").click(function() { unselect_supreme(getSupremeId("btn-unselect-supreme-", $(this).attr('id')), true); });
+		  $('#btnHideSelectionFooter').click(function() { hide_selection_footer(); });
+          $('#btnShowSelectionFooter').click(function() { show_selection_footer(); });
+		  $(".supreme-selection").click(function() { toggle_selection_footer(getSupremeId("supreme-selection-", $(this).attr('id'))); });
         },
       dataType: "text"
     });
@@ -372,6 +375,24 @@ function sort_selected_supremes()
   });
 
   $supremes.detach().appendTo($supreme_list);
+}
+
+function hide_selection_footer()
+{
+  $('.supreme-selected-list-element .supreme-role').slideUp(300);
+  $('.supreme-selected-list-element .bottom-footer').slideUp(300);
+}
+
+function show_selection_footer()
+{
+  $('.supreme-selected-list-element .supreme-role').slideDown(300);
+  $('.supreme-selected-list-element .bottom-footer').slideDown(300);
+}
+
+function toggle_selection_footer(id)
+{
+  $('#supreme-selection-' + id +' .supreme-role').slideToggle(300);
+  $('#supreme-selection-' + id +' .bottom-footer').slideToggle(300);
 }
 
 /*****************/
@@ -738,6 +759,8 @@ $(function() {
   
   update_summary();
   check_honorary_member();
+   
+  
    
   // Events on the Affiliation
   changeAffiliation();

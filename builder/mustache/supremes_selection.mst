@@ -1,4 +1,14 @@
-<h4><u>Selected Supremes</u></h4>
+<div class='section-title'>Selected Supremes</div>
+<div class="btn-toolbar" >
+  <div class="btn-group">
+    <button type="button" class="btn btn-sm btn-default" title='Show footer' id='btnShowSelectionFooter'>
+      <span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span>
+	</button>
+    <button type="button" class="btn btn-sm btn-default" title='Hide footer' id='btnHideSelectionFooter'>
+	  <span class="glyphicon glyphicon-resize-small" aria-hidden="true"></span>
+	</button>    
+  </div>
+</div>
 {{#supremes}}
 <div class="supreme-selection supreme-selected-list-element" id="supreme-selection-{{id}}">
   <div class='header'>
@@ -10,10 +20,10 @@
     <div class='footer-icon supreme-origin-{{origin}}' />
 	<div class='footer-icon hero-villain-{{is_hero}}{{is_villain}}'/>
     <div class='footer-buttons'>
-      <button type="button" class="btn btn-sm" title='Show details' data-toggle="modal" data-target="#supreme-modal-{{id}}">
+      <button type="button" class="btn btn-sm btn-default" title='Show details' data-toggle="modal" data-target="#supreme-modal-{{id}}">
 	    <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
 	  </button>
-      <button type="button" class="btn btn-sm btn-unselect-supreme" title='Remove from selection' id="btn-unselect-supreme-{{id}}">
+      <button type="button" class="btn btn-sm btn-default btn-unselect-supreme" title='Remove from selection' id="btn-unselect-supreme-{{id}}">
 	    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 	  </button>
     </div>
