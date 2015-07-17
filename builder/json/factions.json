@@ -1,74 +1,92 @@
 [
   {
     "faction_key": "-0",
-    "faction_label": "Any"
+    "faction_label": "Any",
+    "id": "00"
   },
   {
     "faction_key": "-1",
-    "faction_label": "Without"
+    "faction_label": "Without",
+    "id": "-1"
   },
   {
     "faction_key": "-2",
-    "faction_label": "Without (including Freelance)"
+    "faction_label": "Without (including Freelance)",
+    "id": "-2"
   },
   {
     "faction_key": "arc",
-    "faction_label": "A.R.C."
+    "faction_label": "A.R.C.",
+    "id": "AR"
   },
   {
     "faction_key": "bloodwatch",
-    "faction_label": "Blood Watch"
+    "faction_label": "Blood Watch",
+    "id": "BW"
   },
   {
     "faction_key": "coven",
-    "faction_label": "Coven"
+    "faction_label": "Coven",
+    "id": "CV"
   },
   {
     "faction_key": "forgotten",
-    "faction_label": "The Forgotten"
+    "faction_label": "The Forgotten",
+    "id": "FR"
   },
   {
     "faction_key": "grimm",
-    "faction_label": "Grimm"
+    "faction_label": "Grimm",
+    "id": "GR"
   },
   {
     "faction_key": "heavymetal",
-    "faction_label": "Heavy Metal"
+    "faction_label": "Heavy Metal",
+    "id": "HM"
   },
   {
     "faction_key": "infinitehourglass",
-    "faction_label": "Infinite Hourglass"
+    "faction_label": "Infinite Hourglass",
+    "id": "IH"
   },
   {
     "faction_key": "jadecult",
-    "faction_label": "Jade Cult"
+    "faction_label": "Jade Cult",
+    "id": "JC"
   },
   {
     "faction_key": "necroplane",
-    "faction_label": "Necroplane"
+    "faction_label": "Necroplane",
+    "id": "NP"
   },
   {
     "faction_key": "otherside",
-    "faction_label": "Otherside"
+    "faction_label": "Otherside",
+    "id": "OS"
   },
   {
     "faction_key": "settlersgreen",
-    "faction_label": "Settler's Green"
+    "faction_label": "Settler's Green",
+    "id": "SG"
   },
   {
     "faction_key": "starmarshals",
-    "faction_label": "Star Marshals"
+    "faction_label": "Star Marshals",
+    "id": "SM"
   },
   {
     "faction_key": "supremealliance",
-    "faction_label": "Supreme Alliance"
+    "faction_label": "Supreme Alliance",
+    "id": "SA"
   },
   {
     "faction_key": "theway",
-    "faction_label": "The Way"
+    "faction_label": "The Way",
+    "id": "TW"
   },
   {
     "faction_key": "ulthar",
-    "faction_label": "Ulthar"
+    "faction_label": "Ulthar",
+    "id": "UL"
   }
 ]
