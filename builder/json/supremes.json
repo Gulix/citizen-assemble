@@ -2192,9 +2192,9 @@
 "minions_granted": 0,
 "factions": [  "bloodwatch" ],
 "is_hero": 1,
-"is_villain": 1,
+"is_villain": 0,
 "is_freelance": 0,
-"origin": "science",
+"origin": "mystery",
 "strength_value": 4,
 "defense_value": 5,
 "agility_value": 6,
@@ -2375,7 +2375,8 @@
 "exclusive_minions": "",
 "elements": [  "darkness" ],
 "ap_limit": 5,
-"supreme_types": [  "outsider" ]
+"supreme_types": [  "outsider" ],
+"excluded_supremes": [ 126 ]
 },{
 "id": 74,
 "name": "Grimm BunBun",
@@ -4078,7 +4079,8 @@
 "exclusive_minions": "",
 "elements": [  "darkness" ],
 "ap_limit": 5,
-"supreme_types": [  "living", "outsider" ]
+"supreme_types": [  "living", "outsider" ],
+"excluded_supremes": [ 73 ]
 },{
 "id": 127,
 "name": "Scarab",
