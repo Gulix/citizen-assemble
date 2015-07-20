@@ -271,7 +271,10 @@ function fill_supremes()
           $(".btn-unselect-supreme").click(function() { unselect_supreme(getSupremeId("btn-unselect-supreme-", $(this).attr('id')), true); });
 		  $('#btnHideSelectionFooter').click(function() { hide_selection_footer(); });
           $('#btnShowSelectionFooter').click(function() { show_selection_footer(); });
-		  $(".supreme-selection").click(function() { toggle_selection_footer(getSupremeId("supreme-selection-", $(this).attr('id'))); });
+		  $(".supreme-selection > .header").click(function() 
+          { 
+            toggle_selection_footer(getSupremeId("supreme-selection-", $(this).parent().attr('id'))); 
+          });
           supremesModalFilled = true;
           load_code_from_url();
         },
@@ -691,6 +694,8 @@ function changeAffiliation()
 
 function getSupremeId(strStartId, strId)
 {
+  if (strId === undefined)
+    return 0;
   return strId.substring(strStartId.length);
 }
 
