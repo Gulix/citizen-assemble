@@ -212,10 +212,7 @@ function fill_supremes()
     window.selected_supremes_list = [];
     
     // Fill some fields (key to value)
-    for(var i = 0; i < window.supremes_list.length; i++)
-    {
-      window.supremes_list[i].role = get_role_value(window.supremes_list[i].role_key);
-    }
+	update_role();
     
     // View to render via Mustache
     var view = { "supremes": window.supremes_list };
@@ -596,6 +593,7 @@ function fill_roles()
     {
        $('#selRoles').append('<option value="' + window.supremes_roles[i].role_key + '">' + window.supremes_roles[i].role_label + '</option>');
     }
+	update_role();
   });  
 }
 
@@ -608,6 +606,17 @@ function get_role_value(role_key)
   }
   
   return "???";
+}
+
+function update_role()
+{
+  if (window.supremes_roles === undefined) return;
+  if (window.supremes_list === undefined) return;
+    
+  for(var i = 0; i < window.supremes_list.length; i++)
+  {
+    window.supremes_list[i].role = get_role_value(window.supremes_list[i].role_key);
+  }
 }
 
 /*******************/
