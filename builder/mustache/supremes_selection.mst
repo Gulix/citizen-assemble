@@ -8,6 +8,16 @@
 	  <span class="glyphicon glyphicon-resize-small" aria-hidden="true"></span>
 	</button>    
   </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-sm btn-default" title='Enter Team code' id='btnEnterCode'
+            data-toggle="modal" data-target="#modal-enter-code" >
+      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+	</button>
+    <button type="button" class="btn btn-sm btn-default" title='Get Team code' id='btnGetCode'
+            data-toggle="modal" data-target="#modal-get-code" >
+	  <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+	</button>
+  </div>
 </div>
 {{#supremes}}
 <div class="supreme-selection supreme-selected-list-element" id="supreme-selection-{{id}}">

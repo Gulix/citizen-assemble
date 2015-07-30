@@ -62,7 +62,12 @@
 "exclusive_minions": "",
 "elements": [   ],
 "ap_limit": 3,
-"supreme_types": [  "mechanical" ]
+"supreme_types": [  "mechanical" ],
+"description": "Today she is one of the most respected and powerful women in Pulp City – Androida has come a really long way in her personal journey.",
+"links": [
+    { "link": "http://pulp-city.com/heroes-and-villains/hero-androida/", "description": "Background story" },
+    { "link": "http://newstore.pulp-city.com/index.php?route=product/product&path=59&product_id=75&sort=pd.name&order=ASC", "description": "Buy / View card on Pulp City Store" }
+]
 },{
 "id": 2,
 "name": "Arquero",
@@ -2192,9 +2197,9 @@
 "minions_granted": 0,
 "factions": [  "bloodwatch" ],
 "is_hero": 1,
-"is_villain": 1,
+"is_villain": 0,
 "is_freelance": 0,
-"origin": "science",
+"origin": "mystery",
 "strength_value": 4,
 "defense_value": 5,
 "agility_value": 6,
@@ -2375,7 +2380,8 @@
 "exclusive_minions": "",
 "elements": [  "darkness" ],
 "ap_limit": 5,
-"supreme_types": [  "outsider" ]
+"supreme_types": [  "outsider" ],
+"excluded_supremes": [ 126 ]
 },{
 "id": 74,
 "name": "Grimm BunBun",
@@ -4078,7 +4084,8 @@
 "exclusive_minions": "",
 "elements": [  "darkness" ],
 "ap_limit": 5,
-"supreme_types": [  "living", "outsider" ]
+"supreme_types": [  "living", "outsider" ],
+"excluded_supremes": [ 73 ]
 },{
 "id": 127,
 "name": "Scarab",
