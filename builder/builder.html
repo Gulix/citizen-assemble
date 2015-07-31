@@ -245,6 +245,8 @@ function fill_supremes()
           $("#list-modal-supremes").html(renderedHtml);
           fill_freelancer();
           setPopupsElements();
+          // Clear the Description div if it has no child
+          $(".supreme-description").each(function() { if($(this).children().length == 0) { $(this).hide(); } });
           // Events on Buttons
           $(".btn-select-supreme-modal").click(function() { select_supreme(getSupremeId("btn-select-supreme-modal-", $(this).attr('id'))); });
           $(".btn-unselect-supreme-modal").click(function() { unselect_supreme(getSupremeId("btn-unselect-supreme-modal-", $(this).attr('id')), true); });
