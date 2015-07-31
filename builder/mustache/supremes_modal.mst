@@ -54,7 +54,7 @@
         <div class='clear-both'>
             <p class='text-left'>
               <strong>Factions :</strong> <span class='supreme-factions'>{{factions}}</span><span class='supreme-freelance-{{is_freelance}}' />
-              <br /><strong>Type :</strong>{{#supreme_types}} {{.}} {{/supreme_types}} {{#elements}} <img src='img/element_{{.}}.png' class='icon-element' /> {{/elements}}
+              <br /><strong>Type :</strong>{{#supreme_types}} {{.}} {{/supreme_types}} {{#elements}} <img src='img/element_{{.}}.png' class='icon-element icon-element-{{.}}' /> {{/elements}}
             </p>
         </div>
         {{#description}}<div class='supreme-description'>{{.}}</div>{{/description}}
