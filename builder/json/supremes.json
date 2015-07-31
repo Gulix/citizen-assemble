@@ -259,7 +259,13 @@
 "exclusive_minions": "",
 "elements": [   ],
 "ap_limit": 4,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ],
+"powers_skills": "Firearms and martial expertise, super strength.",
+"description": "The first Awakened ape and to date, the most powerful and respected leader of the team, relying purely on hus primal instincts. Guerilla is no stranger to modern day weaponry and will go to any lengths to provide for his fellow primates.",
+"links": [
+    { "link": "http://pulp-city.com/heroes-and-villains/guerilla/", "description": "Background story" },
+    { "link": "http://newstore.pulp-city.com/index.php?route=product/product&product_id=189", "description": "Buy / View card on Pulp City Store" }
+]
 },{
 "id": 8,
 "name": "Francis Gator",
@@ -1510,7 +1516,9 @@
 "elements": [   ],
 "ap_limit": 5,
 "supreme_types": [  "living" ],
-"shown_supremes": [ 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023 ]
+"shown_supremes": [ 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023 ],
+"powers_skills": "Grimm command, sabotage and diversion, toxicology and chemistry expertise.",
+"description": "A wannabe screenwriter that worked as a security guard for most of his life, John fled underground after killing a movie producer. He found a place for himself amongst the Gromm and was quicly recognized as their leader, mostly for the vesatility of his skills : starting fire, using technology and chemistry among others."
 },{
 "id": 47,
 "name": "Wonder Wight",

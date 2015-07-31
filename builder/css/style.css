@@ -124,6 +124,16 @@ img.supreme-freelance {
     padding: 10px;
     background-color: #D5D5D5;
     border: 1px solid #7F7F7F;
+    
+}
+.supreme-description-powers {
+    font-weight: bold;
+    text-align: right;
+    margin-left: 40px;
+}
+
+.supreme-description-content {
+    margin-top: 6px;
     font-style: italic;
     text-align: center;
 }

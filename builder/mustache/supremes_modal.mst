@@ -57,7 +57,10 @@
               <br /><strong>Type :</strong>{{#supreme_types}} {{.}} {{/supreme_types}} {{#elements}} <img src='img/element_{{.}}.png' class='icon-element icon-element-{{.}}' /> {{/elements}}
             </p>
         </div>
-        {{#description}}<div class='supreme-description'>{{.}}</div>{{/description}}
+        <div class='supreme-description'>
+          {{#powers_skills}}<div class='supreme-description-powers'>Powers &amp; skills : {{.}}</div>{{/powers_skills}}
+          {{#description}}<div class='supreme-description-content'>{{.}}</div>{{/description}}
+        </div>
         <ul class='supreme-links'>{{#links}}<li class='supreme-link'><a href='{{link}}' target='_blank'>{{description}}</a></li>{{/links}}</ul>
       </div>
       <div class="modal-footer">
