@@ -1017,6 +1017,12 @@ function pad (str, max) {
   return str.length < max ? pad("0" + str, max) : str;
 }
 
+function imgError(image) {
+    image.onerror = "";
+    image.src = "img/default_thumbnail.jpg";
+    return true;
+}
+
 /********************/
 /*** Page loading ***/
 /********************/

@@ -163,7 +163,8 @@
 "exclusive_minions": "+ Access Points",
 "elements": [   ],
 "ap_limit": 5,
-"supreme_types": [  "mechanical" ]
+"supreme_types": [  "mechanical" ],
+"picture_id": 3
 },{
 "id": 5,
 "name": "C.O.R.E. Patton",
@@ -195,7 +196,8 @@
 "exclusive_minions": "+ Access Points",
 "elements": [   ],
 "ap_limit": 5,
-"supreme_types": [  "mechanical" ]
+"supreme_types": [  "mechanical" ],
+"picture_id": 3
 },{
 "id": 6,
 "name": "Twilight",

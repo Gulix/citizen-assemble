@@ -5,7 +5,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <div class="header-modal">
-          <img src="img/supremes/01_thumb.jpg" class='supreme-thumbnail' width="40px" />
+          <img src="img/supremes/{{#picture_id}}{{.}}{{/picture_id}}{{^picture_id}}{{id}}{{/picture_id}}_thumb.jpg" class='supreme-thumbnail' onerror="imgError(this);" width="40px" />
 		  <div class='supreme-name'>{{name}}</div>
         </div>
       </div>
