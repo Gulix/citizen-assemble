@@ -29,12 +29,15 @@
     <div class="row">
       
       <!-- Team Summary -->
-      <div class='col-md-2'>
-        <p>Team Level : <strong id='team-summary-level'></strong></p>
-        <p># of Supremes : <strong id='team-summary-number'></strong></p>
-        <p>AP+ : <strong id='team-summary-apgranted'></strong></p>
-        <p>Minions+ : <strong id='team-summary-minionsgranted'></strong></p>
-      </div>
+	  <div class='col-md-2 team-summary'>
+	    <dl class="dl-horizontal">
+          <dt>Team Level</dt><dd id='team-summary-level'></dd>
+		  <dt># of Supremes</dt><dd id='team-summary-number'></dd>
+		  <dt>AP+</dt><dd id='team-summary-apgranted'></dd>
+		  <dt>Minions+</dt><dd id='team-summary-minionsgranted'></dd>
+        </dl>
+		<div class='team-summary-exclusiveminions'></div>
+	  </div>
       
       <div class='col-md-10'>
         <!-- Factions -->
@@ -952,6 +955,7 @@ function update_summary()
   var teamNumber = 0;
   var teamAP = 0;
   var teamMinions = 0;
+  var exclusiveMinions = [ ];
   for(var i=0; i<window.supremes_list.length; i++)
   {
     if ($("#supreme-selection-" + window.supremes_list[i].id).is(':visible') == true)
@@ -961,13 +965,32 @@ function update_summary()
       if (window.supremes_list[i].role_key != "powerhouse")
         teamAP += window.supremes_list[i].ap_granted;
       teamMinions += window.supremes_list[i].minions_granted;
+	  if (window.supremes_list[i].exclusive_minions.length > 0)
+      {
+        exclusiveMinions.push(window.supremes_list[i].exclusive_minions);
+      }	  
     }
   }
     
   $("#team-summary-level").html(teamLevel);
   $("#team-summary-number").html(teamNumber);
   $("#team-summary-apgranted").html(teamAP);
-  $("#team-summary-minionsgranted").html(teamMinions);  
+  $("#team-summary-minionsgranted").html(teamMinions);
+  if (exclusiveMinions.length == 0) 
+  {
+    $(".team-summary-exclusiveminions").hide();
+	$(".team-summary-exclusiveminions").html("");
+  } else {
+    var htmlExclusiveMinions = "";
+	for(var iExcl = 0; iExcl < exclusiveMinions.length; iExcl++)
+	{
+	  if (iExcl > 0)
+	    htmlExclusiveMinions += '<br />';
+	  htmlExclusiveMinions += exclusiveMinions[iExcl];
+	}
+	$(".team-summary-exclusiveminions").show();
+	$(".team-summary-exclusiveminions").html(htmlExclusiveMinions);
+  }
 }
 
 /************************/

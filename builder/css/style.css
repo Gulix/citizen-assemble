@@ -295,6 +295,14 @@ img.supreme-freelance {
 	color: #2090FF;
 }
 
+.team-summary dl{
+	margin-bottom: 0px;
+}
+.team-summary-exclusiveminions {
+	font-weight: bold;
+	margin-left: 15px;
+}
+
 .clear-both {
     clear: both;
 }
