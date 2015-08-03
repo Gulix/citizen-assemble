@@ -37,6 +37,10 @@
 		  <dt>Minions+</dt><dd id='team-summary-minionsgranted'></dd>
         </dl>
 		<div class='team-summary-exclusiveminions'></div>
+		<div class="alert alert-info faction-card text-center" id="faction-card" role="alert">
+		  <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
+          Faction card granted !
+		</div>
 	  </div>
       
       <div class='col-md-10'>
@@ -122,6 +126,7 @@
                data-toggle="toggle" data-onstyle="warning" data-offstyle="default"
                data-on="Honorary<br />Member" data-off="Normal<br/>Members" type="checkbox" >
         </div>
+		
         <div class="supremes-selected-list" id="list-selected">        
         </div>
       </div>
@@ -369,6 +374,7 @@ function select_supreme(id)
   update_summary();
   check_honorary_member();
   set_unique_code();
+  check_faction_cards();
 }
 
 function unselect_supreme(id, refreshAll)
@@ -407,6 +413,7 @@ function unselect_supreme(id, refreshAll)
     update_summary();
     check_honorary_member();
     set_unique_code();
+	check_faction_cards();
   }
 }
 
@@ -463,6 +470,113 @@ function toggle_selection_footer(id)
 {
   $('#supreme-selection-' + id +' .supreme-role').slideToggle(300);
   $('#supreme-selection-' + id +' .bottom-footer').slideToggle(300);
+}
+
+/********************/
+/*** Faction card ***/
+/********************/
+function load_faction_cards()
+{
+  $.getJSON("json/factions-cards.json", function(jsonCards) {
+    window.faction_cards = jsonCards;
+	check_faction_cards();
+  });
+}
+
+function check_faction_cards()
+{
+  if ((window.faction_cards === undefined) || (window.faction_cards === null))
+  {
+    load_faction_cards();
+	return;
+  }
+
+  // Checking if any of the cards comply with the Team selection
+  var cardGranted = null;
+  for(var iCard = 0; iCard < window.faction_cards.length; iCard++)
+  {
+    // Is the required leader present in the team ?
+	var leaderFound = false;
+	for (var iLeader = 0; iLeader < window.selected_supremes_list.length; iLeader++)
+	{
+	  leaderFound = (window.selected_supremes_list[iLeader].id == window.faction_cards[iCard].leader_required);
+	  if (leaderFound) break;
+	}
+	if (!leaderFound) continue;
+	
+	// Condition on the faction of the Supremes
+	if (window.faction_cards[iCard].faction_required !== null)
+	{
+	  var factionOK = true;
+	  for(var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
+	  {
+	    if(!isInTable(window.selected_supremes_list[iSup].factions, window.faction_cards[iCard].faction_required) 
+		   || ((window.selected_supremes_list[iSup].is_honorary_member !== undefined) && !window.selected_supremes_list[iSup].is_honorary_member))
+		{
+		  factionOK = false;
+		  break;
+		}
+	  }
+	  if (factionOK)
+	  {
+	    cardGranted = window.faction_cards[iCard];
+		break;
+	  }
+	}
+	
+	// Condition on the Origin of the Supremes
+	if (window.faction_cards[iCard].origin_required !== null)
+	{
+	  var originOK = true;
+	  for(var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
+	  {
+	    if(window.selected_supremes_list[iSup].origin != window.faction_cards[iCard].origin_required)
+		{
+		  originOK = false;
+		  break;
+		}
+	  }
+	  if (originOK)
+	  {
+	    cardGranted = window.faction_cards[iCard];
+		break;
+	  }
+	}
+	
+	// Condition on the Alignment of the Supremes
+	if (window.faction_cards[iCard].alignment_required !== null)
+	{
+	  var isHeroRequired = window.faction_cards[iCard].alignment_required == "hero";
+	  var isVillainRequired = window.faction_cards[iCard].alignment_required == "villain";
+	  var alignmentOK = true;
+	  for(var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
+	  {
+	    // Supremes must not be in any Faction (or be a Freelancer)
+	    if((!window.selected_supremes_list[iSup].is_hero && isHeroRequired)
+		   || (!window.selected_supremes_list[iSup].is_villain && isVillainRequired)
+		   || ((window.selected_supremes_list[iSup].factions.length > 0) 
+		       && !window.selected_supremes_list[iSup].is_freelance))
+		{
+		  alignmentOK = false;
+		  break;
+		}
+	  }
+	  if (alignmentOK)
+	  {
+	    cardGranted = window.faction_cards[iCard];
+		break;
+	  }
+	}
+  }
+  
+  if (cardGranted !== null)
+  {
+    $('#faction-card').show();
+  }
+  else 
+  {
+    $('#faction-card').hide();
+  }
 }
 
 /************************/
@@ -734,6 +848,7 @@ function confirmAffiliationChange()
   clear_selection();
   check_honorary_member();
   changeAffiliation();
+  check_faction_cards();
 }
 
 /*********************/
@@ -1042,7 +1157,7 @@ $(function() {
   
   update_summary();
   check_honorary_member();
-   
+  check_faction_cards();
   
    
   // Events on the Affiliation

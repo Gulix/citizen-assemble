@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "card_name": "Power of the Underdog",
+    "leader_required": 11,
+	"faction_required": null,
+	"origin_required": null,
+	"alignment_required": "hero"
+  },
+  {
+    "id": 2,
+    "card_name": "Nature Unbound",
+    "leader_required": 113,
+	"faction_required": null,
+	"origin_required": "nature",
+	"alignment_required": null
+  },
+  {
+    "id": 3,
+    "card_name": "Shadow Mastery",
+    "leader_required": 89,
+	"faction_required": "jadecult",
+	"origin_required": null,
+	"alignment_required": null
+  }
+]
