@@ -494,7 +494,7 @@ function check_faction_cards()
 	var leaderFound = false;
 	for (var iLeader = 0; iLeader < window.selected_supremes_list.length; iLeader++)
 	{
-	  leaderFound = (window.selected_supremes_list[iLeader].id == window.faction_cards[iCard].leader_required);
+	  leaderFound = isInTable(window.faction_cards[iCard].leaders_required, window.selected_supremes_list[iLeader].id);
 	  if (leaderFound) break;
 	}
 	if (!leaderFound) continue;
