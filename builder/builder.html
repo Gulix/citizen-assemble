@@ -4,8 +4,7 @@
   
     <title>Citizen Assemble ! Pulp City Team Builder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
-    <link href="css/bootstrap-toggle.min.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />    
     <link rel="stylesheet" href="css/style.css" />
   </head>
 <body>
@@ -121,11 +120,16 @@
     <div class="row">
       <!-- Selected items -->
       <div class="col-md-2">        
-        <div id="divHonoraryMember">
+        <div class="alert alert-warning honorary-member text-center" id="honorary-member" role="alert">
+		  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+          Honorary Member
+		</div>
+        
+        <!--<div id="divHonoraryMember">
         <input id="togHonoraryMember"
                data-toggle="toggle" data-onstyle="warning" data-offstyle="default"
                data-on="Honorary<br />Member" data-off="Normal<br/>Members" type="checkbox" >
-        </div>
+        </div>-->
 		
         <div class="supremes-selected-list" id="list-selected">        
         </div>
@@ -156,8 +160,6 @@
             </div>
           </div>
           <div class="modal-footer">
-            <!--<button type="button" class="btn btn-primary" id="btn-copy-url">Copy URL</button>
-            <button type="button" class="btn btn-primary" id="btn-copy-code">Copy code</button>-->
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
@@ -190,7 +192,6 @@
   </div>
   <script src="http://code.jquery.com/jquery.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/bootstrap-toggle.min.js"></script>
 </body>
 <script>
 
@@ -353,28 +354,22 @@ function select_supreme(id)
   $("#btn-select-supreme-modal-" + id).hide();
   $("#btn-unselect-supreme-modal-" + id).show();
   var supremeSelected = get_json_supreme(id);
-  // Is this Supreme an Honorary Member ?  
-  if ($('#togHonoraryMember').prop('checked'))
+  
+  // Is 'Honorary Member' selected ?
+  if (isSelectedAsHonoraryMember(supremeSelected))
   {
-    var alignment = $('#selTeamAffiliation').val();
-    if (
-      ((alignment == 'a_heroes') && !supremeSelected.is_hero)
-      || ((alignment == 'a_villains') && !supremeSelected.is_villain)
-      //|| ((alignment.substring(0,2) == 'f_') && isInTable(supremeSelected.factions, alignment.substring(2)))
-      )
-    {
-      supremeSelected.is_honorary_member = true;
-      $('#togHonoraryMember').bootstrapToggle('off');
-    }
+    supremeSelected.is_honorary_member = true;
+    $("#supreme-selection-" + id).addClass('is-honorary-member');
   }
+  
   window.selected_supremes_list.push(supremeSelected);
     
   sort_selected_supremes();
-  filter_supremes();
   update_summary();
   check_honorary_member();
   set_unique_code();
   check_faction_cards();
+  filter_supremes();
 }
 
 function unselect_supreme(id, refreshAll)
@@ -409,9 +404,9 @@ function unselect_supreme(id, refreshAll)
   if (refreshAll)
   {
     sort_selected_supremes();
+    check_honorary_member();
     filter_supremes();
     update_summary();
-    check_honorary_member();
     set_unique_code();
 	check_faction_cards();
   }
@@ -786,6 +781,17 @@ function fill_factions()
   });
 }
 
+function get_selectedLeader_faction()
+{
+  for (var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
+  {
+    if (window.selected_supremes_list[iSup].role_key == "leader")
+      return window.selected_supremes_list[iSup].factions;
+  }
+  
+  return null;
+}
+
 /******************/
 /*** Alignments ***/
 /******************/
@@ -858,6 +864,7 @@ function check_honorary_member()
 {
   var displayed = false;
   var disabled = false;
+  var active = $('#honorary-member').hasClass('honorary-member-active');
   for (var iSel = 0; iSel < window.selected_supremes_list.length; iSel++)
   {
     if (window.selected_supremes_list[iSel].role_key == "leader")
@@ -868,15 +875,66 @@ function check_honorary_member()
   
   // Toggle button is displayed if there is a Leader in the selected list
   if (displayed)
-    $('#divHonoraryMember').show();
+    $('#honorary-member').show();
   else 
-    $('#divHonoraryMember').hide();
+    $('#honorary-member').hide();
   
-  // If there is already an Honorary Member, the button is disabled
+  // If there is already an Honorary Member, click is not enabled, the star is empty, the color changes
+  $('#honorary-member').removeClass('honorary-member-activable honorary-member-active honorary-member-disabled');
+    
   if (disabled)
-    $('#togHonoraryMember').bootstrapToggle('disable');
+    $('#honorary-member').addClass('honorary-member-disabled');
+  else if (displayed && active)
+    $('#honorary-member').addClass('honorary-member-active');
   else 
-    $('#togHonoraryMember').bootstrapToggle('enable');  
+    $('#honorary-member').addClass('honorary-member-activable');
+}
+
+function isSelectedAsHonoraryMember(supremeSelected)
+{
+  if (!$('#honorary-member').hasClass('honorary-member-active'))
+    return;
+  
+  // Leader factions
+  var leaderFactions = get_selectedLeader_faction();
+  if (leaderFactions === null)
+    return false;
+      
+  // Leader with no factions, Supreme with no faction or Freelancer : Not an Honorary Member
+  if ((leaderFactions.length == 0) && ((supremeSelected.factions.length == 0) || supremeSelected.is_freelance))
+    return false;
+  // Faction of the leader is found within the Supreme Factions : Not an Honorary Member
+  var factionFound = false;
+  for (var iFaction = 0; iFaction < leaderFactions.length; iFaction++)
+  {
+    if (isInTable(supremeSelected.factions, leaderFactions[iFaction]))
+      factionFound = true;
+  }
+  if (factionFound)
+    return false;
+    
+  // The Supreme is an Honorary Member
+  return true;
+}
+
+function change_honorary_member()
+{
+  // Nothing to do when disabled
+  if ($('#honorary-member').hasClass('honorary-member-disabled'))
+    return;
+    
+  if ($('#honorary-member').hasClass('honorary-member-activable'))
+  {
+    $('#honorary-member').removeClass('honorary-member-activable');
+    $('#honorary-member').addClass('honorary-member-active');
+    filter_supremes();
+  }
+  else if ($('#honorary-member').hasClass('honorary-member-active'))
+  {
+    $('#honorary-member').removeClass('honorary-member-active');
+    $('#honorary-member').addClass('honorary-member-activable');
+    filter_supremes();
+  }
 }
 
 /************************************/
@@ -982,8 +1040,8 @@ function filter_supremes()
   var isAlignementFaction = alignment.substring(0, 2) == "f_";
   
   // Honorary Member active ?
-  var isHonoraryMember = $('#togHonoraryMember').prop('checked');
-  if (isHonoraryMember && isFactionSelected && isAlignementFaction)
+  var isHonoraryMember = $('#honorary-member').hasClass('honorary-member-active');
+  if (isHonoraryMember && isFactionSelected)
   {
     isFactionSelected = false; // Honorary Member means we can select from any faction
   }
@@ -1039,9 +1097,9 @@ function filter_supremes()
      // Filter on name
      || ((filterName != '') && (window.supremes_list[i].name.toUpperCase().indexOf(filterName) < 0))
      // Hero
-     || (!isHonoraryMember && isHeroesOnly && !window.supremes_list[i].is_hero) 
+     || (isHeroesOnly && !window.supremes_list[i].is_hero) 
      // Villain
-     || (!isHonoraryMember && isVillainsOnly && !window.supremes_list[i].is_villain) 
+     || (isVillainsOnly && !window.supremes_list[i].is_villain) 
      || isSelected
      // Only one Leader / Powerhouse
      || (excludeLeader && (window.supremes_list[i].role_key == "leader"))
@@ -1172,8 +1230,7 @@ $(function() {
   $('#selAPgranted').on('change', function (e) { filter_supremes(); });
   $('#selMinionsGranted').on('change', function (e) { filter_supremes(); });
   $('#txtFilterName').on('input', function (e) { filter_supremes(); });
-  $('#togHonoraryMember').bootstrapToggle('off');
-  $('#togHonoraryMember').change(function() { filter_supremes(); });  
+  $('#honorary-member').click(function() { change_honorary_member(); });  
   
   $('#btn-validate-code').click(function() { enter_unique_code($('#lbl-enter-team-code').val()); });
 });

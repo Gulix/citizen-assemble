@@ -310,6 +310,33 @@ img.supreme-freelance {
 	padding: 5px;
 }
 
+/* Honorary Member */
+.honorary-member {
+    margin-bottom: 6px;
+	margin-top: 4px;
+	padding: 5px;
+}
+
+.honorary-member-activable {
+    color: #ED9600;
+    background-color: #604102;
+    border-color: #684601;
+    cursor: pointer;
+}
+
+.honorary-member-active {
+    color: rgb(17, 123, 1);
+    background-color: rgb(147, 255, 155);
+    border-color: rgb(0, 120, 18);
+    cursor: pointer;
+}
+
+.honorary-member-disabled {
+    color: #CECDCB;
+    background-color: #7D7D7D;
+    border-color: #000;
+}
+
 .clear-both {
     clear: both;
 }
