@@ -389,7 +389,8 @@ function unselect_supreme(id, refreshAll)
     if (window.selected_supremes_list[i].id == id)
     {
       // If this is a Leader, all the Honorary Members are also removed
-      var isLeader = window.selected_supremes_list[i].role_key == 'leader';
+      var isLeader = window.selected_supremes_list[i].role_key == 'leader'
+        || isInTable(window.selected_supremes_list[i].other_roles, 'leader');
       window.selected_supremes_list.splice(i, 1);
       break;
     }
@@ -791,7 +792,8 @@ function get_selectedLeader_faction()
 {
   for (var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
   {
-    if (window.selected_supremes_list[iSup].role_key == "leader")
+    if (window.selected_supremes_list[iSup].role_key == "leader"
+        || isInTable(window.selected_supremes_list[iSup].other_roles, 'leader'))
       return window.selected_supremes_list[iSup].factions;
   }
   
@@ -873,7 +875,8 @@ function check_honorary_member()
   var active = $('#honorary-member').hasClass('honorary-member-active');
   for (var iSel = 0; iSel < window.selected_supremes_list.length; iSel++)
   {
-    if (window.selected_supremes_list[iSel].role_key == "leader")
+    if ((window.selected_supremes_list[iSel].role_key == "leader") 
+        || isInTable(window.selected_supremes_list[iSel].other_roles, 'leader'))
       displayed = true;
     if (window.selected_supremes_list[iSel].is_honorary_member)
       disabled = true;
@@ -1058,9 +1061,11 @@ function filter_supremes()
   var shownSupremesId = []; // Special shown Supremes
   for (var iSel=0; iSel < window.selected_supremes_list.length; iSel++)
   {
-    if (window.selected_supremes_list[iSel].role_key == "leader")
+    if ((window.selected_supremes_list[iSel].role_key == "leader")
+        || isInTable(window.selected_supremes_list[iSel].other_roles, 'leader'))
       excludeLeader = true;
-    if (window.selected_supremes_list[iSel].role_key == "powerhouse")
+    if ((window.selected_supremes_list[iSel].role_key == "powerhouse")
+        || isInTable(window.selected_supremes_list[iSel].other_roles, 'powerhouse'))
       excludePowerhouse = true;
      
     // Excluded supremes
@@ -1108,8 +1113,8 @@ function filter_supremes()
      || (isVillainsOnly && !window.supremes_list[i].is_villain) 
      || isSelected
      // Only one Leader / Powerhouse
-     || (excludeLeader && (window.supremes_list[i].role_key == "leader"))
-     || (excludePowerhouse && (window.supremes_list[i].role_key == "powerhouse"))
+     || (excludeLeader && ((window.supremes_list[i].role_key == "leader") || isInTable(window.supremes_list[i].other_roles, 'leader')))
+     || (excludePowerhouse && ((window.supremes_list[i].role_key == "powerhouse") || isInTable(window.supremes_list[i].other_roles, 'powerhouse')))
      // Excluded supremes
      || (isInTable(excludedSupremesId, window.supremes_list[i].id))
      // Excluded factions
@@ -1177,6 +1182,9 @@ function update_summary()
 /************************/
 function isInTable(tableData, searchedData)
 {
+  if ((tableData === undefined) || (tableData === null))
+    return false;
+
   for(var i=0; i<tableData.length; i++)
   {
     if (tableData[i] == searchedData)
