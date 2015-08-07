@@ -359,7 +359,12 @@ function select_supreme(id)
   if (isSelectedAsHonoraryMember(supremeSelected))
   {
     supremeSelected.is_honorary_member = true;
-    $("#supreme-selection-" + id).addClass('is-honorary-member');
+    $("#supreme-selection-" + id + " .supreme-name").html('<span class="glyphicon glyphicon-star icon-honorary-member" aria-hidden="true" title="Honorary Member" />' + supremeSelected.name);
+  }
+  else 
+  {
+    supremeSelected.is_honorary_member = false;
+    $("#supreme-selection-" + id + " .icon-honorary-member").remove();
   }
   
   window.selected_supremes_list.push(supremeSelected);
@@ -506,7 +511,7 @@ function check_faction_cards()
 	  for(var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
 	  {
 	    if(!isInTable(window.selected_supremes_list[iSup].factions, window.faction_cards[iCard].faction_required) 
-		   || ((window.selected_supremes_list[iSup].is_honorary_member !== undefined) && !window.selected_supremes_list[iSup].is_honorary_member))
+		   && ((window.selected_supremes_list[iSup].is_honorary_member !== undefined) && !window.selected_supremes_list[iSup].is_honorary_member))
 		{
 		  factionOK = false;
 		  break;
@@ -546,11 +551,12 @@ function check_faction_cards()
 	  var alignmentOK = true;
 	  for(var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
 	  {
-	    // Supremes must not be in any Faction (or be a Freelancer)
+	    // Supremes must not be in any Faction (or be a Freelancer or an Honorary Member)
 	    if((!window.selected_supremes_list[iSup].is_hero && isHeroRequired)
 		   || (!window.selected_supremes_list[iSup].is_villain && isVillainRequired)
 		   || ((window.selected_supremes_list[iSup].factions.length > 0) 
-		       && !window.selected_supremes_list[iSup].is_freelance))
+		       && !window.selected_supremes_list[iSup].is_freelance
+               && !window.selected_supremes_list[iSup].is_honorary_member))
 		{
 		  alignmentOK = false;
 		  break;
