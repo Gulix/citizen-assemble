@@ -1,0 +1,114 @@
+[
+  {
+    "id": 1,
+    "card_name": "Power of the Underdog",
+    "leaders_required": [ 11 ],
+	"faction_required": null,
+	"origin_required": null,
+	"alignment_required": "hero"
+  },
+  {
+    "id": 2,
+    "card_name": "Nature Unbound",
+    "leaders_required": [ 113 ],
+	"faction_required": null,
+	"origin_required": "nature",
+	"alignment_required": null
+  },
+  {
+    "id": 3,
+    "card_name": "Shadow Mastery",
+    "leaders_required": [ 89 ],
+	"faction_required": "jadecult",
+	"origin_required": null,
+	"alignment_required": null
+  },
+  {
+    "id": 4,
+    "card_name": "Digital Armor",
+    "leaders_required": [ 3, 4, 5 ],
+	"faction_required": "heavymetal",
+	"origin_required": null,
+	"alignment_required": null
+  },
+  {
+    "id": 5,
+    "card_name": "Night Stalkers",
+    "leaders_required": [ 68 ],
+	"faction_required": "bloodwatch",
+	"origin_required": null,
+	"alignment_required": null
+  },
+  {
+    "id": 6,
+    "card_name": "Monkey Mayhem",
+    "leaders_required": [ 117, 118, 119 ],
+	"faction_required": "arc",
+	"origin_required": null,
+	"alignment_required": null
+  },
+  {
+    "id": 7,
+    "card_name": "Undermining Authority",
+    "leaders_required": [ 46 ],
+	"faction_required": "grimm",
+	"origin_required": null,
+	"alignment_required": null
+  },
+  {
+    "id": 8,
+    "card_name": "Secret Techniques",
+    "leaders_required": [ 55 ],
+	"faction_required": "theway",
+	"origin_required": null,
+	"alignment_required": null
+  },
+  {
+    "id": 9,
+    "card_name": "Whispered Screams",
+    "leaders_required": [ 85 ],
+	"faction_required": null,
+	"origin_required": null,
+	"alignment_required": "villain"
+  },
+  {
+    "id": 10,
+    "card_name": "Cut-Throats",
+    "leaders_required": [ 91 ],
+	"faction_required": null,
+	"origin_required": null,
+	"alignment_required": "villain"
+  },
+  {
+    "id": 11,
+    "card_name": "Necrotic Awakening",
+    "leaders_required": [ 18 ],
+	"faction_required": "necroplane",
+	"origin_required": null,
+	"alignment_required": null
+  },
+  {
+    "id": 12,
+    "card_name": "Giants amongst Men",
+    "leaders_required": [ 73, 126 ],
+	"faction_required": "forgotten",
+	"origin_required": null,
+	"alignment_required": null
+  },
+  {
+    "id": 13,
+    "card_name": "Saint's Wrath",
+    "leaders_required": [ 33 ],
+	"faction_required": "coven",
+	"origin_required": null,
+	"alignment_required": null
+  },
+  {
+    "id": 14,
+    "card_name": "Tidal Rush",
+    "leaders_required": [ 132 ],
+	"faction_required": "ulthar",
+	"origin_required": null,
+	"alignment_required": null
+  }
+]

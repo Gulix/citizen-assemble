@@ -5,7 +5,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <div class="header-modal">
-          <img src="img/supremes/01_thumb.jpg" class='supreme-thumbnail' width="40px" />
+          <img src="img/supremes/{{#picture_id}}{{.}}{{/picture_id}}{{^picture_id}}{{id}}{{/picture_id}}_thumb.jpg" class='supreme-thumbnail' onerror="imgError(this);" width="40px" />
 		  <div class='supreme-name'>{{name}}</div>
         </div>
       </div>
@@ -54,10 +54,13 @@
         <div class='clear-both'>
             <p class='text-left'>
               <strong>Factions :</strong> <span class='supreme-factions'>{{factions}}</span><span class='supreme-freelance-{{is_freelance}}' />
-              <br /><strong>Type :</strong>{{#supreme_types}} {{.}} {{/supreme_types}} {{#elements}} <img src='img/element_{{.}}.png' class='icon-element' /> {{/elements}}
+              <br /><strong>Type :</strong>{{#supreme_types}} {{.}} {{/supreme_types}} {{#elements}} <img src='img/element_{{.}}.png' class='icon-element icon-element-{{.}}' /> {{/elements}}
             </p>
         </div>
-        {{#description}}<div class='supreme-description'>{{.}}</div>{{/description}}
+        <div class='supreme-description'>
+          {{#powers_skills}}<div class='supreme-description-powers'>Powers &amp; skills : {{.}}</div>{{/powers_skills}}
+          {{#description}}<div class='supreme-description-content'>{{.}}</div>{{/description}}
+        </div>
         <ul class='supreme-links'>{{#links}}<li class='supreme-link'><a href='{{link}}' target='_blank'>{{description}}</a></li>{{/links}}</ul>
       </div>
       <div class="modal-footer">

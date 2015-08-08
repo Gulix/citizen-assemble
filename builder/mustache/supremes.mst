@@ -15,7 +15,7 @@
 		<br /><span class='supreme-factions'>{{factions}}</span><span class='supreme-freelance-{{is_freelance}}' />
 	</div>
     <div class='bottom-footer'>
-      <img src="img/supremes/01_thumb.jpg" width="45px" />
+      <img src="img/supremes/{{#picture_id}}{{.}}{{/picture_id}}{{^picture_id}}{{id}}{{/picture_id}}_thumb.jpg" width="45px" onerror="imgError(this);" />
 	  <div class='footer-buttons'>
         <button type="button" class="btn btn-sm btn-default" title='Show details' data-toggle="modal" data-target="#supreme-modal-{{id}}">
           <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>

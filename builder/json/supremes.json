@@ -163,7 +163,8 @@
 "exclusive_minions": "+ Access Points",
 "elements": [   ],
 "ap_limit": 5,
-"supreme_types": [  "mechanical" ]
+"supreme_types": [  "mechanical" ],
+"picture_id": 3
 },{
 "id": 5,
 "name": "C.O.R.E. Patton",
@@ -195,7 +196,8 @@
 "exclusive_minions": "+ Access Points",
 "elements": [   ],
 "ap_limit": 5,
-"supreme_types": [  "mechanical" ]
+"supreme_types": [  "mechanical" ],
+"picture_id": 3
 },{
 "id": 6,
 "name": "Twilight",
@@ -259,7 +261,13 @@
 "exclusive_minions": "",
 "elements": [   ],
 "ap_limit": 4,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ],
+"powers_skills": "Firearms and martial expertise, super strength.",
+"description": "The first Awakened ape and to date, the most powerful and respected leader of the team, relying purely on hus primal instincts. Guerilla is no stranger to modern day weaponry and will go to any lengths to provide for his fellow primates.",
+"links": [
+    { "link": "http://pulp-city.com/heroes-and-villains/guerilla/", "description": "Background story" },
+    { "link": "http://newstore.pulp-city.com/index.php?route=product/product&product_id=189", "description": "Buy / View card on Pulp City Store" }
+]
 },{
 "id": 8,
 "name": "Francis Gator",
@@ -680,7 +688,7 @@
 "supreme_types": [  "non-living" ]
 },{
 "id": 21,
-"name": "Sanguine (jour)",
+"name": "Sanguine (day)",
 "level": 1,
 "role_key": "support",
 "ap_granted": 2,
@@ -712,7 +720,7 @@
 "supreme_types": [  "non-living" ]
 },{
 "id": 22,
-"name": "Sanguine (nuit)",
+"name": "Sanguine (night)",
 "level": 2,
 "role_key": "support",
 "ap_granted": 4,
@@ -1510,7 +1518,9 @@
 "elements": [   ],
 "ap_limit": 5,
 "supreme_types": [  "living" ],
-"shown_supremes": [ 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023 ]
+"shown_supremes": [ 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023 ],
+"powers_skills": "Grimm command, sabotage and diversion, toxicology and chemistry expertise.",
+"description": "A wannabe screenwriter that worked as a security guard for most of his life, John fled underground after killing a movie producer. He found a place for himself amongst the Gromm and was quicly recognized as their leader, mostly for the vesatility of his skills : starting fire, using technology and chemistry among others."
 },{
 "id": 47,
 "name": "Wonder Wight",
@@ -1673,7 +1683,7 @@
 "supreme_types": [  "living" ]
 },{
 "id": 52,
-"name": "Silverager (calme)",
+"name": "Silverager",
 "level": 2,
 "role_key": "brawler",
 "ap_granted": 2,
@@ -1683,15 +1693,15 @@
 "is_villain": 1,
 "is_freelance": 0,
 "origin": "science",
-"strength_value": 4,
-"defense_value": 5,
-"agility_value": 4,
-"energy_value": 3,
-"mind_value": 4,
-"spirit_value": 3,
-"strength_trump": 0,
+"strength_value": "4/6",
+"defense_value": "5/3",
+"agility_value": "4/3",
+"energy_value": "3/6",
+"mind_value": "4/2",
+"spirit_value": "3/3",
+"strength_trump": 1,
 "defense_trump": 1,
-"agility_trump": 0,
+"agility_trump": 1,
 "energy_trump": 0,
 "mind_trump": 1,
 "spirit_trump": 0,
@@ -2354,6 +2364,7 @@
 "name": "Stygian (True)",
 "level": 3,
 "role_key": "powerhouse",
+"other_roles": [ "leader" ],
 "ap_granted": 3,
 "minions_granted": 0,
 "factions": [  "forgotten" ],
@@ -3734,38 +3745,6 @@
 "ap_limit": 4,
 "supreme_types": [  "living" ]
 },{
-"id": 116,
-"name": "Silverager (rage)",
-"level": 2,
-"role_key": "brawler",
-"ap_granted": 2,
-"minions_granted": 1,
-"factions": [  "arc" ],
-"is_hero": 1,
-"is_villain": 1,
-"is_freelance": 0,
-"origin": "science",
-"strength_value": 6,
-"defense_value": 3,
-"agility_value": 6,
-"energy_value": 3,
-"mind_value": 2,
-"spirit_value": 3,
-"strength_trump": 1,
-"defense_trump": 0,
-"agility_trump": 1,
-"energy_trump": 0,
-"mind_trump": 0,
-"spirit_trump": 0,
-"hp_value": 10,
-"mvt_type": "bounding",
-"mvt_value": 4,
-"is_stealth": 0,
-"exclusive_minions": "",
-"elements": [   ],
-"ap_limit": 4,
-"supreme_types": [  "living", "mechanical" ]
-},{
 "id": 117,
 "name": "Primate of Mystery",
 "level": 1,
@@ -4058,6 +4037,7 @@
 "name": "Stygian (Queen)",
 "level": 3,
 "role_key": "leader",
+"other_roles": [ "powerhouse" ],
 "ap_granted": 3,
 "minions_granted": 0,
 "factions": [  "forgotten" ],

@@ -18,11 +18,16 @@
 	  <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
 	</button>
   </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-sm btn-default" title='Print team' id='btnPrintTeam'
+            data-toggle="modal" data-target="#modal-print-team" >
+      <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+  </div>
 </div>
 {{#supremes}}
 <div class="supreme-selection supreme-selected-list-element" id="supreme-selection-{{id}}">
   <div class='header'>
-		<img src="img/supremes/01_thumb.jpg" class='supreme-thumbnail' width="40px" />
+		<img src="img/supremes/{{#picture_id}}{{.}}{{/picture_id}}{{^picture_id}}{{id}}{{/picture_id}}_thumb.jpg" class='supreme-thumbnail' onerror="imgError(this);" width="40px" />
 		<div class='supreme-name'>{{name}}</div>
 	</div>
   <div class='text-right supreme-role'>{{role}} <span class='role-level-{{level}}'>lvl.{{level}}</span></div>

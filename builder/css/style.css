@@ -124,6 +124,16 @@ img.supreme-freelance {
     padding: 10px;
     background-color: #D5D5D5;
     border: 1px solid #7F7F7F;
+    
+}
+.supreme-description-powers {
+    font-weight: bold;
+    text-align: right;
+    margin-left: 40px;
+}
+
+.supreme-description-content {
+    margin-top: 6px;
     font-style: italic;
     text-align: center;
 }
@@ -283,6 +293,48 @@ img.supreme-freelance {
 }
 .faction-ulthar{
 	color: #2090FF;
+}
+
+.team-summary dl{
+	margin-bottom: 0px;
+}
+.team-summary-exclusiveminions {
+	font-weight: bold;
+	margin-left: 15px;
+}
+
+/* Faction card */
+.faction-card {
+	margin-bottom: 6px;
+	margin-top: 4px;
+	padding: 5px;
+}
+
+/* Honorary Member */
+.honorary-member {
+    margin-bottom: 6px;
+	margin-top: 4px;
+	padding: 5px;
+}
+
+.honorary-member-activable {
+    color: #ED9600;
+    background-color: #604102;
+    border-color: #684601;
+    cursor: pointer;
+}
+
+.honorary-member-active {
+    color: rgb(17, 123, 1);
+    background-color: rgb(147, 255, 155);
+    border-color: rgb(0, 120, 18);
+    cursor: pointer;
+}
+
+.honorary-member-disabled {
+    color: #CECDCB;
+    background-color: #7D7D7D;
+    border-color: #000;
 }
 
 .clear-both {
