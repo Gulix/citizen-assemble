@@ -69,7 +69,7 @@
 "elements": [   ],
 "ap_limit": 3,
 "supreme_types": [  "mechanical" ],
-"powers_skills": "Super-speed, limited machine control."
+"powers_skills": "Super-speed, limited machine control.",
 "description": "The first non-human to become a university professor, Androida still finds time to teach while being one of the world's most prominent Supremes. When not on campus or Hero duty, she runs several women's shelters and still finds time to play the role of Heavy Metal's PR face. With the reconstruction after the Fall, Androida has become fast friends with the feisty Rosie Rude, helping Rosie to adjust to her own new-found role as Supreme.",
 "links": [
     { "link": "http://pulp-city.com/heroes-and-villains/hero-androida/", "description": "Background story" },
@@ -144,7 +144,13 @@
 "exclusive_minions": "+ Access Points",
 "elements": [   ],
 "ap_limit": 5,
-"supreme_types": [  "mechanical" ]
+"supreme_types": [  "mechanical" ],
+"powers_skills": "Super Intelligence, adaptable combat forms.",
+"description": "As Earth's first and only Artificial Intelligence, C.O.R.E. has been mankind's greatest achievement. Able to monitor every computer in the world, C.O.R.E. always knows where and when danger will appear. He is able to construct a physical body out of nearby metallic components so is able to respond instantly to any crisis. His tactical mastery allows him to adapt a power set and physical form that will be most useful in any situation.",
+"links": [
+    { "link": "http://pulp-city.com/heroes-and-villains/c-o-r-e-hero/", "description": "Background story" },
+    { "link": "http://newstore.pulp-city.com/index.php?route=product/product&product_id=84", "description": "Buy / View card on Pulp City Store" }
+]
 },{
 "id": 4,
 "name": "C.O.R.E. Genghis Khan",
@@ -177,7 +183,13 @@
 "elements": [   ],
 "ap_limit": 5,
 "supreme_types": [  "mechanical" ],
-"picture_id": 3
+"picture_id": 3,
+"powers_skills": "Super Intelligence, adaptable combat forms.",
+"description": "As Earth's first and only Artificial Intelligence, C.O.R.E. has been mankind's greatest achievement. Able to monitor every computer in the world, C.O.R.E. always knows where and when danger will appear. He is able to construct a physical body out of nearby metallic components so is able to respond instantly to any crisis. His tactical mastery allows him to adapt a power set and physical form that will be most useful in any situation.",
+"links": [
+    { "link": "http://pulp-city.com/heroes-and-villains/c-o-r-e-hero/", "description": "Background story" },
+    { "link": "http://newstore.pulp-city.com/index.php?route=product/product&product_id=84", "description": "Buy / View card on Pulp City Store" }
+]
 },{
 "id": 5,
 "name": "C.O.R.E. Patton",
@@ -210,7 +222,13 @@
 "elements": [   ],
 "ap_limit": 5,
 "supreme_types": [  "mechanical" ],
-"picture_id": 3
+"picture_id": 3,
+"powers_skills": "Super Intelligence, adaptable combat forms.",
+"description": "As Earth's first and only Artificial Intelligence, C.O.R.E. has been mankind's greatest achievement. Able to monitor every computer in the world, C.O.R.E. always knows where and when danger will appear. He is able to construct a physical body out of nearby metallic components so is able to respond instantly to any crisis. His tactical mastery allows him to adapt a power set and physical form that will be most useful in any situation.",
+"links": [
+    { "link": "http://pulp-city.com/heroes-and-villains/c-o-r-e-hero/", "description": "Background story" },
+    { "link": "http://newstore.pulp-city.com/index.php?route=product/product&product_id=84", "description": "Buy / View card on Pulp City Store" }
+]
 },{
 "id": 6,
 "name": "Twilight",
@@ -242,7 +260,13 @@
 "exclusive_minions": "",
 "elements": [  "darkness" ],
 "ap_limit": 3,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ],
+"powers_skills": "Assassination, infiltration, spirit walking, martial arts and gun expertise.",
+"description": "Confilcted as the Coven's prime assassin, Twilight is a martial arts expert (sent to study in Asia), gun expert and covert ops specialist. As with most of its non-supernatural members, Twilight is an orphan, indoctrinated and brainwashed at early age. What is not obvious is that Twilight utilizes minor voodoo charms that allow her to hide and travel in the spirit world. Chips and cracks have started showing in her loyalty, mostly due to the exposure to the darker supernatural practices of the Coven.",
+"links": [
+    { "link": "http://pulp-city.com/heroes-and-villains/villain-twilight/", "description": "Background story" },
+    { "link": "http://newstore.pulp-city.com/index.php?route=product/product&product_id=147", "description": "Buy / View card on Pulp City Store" }
+]
 },{
 "id": 7,
 "name": "Guerilla",
@@ -312,7 +336,13 @@
 "exclusive_minions": "",
 "elements": [  "water" ],
 "ap_limit": 3,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ],
+"powers_skills": "Feral senses, minor voodoo mastery, ground waters control, minor fauna control.",
+"description": "Born of dark magick and into dark magick, an unholy union of the Albino Gator and a human witch, Fracis is the most bloodthirsty member of the Coven. He holds humans in the utmost contempt. Devoid of empathy, he is unable to form any social bonds, which makes him the ultimate weapon. With no remorse, thick-headedness, and high pain tolerance, all are like a secondary set of teeth, ready to tear into the Coven's enemies. His innate powers are bound to water's murky depths.",
+"links": [
+    { "link": "http://pulp-city.com/heroes-and-villains/villain-francis-gator/", "description": "Background story" },
+    { "link": "http://newstore.pulp-city.com/index.php?route=product/product&product_id=92", "description": "Buy / View card on Pulp City Store" }
+]
 },{
 "id": 9,
 "name": "Rook",
@@ -344,7 +374,13 @@
 "exclusive_minions": "",
 "elements": [   ],
 "ap_limit": 3,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ],
+"powers_skills": "Close combat, personal protection, damage resistance.",
+"description": "A former tester for the Coven Enterprises Military Division, now bearer of state-of-the-art armory and weaponry - including the powerful Tremor Halberd and Impact Armor. Lacking supernatural powers, Rook has some military background. He is the Coven's weak spot and the source of most of their leaks. His secretly tightening of relations with Heavy Metal Supremes may lead to the Coven's division.",
+"links": [
+    { "link": "http://pulp-city.com/heroes-and-villains/villain-rook/", "description": "Background story" },
+    { "link": "http://newstore.pulp-city.com/index.php?route=product/product&product_id=127", "description": "Buy / View card on Pulp City Store" }
+]
 },{
 "id": 10,
 "name": "Iron Train",
