@@ -30,7 +30,13 @@
 "exclusive_minions": "",
 "elements": [   ],
 "ap_limit": 4,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ],
+"powers_skills": "Super strentgth, regeneration.",
+"description": "The only survivor of secret genetic experiments carried out in a remote part of Scotland, Wildman has followed the call of the wild blood in his veins and made his way to Pulp City. He suspects that there he might find the man responsible for arranging the experiments that transformed him into a man-beast, and when he does, Wildman will exact painful vengeance.",
+"links": [
+    { "link": "http://pulp-city.com/heroes-and-villains/wildman-hero/", "description": "Background story" },
+    { "link": "http://newstore.pulp-city.com/index.php?route=product/product&product_id=151", "description": "Buy / View card on Pulp City Store" }
+]
 },{
 "id": 1,
 "name": "Androida",
@@ -63,7 +69,8 @@
 "elements": [   ],
 "ap_limit": 3,
 "supreme_types": [  "mechanical" ],
-"description": "Today she is one of the most respected and powerful women in Pulp City – Androida has come a really long way in her personal journey.",
+"powers_skills": "Super-speed, limited machine control."
+"description": "The first non-human to become a university professor, Androida still finds time to teach while being one of the world's most prominent Supremes. When not on campus or Hero duty, she runs several women's shelters and still finds time to play the role of Heavy Metal's PR face. With the reconstruction after the Fall, Androida has become fast friends with the feisty Rosie Rude, helping Rosie to adjust to her own new-found role as Supreme.",
 "links": [
     { "link": "http://pulp-city.com/heroes-and-villains/hero-androida/", "description": "Background story" },
     { "link": "http://newstore.pulp-city.com/index.php?route=product/product&path=59&product_id=75&sort=pd.name&order=ASC", "description": "Buy / View card on Pulp City Store" }
@@ -99,7 +106,13 @@
 "exclusive_minions": "",
 "elements": [   ],
 "ap_limit": 4,
-"supreme_types": [  "living" ]
+"supreme_types": [  "living" ],
+"powers_skills": "Olympic-class archer, expertise, infiltration.",
+"description": "Regular partner to the mysterious Riposte, Arquero hunts the night armed with his tech bow and deadly arrows. Arquero's mission as a vigilante began as he sought to avenge the murder of his parents. Since that time Riposte has guided and trained him. He has yet to confront the killers of his parents, but that day will come.",
+"links": [
+    { "link": "http://pulp-city.com/heroes-and-villains/arquero-herovillain/", "description": "Background story" },
+    { "link": "http://newstore.pulp-city.com/index.php?route=product/product&product_id=76", "description": "Buy / View card on Pulp City Store" }
+]
 },{
 "id": 3,
 "name": "C.O.R.E. Charlemagne",
