@@ -4834,7 +4834,8 @@
 "elements": [   ],
 "ap_limit": 3,
 "supreme_types": [  "non-living" ],
-"supreme_is_hidden": true
+"supreme_is_hidden": true,
+"picture_id": 41
 },{
 "id": 1014,
 "name": "Supreme Grimm",
@@ -4900,7 +4901,8 @@
 "elements": [   ],
 "ap_limit": 4,
 "supreme_types": [  "living" ],
-"supreme_is_hidden": true
+"supreme_is_hidden": true,
+"picture_id": 43
 },{
 "id": 1016,
 "name": "Grimm Lee Chan",
