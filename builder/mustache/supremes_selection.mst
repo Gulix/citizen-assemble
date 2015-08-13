@@ -19,7 +19,7 @@
 	</button>
   </div>
   <div class="btn-group">
-    <button type="button" class="btn btn-sm btn-default" title='Print team' id='btnPrintTeam'
+    <button type="button" class="btn btn-sm btn-default" title='Print team' id='btn-print-team'
             data-toggle="modal" data-target="#modal-print-team" >
       <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
   </div>

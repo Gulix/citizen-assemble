@@ -192,11 +192,14 @@
   </div>
   <script src="http://code.jquery.com/jquery.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script src="js/pdfmake.min.js"></script>
+  <script src="js/vfs_fonts.js"></script>
 </body>
 <script>
 
 window.supremes_list = [];
 window.selected_supremes_list = [];
+window.factions = [];
 
 var supremesFilled = false;
 var supremesSelectionFilled = false;
@@ -281,6 +284,7 @@ function fill_supremes()
           $(".btn-unselect-supreme").click(function() { unselect_supreme(getSupremeId("btn-unselect-supreme-", $(this).attr('id')), true); });
 		  $('#btnHideSelectionFooter').click(function() { hide_selection_footer(); });
           $('#btnShowSelectionFooter').click(function() { show_selection_footer(); });
+          $('#btn-print-team').click(function() { generate_pdf(); });
 		  $(".supreme-selection > .header").click(function() 
           { 
             toggle_selection_footer(getSupremeId("supreme-selection-", $(this).parent().attr('id'))); 
@@ -596,44 +600,49 @@ function load_code_from_url()
   }
 }
 
-function set_unique_code()
+function get_unique_code()
 {
-  $.getJSON("json/factions.json", function(jsonFactions) {
-    var uniqueCode = '';
-    // First 2 chars : Team affiliation
-    var aff = $('#selTeamAffiliation').val();
-    if (aff == 'a_heroes')
-      uniqueCode = 'HE';
-    else if (aff == 'a_villains')
-      uniqueCode = 'VI';
-    else 
+  var uniqueCode = '';
+  // First 2 chars : Team affiliation
+  var aff = $('#selTeamAffiliation').val();
+  if (aff == 'a_heroes')
+    uniqueCode = 'HE';
+  else if (aff == 'a_villains')
+    uniqueCode = 'VI';
+  else 
+  {
+    for(var iFaction = 0; iFaction < window.factions.length; iFaction++)
     {
-      for(var iFaction = 0; iFaction < jsonFactions.length; iFaction++)
+      if (aff == "f_" + window.factions[iFaction].faction_key)
       {
-        if (aff == "f_" + jsonFactions[iFaction].faction_key)
-        {
-          uniqueCode = jsonFactions[iFaction].id;
-          break;
-        }
+        uniqueCode = window.factions[iFaction].id;
+        break;
       }
     }
-    // Next char : max number of character to id a supreme
-    var idNbCharMax = 0;
-    for (var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
-    {
-      idNbCharMax = Math.max(idNbCharMax, window.selected_supremes_list[iSup].id.toString().length);
-    }
-    uniqueCode = uniqueCode + idNbCharMax;
+  }
+  // Next char : max number of character to id a supreme
+  var idNbCharMax = 0;
+  for (var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
+  {
+    idNbCharMax = Math.max(idNbCharMax, window.selected_supremes_list[iSup].id.toString().length);
+  }
+  uniqueCode = uniqueCode + idNbCharMax;
+  
+  // List of Supremes'ID
+  for (var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
+  {
+    uniqueCode += pad(window.selected_supremes_list[iSup].id, idNbCharMax);
+  }
+  
+  return uniqueCode;
+}
+
+function set_unique_code()
+{
+  var uniqueCode = get_unique_code();
     
-    // List of Supremes'ID
-    for (var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
-    {
-      uniqueCode += pad(window.selected_supremes_list[iSup].id, idNbCharMax);
-    }    
-    
-    $('#lbl-current-team-code').val(uniqueCode);
-    $('#lbl-current-team-code-url').val(location.protocol + '//' + location.host + location.pathname + "?code=" + uniqueCode);
-  });
+  $('#lbl-current-team-code').val(uniqueCode);
+  $('#lbl-current-team-code-url').val(location.protocol + '//' + location.host + location.pathname + "?code=" + uniqueCode);  
 }
 
 function enter_unique_code(teamCode)
@@ -762,8 +771,11 @@ function fill_origins()
 function fill_factions()
 {
   $.getJSON("json/factions.json", function(json) {
+    
+    window.factions = json;
+    
     // Sort factions by name
-    json.sort(function(a, b)
+    window.factions.sort(function(a, b)
     {
       if (a.faction_key < b.faction_key) return -1;
       if (b.faction_key < a.faction_key) return 1;
@@ -772,13 +784,13 @@ function fill_factions()
     
     var ignoredFactions = [ "-0", "-1", "-2" ];
     $('#selTeamAffiliation').append('<optgroup label="Factions" id="optgTeamAffiliationFaction"></optgroup>');
-    for(var i = 0; i < json.length; i++)
+    for(var i = 0; i < window.factions.length; i++)
     {
       // Add the factions in the Affiliation combo box
-      if (!isInTable(ignoredFactions, json[i].faction_key))
-        $('#optgTeamAffiliationFaction').append('<option value="f_' + json[i].faction_key + '">' + json[i].faction_label + '</option>');
+      if (!isInTable(ignoredFactions, window.factions[i].faction_key))
+        $('#optgTeamAffiliationFaction').append('<option value="f_' + window.factions[i].faction_key + '">' + window.factions[i].faction_label + '</option>');
       // Add the factions in the Factions combo box
-      $('#selFactions').append('<option value="' + json[i].faction_key + '">' + json[i].faction_label + '</option>');
+      $('#selFactions').append('<option value="' + window.factions[i].faction_key + '">' + window.factions[i].faction_label + '</option>');
     }
     
     $('#selFactions').val("-0");
@@ -1175,6 +1187,126 @@ function update_summary()
 	$(".team-summary-exclusiveminions").show();
 	$(".team-summary-exclusiveminions").html(htmlExclusiveMinions);
   }
+}
+
+/********************/
+/*** Print to PDF ***/
+/********************/
+function generate_pdf()
+{
+  var docDefinition = { 
+    content: [ ],
+    styles: {
+      header: {
+        fontSize: 36,
+        bold: true,
+        marginBottom: 20
+      },
+      projectDescription: {
+        fontSize: 20,
+        italics: true,
+        marginBottom: 3,
+        marginLeft: 10
+      },
+      projectUrl: {
+        fontSize: 16,
+        color: 'blue',
+        decoration: 'underline',
+        italics: true,
+        marginBottom: 10,
+        marginLeft: 20
+      },
+      affiliationTitle: {
+        fontSize: 24,
+        bold: true,
+        marginBottom: 10
+      },
+      affiliationContent: {
+        fontSize: 24,
+        marginBottom: 10
+      },
+      supremesHeader: {
+        fontSize: 22,
+        bold: true,
+        marginTop: 25
+      },
+      supremeName: {
+        fontSize: 20,
+        bold: true,
+        marginTop: 5
+      },
+      supremeRole: {
+        fontSize: 16
+      }
+    }
+  };
+  
+  // Header generation
+  docDefinition.content.push({ text: 'Supreme Team', style: 'header' });
+  docDefinition.content.push({ text: 'built through the "Citizen Assemble !" project', style: 'projectDescription' });
+  docDefinition.content.push({ text: 'http://github.com/gulix/citizen-assemble', style: 'projectUrl' });
+  
+  // Team Faction or Alignment
+  var affiliation = $('#selTeamAffiliation').val();
+  if (affiliation == 'a_heroes')
+  {
+    docDefinition.content.push({ text: [
+        { text: 'Alignment : ', style: 'affiliationTitle' },
+        { text: 'Team of Heroes', style: 'affiliationContent' }
+    ]});
+  }
+  else if (affiliation == 'a_villains')
+  {
+    docDefinition.content.push({ text: [
+        { text: 'Alignment : ', style: 'affiliationTitle' },
+        { text: 'Team of Villains', style: 'affiliationContent' }
+    ]});
+  }
+  else 
+  {
+    var keyFaction = affiliation.substring(2);
+    var faction = null;
+    for(var iFaction = 0; iFaction < window.factions.length; iFaction++)
+    {
+      if (window.factions[iFaction].faction_key == keyFaction)
+      {
+        faction = window.factions[iFaction];
+        break;
+      }
+    }
+    docDefinition.content.push({ text: [
+        { text: 'Faction : ', style: 'affiliationTitle' },
+        { text: faction.faction_label, style: 'affiliationContent' }
+    ]});
+  }
+  // Unique code
+  docDefinition.content.push({ text: [
+    { text: 'Unique code : ', style: 'affiliationTitle' },
+    { text: get_unique_code(), style: 'affiliationContent' }
+  ]});
+  
+  // List of Supremes
+  var tableBody = [ ];
+  // Header
+  tableBody.push([ {text: ''}, {text: 'Selected supremes', style: 'supremesHeader' } ]);
+  
+  for (var iSupreme = 0; iSupreme < window.selected_supremes_list.length; iSupreme++)
+  {
+    var supreme = window.selected_supremes_list[iSupreme];
+    var cols = [ ];
+    // TODO : Supreme image
+    cols.push({ text: '' });
+    // Supreme description
+    cols.push({ stack: [
+      { text: supreme.name, style: 'supremeName' },
+      { text: 'Level ' + supreme.level + ' ' + get_role_value(supreme.role_key), style: 'supremeRole' },
+    ]});
+    
+    tableBody.push(cols);
+  }
+  docDefinition.content.push({ table: { body: tableBody }, layout: 'lightHorizontalLines' });
+  
+  pdfMake.createPdf(docDefinition).download();
 }
 
 /************************/
