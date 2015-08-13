@@ -337,6 +337,12 @@ img.supreme-freelance {
     border-color: #000;
 }
 
+.github-buttons {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .clear-both {
     clear: both;
 }

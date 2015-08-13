@@ -11,7 +11,18 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-2">
-        <form>
+        <div class='github-buttons'>
+          <button type="button" class="btn btn-default" title='About this project' id='btnAbout'
+                  data-toggle="modal" data-target="#modal-about" >
+            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> About ?
+          </button>
+        </div>
+        <div class='github-buttons'>
+          <a aria-label="Watch gulix/citizen-assemble on GitHub" data-count-aria-label="# watchers on GitHub" data-count-api="/repos/gulix/citizen-assemble#subscribers_count" data-count-href="/gulix/citizen-assemble/watchers" data-style="mega" href="https://github.com/gulix/citizen-assemble" class="github-button">Watch on Github</a>
+        </div>
+        
+        
+        <form class='team-affiliation'>
           <div class="form-group">
             <label for="selTeamAffiliation">Team Alignment / Faction</label>
             <select class="form-control" id="selTeamAffiliation"></select>
@@ -188,12 +199,46 @@
         </div>
       </div>
     </div>
+    
+    <!-- About box -->
+    <div class="modal fade" id="modal-about" tabindex="-1" role="dialog" aria-labelledby="modal-about-label">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="modal-about-label">About Citizen Assemble !</h4>
+          </div>
+          <div class="modal-body">
+            <p><strong>Citizen Assemble !</strong> is a web project intended to provide a Team Builder for the miniatures game <strong>Pulp City</strong>.</p>
+            <p>This project is open-source, has been created by <a href='http://github.com/gulix'>Gulix</a>, and welcome any willing participants.</p>
+            <p>Watch this project on github : <a href='http://github.com/gulix/citizen-assemble'>http://github.com/gulix/citizen-assemble</a></p>
+            <p>Current version : 1.0.0 &lt;2015-08-13&gt;</p>
+            <h4>Pulp City</h4>
+            <ul>
+              <li><a href='http://pulp-city.com/'>Pulp City homepage</a></li>
+              <li><a href='http://forum.pulp-city.com/'>Pulp City forum</a></li>
+            </ul>
+            <h4>Projects employed in this project</h4>
+            <ul>
+              <li><a href='http://getbootstrap.com'>Bootstrap</a></li>
+              <li><a href='http://jquery.com'>Jquery</a></li>
+              <li><a href='https://github.com/janl/mustache.js'>Mustache.js</a></li>
+              <li><a href='https://github.com/bpampuch/pdfmake'>Pdfmake</a></li>              
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
   </div>
   <script src="http://code.jquery.com/jquery.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/pdfmake.min.js"></script>
   <script src="js/vfs_fonts.js"></script>
+  <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 </body>
 <script>
 
