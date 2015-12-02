@@ -239,6 +239,8 @@
   <script src="js/pdfmake.min.js"></script>
   <script src="js/vfs_fonts.js"></script>
   <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+  
+  <script src="scripts/popup.js"></script>
 </body>
 <script>
 
@@ -954,6 +956,8 @@ function check_honorary_member()
     $('#honorary-member').addClass('honorary-member-active');
   else 
     $('#honorary-member').addClass('honorary-member-activable');
+  
+  setPopupsHonoraryMember();
 }
 
 function isSelectedAsHonoraryMember(supremeSelected)
@@ -1001,38 +1005,7 @@ function change_honorary_member()
     $('#honorary-member').addClass('honorary-member-activable');
     filter_supremes();
   }
-}
-
-/************************************/
-/*** Elements and info in Pop-Ups ***/
-/************************************/
-function setPopupsElements()
-{
-    var popupOptions = { trigger: "hover", placement: "top", html: true };
-    // Element air    
-    popupOptions['title'] = "Air element";
-    popupOptions['content'] = "Strong/<b>Water</b> & Strong/<b>Flight</b><br /><i>Earth is Strong/Air</i>";
-    $('.icon-element-air').popover(popupOptions);
-    // Element water
-    popupOptions['title'] = "Water element";
-    popupOptions['content'] = "Strong/<b>Fire</b> & Strong/<b>Mechanical</b><br /><i>Air is Strong/Water</i>";
-    $('.icon-element-water').popover(popupOptions);
-    // Element fire
-    popupOptions['title'] = "Fire element";
-    popupOptions['content'] = "Strong/<b>Earth</b> & Strong/<b>Non-living</b><br /><i>Water is Strong/Fire</i>";
-    $('.icon-element-fire').popover(popupOptions);
-    // Element earth
-    popupOptions['title'] = "Earth element";
-    popupOptions['content'] = "Strong/<b>Air</b> & Strong/<b>Objects and Structures</b><br /><i>Fire is Strong/Earth</i>";
-    $('.icon-element-earth').popover(popupOptions);
-    // Element light
-    popupOptions['title'] = "Light element";
-    popupOptions['content'] = "Strong/<b>Darkness</b> & Strong/<b>Outsider</b><br /><i>Darkness is Strong/Light</i>";
-    $('.icon-element-light').popover(popupOptions);
-    // Element darkness
-    popupOptions['title'] = "Darkness element";
-    popupOptions['content'] = "Strong/<b>Light</b> & Strong/<b>Living</b><br /><i>Light is Strong/Darkness</i>";
-    $('.icon-element-darkness').popover(popupOptions);
+  setPopupsHonoraryMember();
 }
 
 /**************/
