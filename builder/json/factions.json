@@ -88,5 +88,10 @@
     "faction_key": "ulthar",
     "faction_label": "Ulthar",
     "id": "UL"
+  },
+  {
+    "faction_key": "redrepublik",
+    "faction_label": "Red Republik",
+    "id": "RR"
   }
 ]
