@@ -43,7 +43,7 @@ function setPopupsElements()
 /***********************/
 function setPopupsHonoraryMember()
 {
-    var popupOptions = { trigger: "hover", placement: "right", html: true };
+    var popupOptions = { trigger: "hover", placement: "right", html: true, container: 'body' };
     popupOptions['title'] = "Honorary Member";
     
     if ($('#honorary-member').hasClass('honorary-member-active'))

@@ -16,13 +16,13 @@
 }
 
 .supreme-list-element .bottom-footer {
-    position:absolute; 
+    position:absolute;
     bottom:0px;
 	width:100%;
 }
 
 .supreme-list-element .supreme-additional-data {
-	margin-right: 3px;	
+	margin-right: 3px;
 }
 
 img.supreme-freelance {
@@ -37,7 +37,7 @@ img.supreme-freelance {
 }
 
 .header .supreme-name {
-    float: none; 
+    float: none;
     width: auto;
 	overflow: hidden;
     height: 50px;
@@ -64,11 +64,11 @@ img.supreme-freelance {
 
 /* Header on the modal view */
 .modal-header {
-    background:  linear-gradient(#BBBBBB, #DDDDDD 45%, #FFFFFF 90%);    
+    background:  linear-gradient(#BBBBBB, #DDDDDD 45%, #FFFFFF 90%);
 }
 
 .header-modal .supreme-name {
-    float: none; 
+    float: none;
     width: auto;
 	overflow: hidden;
     height: 50px;
@@ -124,7 +124,7 @@ img.supreme-freelance {
     padding: 10px;
     background-color: #D5D5D5;
     border: 1px solid #7F7F7F;
-    
+
 }
 .supreme-description-powers {
     font-weight: bold;
@@ -144,8 +144,8 @@ img.supreme-freelance {
 
 /* Icons */
 .info-icon {
-    height: 25px; 
-    width: 25px; 
+    height: 25px;
+    width: 25px;
     margin-top:2px;
     margin-bottom: 0px;
     margin-left: 0px;
@@ -157,8 +157,8 @@ img.supreme-freelance {
 }
 
 .icon-element {
-    height: 20px; 
-    width: 20px; 
+    height: 20px;
+    width: 20px;
     margin-left: 6px;
 }
 
@@ -190,8 +190,8 @@ img.supreme-freelance {
 }
 
 .footer-icon {
-    height: 20px; 
-    width: 20px; 
+    height: 20px;
+    width: 20px;
     margin-top:0px;
     margin-bottom: 0px;
     margin-left: 2px;
@@ -337,6 +337,12 @@ img.supreme-freelance {
     border-color: #000;
 }
 
+#honorary-member-detail {
+    font-size: smaller;
+    font-style: italic;
+}
+
+
 .github-buttons {
     text-align: center;
     margin-top: 5px;
@@ -345,4 +351,8 @@ img.supreme-freelance {
 
 .clear-both {
     clear: both;
+}
+
+.popover{
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
 }
