@@ -265,7 +265,7 @@ img.supreme-freelance {
 	color: #A05030;
 }
 .faction-heavymetal{
-	color: #0000FF;
+	color: #8A8A8A;
 }
 .faction-infinitehourglass{
 	color: #B08800;
@@ -286,13 +286,16 @@ img.supreme-freelance {
 	color: #000080;
 }
 .faction-supremealliance{
-	color: #B02020;
+	color: #0088FF;
 }
 .faction-theway{
 	color: #FF4000;
 }
 .faction-ulthar{
 	color: #2090FF;
+}
+.faction-redrepublik{
+  color: #FF0000;
 }
 
 .team-summary dl{
