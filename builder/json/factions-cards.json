@@ -110,5 +110,21 @@
 	"faction_required": "ulthar",
 	"origin_required": null,
 	"alignment_required": null
+  },
+  {
+    "id": 15,
+    "card_name": "The Greatest Generation",
+    "leaders_required": [ 138 ],
+	"faction_required": "supremealliance",
+	"origin_required": null,
+	"alignment_required": null
+  },
+  {
+    "id": 16,
+    "card_name": "Iron Curtain",
+    "leaders_required": [ 139 ],
+	"faction_required": "redrepublik",
+	"origin_required": null,
+	"alignment_required": null
   }
 ]
