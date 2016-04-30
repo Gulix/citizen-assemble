@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
 <body>
-  <div class="container-fluid">
+  <div class="container-fluid" id="main-view">
     <div class="row">
       <div class="col-md-2">
         <div class='github-buttons'>
@@ -140,7 +140,33 @@
         </div>
       </div>
       <!-- List of items -->
-      <div class="col-md-10 supremes-list" id="list-supremes">
+      <div class="col-md-10 supremes-list" id="list-supremes" data-bind="foreach: supremes_list">
+        <div class='col-md-2 supreme-list-element' id='supreme-list-{{id}}'>
+          <div class='header'>
+        	  <div class='info-icons'>
+        		  <div data-bind="css: originCssClass" class='info-icon' ></div>
+        		  <div data-bind="css: alignmentCssClass" class='info-icon'></div>
+        		</div>
+        		<div class='supreme-name' data-bind="text: name"></div>
+        	</div>
+          <p class='text-left supreme-role'><span data-bind="text: role_key"></span> <span data-bind="css: roleLevelCssClass">lvl.<span data-bind="text: level"></span></span></p>
+          <div class='text-right supreme-additional-data'>
+        		AP+ : <span data-bind="text: ap_granted"></span>
+        		<br />Minions+ : <span data-bind="text: minions_granted"></span>
+            <br /><span class='supreme-factions'>{{factions}}</span><span class='supreme-freelance-{{is_freelance}}' />
+        	</div>
+          <div class='bottom-footer'>
+            <img data-bind="attr:{src: thumbImagePath}" width="45px" onerror="imgError(this);" />
+            <div class='footer-buttons'>
+              <button type="button" class="btn btn-sm btn-default" title='Show details' data-toggle="modal" data-target="#supreme-modal-{{id}}">
+                <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+        	    </button>
+              <button type="button" class="btn btn-sm btn-default btn-select-supreme" title='Add Supreme to your Team Selection' id="btn-select-supreme-{{id}}">
+        		    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        		  </button>
+        	  </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -232,11 +258,17 @@
   <script src="js/bootstrap.min.js"></script>
   <script src="js/pdfmake.min.js"></script>
   <script src="js/vfs_fonts.js"></script>
+  <script src="js/knockout-3.4.0.js"></script>
   <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 
   <!-- Custom scripts -->
+  <script src="scripts/supremeViewModel.js"></script>
+  <script src="scripts/builderViewModel.js"></script>
   <script src="scripts/popup.js"></script>
   <script src="scripts/honoraryMember.js"></script>
+
+  <!-- JSON data files -->
+  <script src="json/supremes.json"></script>
 </body>
 <script>
 
@@ -254,7 +286,10 @@ var factionsFilled = false;
 /********************/
 function fill_supremes()
 {
-  $.getJSON("json/supremes.json", function(json) {
+  var builderVM = new builderViewModel(jsonSupremes);
+  ko.applyBindings(builderVM, document.getElementById("main-view"));
+
+  /*$.getJSON("json/supremes.json", function(json) {
 
     // Sort by Name
     json.sort(function(a, b)
@@ -281,7 +316,7 @@ function fill_supremes()
           var renderedHtml = Mustache.render(mustacheTemplate, view);
           $("#list-supremes").html(renderedHtml);
           fill_factions_name();
-		  fill_freelancer();
+		      fill_freelancer();
           filter_supremes();
           $(".btn-select-supreme").click(function() { select_supreme(getSupremeId("btn-select-supreme-", $(this).attr('id'))); });
           supremesFilled = true;
@@ -337,7 +372,7 @@ function fill_supremes()
         },
       dataType: "text"
     });
-  });
+  });*/
 }
 
 function get_json_supreme(id)

@@ -238,13 +238,13 @@ img.supreme-freelance {
 }
 
 /* Hero or Villain ? */
-.hero-villain-10 {
+.hero {
     background-image: url("../img/hero.png");
 }
-.hero-villain-01 {
+.villain {
     background-image: url("../img/villain.png");
 }
-.hero-villain-11 {
+.herovillain {
     background-image: url("../img/herovillain.png");
 }
 
