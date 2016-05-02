@@ -1,4 +1,4 @@
-[
+var jsonFactions = [
   {
     "faction_key": "-0",
     "faction_label": "Any",
@@ -94,4 +94,4 @@
     "faction_label": "Red Republik",
     "id": "RR"
   }
-]
+];

@@ -1,4 +1,4 @@
-supremeViewModel = function(jsonSupreme) {
+supremeViewModel = function(jsonSupreme, factions) {
   var self = this;
 
   if (jsonSupreme != undefined)
@@ -33,6 +33,7 @@ supremeViewModel = function(jsonSupreme) {
     self.ap_limit = ko.observable(jsonSupreme.ap_limit);
     self.powers_skills = ko.observable(jsonSupreme.powers_skills);
     self.description = ko.observable(jsonSupreme.description);
+    self.picture_id = ko.observable(jsonSupreme.picture_id);
   }
 
   // Elements list
@@ -51,10 +52,27 @@ supremeViewModel = function(jsonSupreme) {
         var mapped = ko.utils.arrayMap(
             jsonSupreme.factions,
             function (item) {
-                return item;
+                for (var iFaction = 0; iFaction < factions().length; iFaction++)
+                {
+                  var currFaction = factions()[iFaction];
+                  if (currFaction.faction_key() == item) { return currFaction; }
+                }
+                return null;
             });
         self.factions(mapped);
   }
+
+  self.is_faction = function(faction_key)
+  {
+    for (var iFaction = 0; iFaction < self.factions().length; iFaction++)
+    {
+      var currFaction = self.factions()[iFaction];
+      if (currFaction.faction_key() == faction_key) { return true; }
+    }
+    return false;
+  };
+
+
   // Supreme's Types list
   self.supreme_types = ko.observableArray([]);
   if ((jsonSupreme != undefined) && (jsonSupreme.supreme_types != undefined)) {
@@ -99,7 +117,7 @@ supremeViewModel = function(jsonSupreme) {
     }
     else
     {
-      path += self.id();
+      path += self.id;
     }
     return path + '_thumb.jpg';
   }, self);

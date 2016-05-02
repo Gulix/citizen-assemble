@@ -57,7 +57,12 @@
         <!-- Factions -->
         <div class='col-md-2'>
           <label for="selFactions">Faction</label>
-          <select id="selFactions" class="form-control" ></select>
+          <select id="selFactions" class="form-control"
+                  data-bind="options: factions_list.sort(function (l, r) { return l.faction_label() > r.faction_label() ? 1 : -1 }),
+                             optionsText: function(item) { return item.faction_label() },
+                             optionsValue: function(item) { return item.faction_key() },
+                             value: selected_faction">
+          </select>
         </div>
         <!-- Origins -->
         <div class='col-md-2'>
@@ -139,8 +144,8 @@
         <div class="supremes-selected-list" id="list-selected">
         </div>
       </div>
-      <!-- List of items -->
-      <div class="col-md-10 supremes-list" id="list-supremes" data-bind="foreach: supremes_list">
+      <!-- List of Supremes -->
+      <div class="col-md-10 supremes-list" id="list-supremes" data-bind="foreach: filtered_supremes().sort(function (l, r) { return l.name() > r.name() ? 1 : -1 })">
         <div class='col-md-2 supreme-list-element' id='supreme-list-{{id}}'>
           <div class='header'>
         	  <div class='info-icons'>
@@ -153,7 +158,10 @@
           <div class='text-right supreme-additional-data'>
         		AP+ : <span data-bind="text: ap_granted"></span>
         		<br />Minions+ : <span data-bind="text: minions_granted"></span>
-            <br /><span class='supreme-factions'>{{factions}}</span><span class='supreme-freelance-{{is_freelance}}' />
+            <br />
+              <span class='supreme-factions' data-bind="foreach: factions"><!-- ko if: $index() > 0 -->, <!-- /ko --><span data-bind="text: faction_label, css: factionCssClass"></span></span>
+              <span class='supreme-factions' data-bind="if: factions().length == 0"><span class="faction-independant">Independant</span></span>
+              <!-- ko if: is_freelance() --><img class='supreme-freelance' title='Freelancer' src='img/freelancer.png' /><!-- /ko -->
         	</div>
           <div class='bottom-footer'>
             <img data-bind="attr:{src: thumbImagePath}" width="45px" onerror="imgError(this);" />
@@ -253,7 +261,6 @@
       </div>
     </div>
 </div>
-  </div>
   <script src="http://code.jquery.com/jquery.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/pdfmake.min.js"></script>
@@ -262,6 +269,7 @@
   <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 
   <!-- Custom scripts -->
+  <script src="scripts/factionViewModel.js"></script>
   <script src="scripts/supremeViewModel.js"></script>
   <script src="scripts/builderViewModel.js"></script>
   <script src="scripts/popup.js"></script>
@@ -269,6 +277,7 @@
 
   <!-- JSON data files -->
   <script src="json/supremes.json"></script>
+  <script src="json/factions.json"></script>
 </body>
 <script>
 
@@ -286,7 +295,7 @@ var factionsFilled = false;
 /********************/
 function fill_supremes()
 {
-  var builderVM = new builderViewModel(jsonSupremes);
+  var builderVM = new builderViewModel(jsonSupremes, jsonFactions);
   ko.applyBindings(builderVM, document.getElementById("main-view"));
 
   /*$.getJSON("json/supremes.json", function(json) {
@@ -848,34 +857,21 @@ function fill_origins()
 /********************/
 function fill_factions()
 {
-  $.getJSON("json/factions.json", function(json) {
+  var ignoredFactions = [ "-0", "-1", "-2" ];
+  $('#selTeamAffiliation').append('<optgroup label="Factions" id="optgTeamAffiliationFaction"></optgroup>');
+  for(var i = 0; i < window.factions.length; i++)
+  {
+    // Add the factions in the Affiliation combo box
+    if (!isInTable(ignoredFactions, window.factions[i].faction_key))
+      $('#optgTeamAffiliationFaction').append('<option value="f_' + window.factions[i].faction_key + '">' + window.factions[i].faction_label + '</option>');
+    // Add the factions in the Factions combo box
+    //$('#selFactions').append('<option value="' + window.factions[i].faction_key + '">' + window.factions[i].faction_label + '</option>');
+  }
 
-    window.factions = json;
+  //$('#selFactions').val("-0");
 
-    // Sort factions by name
-    window.factions.sort(function(a, b)
-    {
-      if (a.faction_key < b.faction_key) return -1;
-      if (b.faction_key < a.faction_key) return 1;
-      return 0;
-    });
-
-    var ignoredFactions = [ "-0", "-1", "-2" ];
-    $('#selTeamAffiliation').append('<optgroup label="Factions" id="optgTeamAffiliationFaction"></optgroup>');
-    for(var i = 0; i < window.factions.length; i++)
-    {
-      // Add the factions in the Affiliation combo box
-      if (!isInTable(ignoredFactions, window.factions[i].faction_key))
-        $('#optgTeamAffiliationFaction').append('<option value="f_' + window.factions[i].faction_key + '">' + window.factions[i].faction_label + '</option>');
-      // Add the factions in the Factions combo box
-      $('#selFactions').append('<option value="' + window.factions[i].faction_key + '">' + window.factions[i].faction_label + '</option>');
-    }
-
-    $('#selFactions').val("-0");
-
-    factionsFilled = true;
-    load_code_from_url();
-  });
+  factionsFilled = true;
+  load_code_from_url();
 }
 
 function get_selectedLeader_faction()
@@ -915,7 +911,7 @@ function changeAffiliation()
   {
     // The faction filter is set and disabled to the selected Faction in the Affiliation
     var keyFaction = affiliation.substring(2);
-    $('#selFactions').val(keyFaction);
+    //$('#selFactions').val(keyFaction);
     $('#selFactions').prop('disabled', 'disabled');
   }
   else if (isAlignment)
@@ -1336,7 +1332,7 @@ $(function() {
   // Events on the filters
   $('#selRoles').on('change', function (e) { filter_supremes(); });
   $('#selOrigins').on('change', function (e) { filter_supremes(); });
-  $('#selFactions').on('change', function (e) { filter_supremes(); });
+  //$('#selFactions').on('change', function (e) { filter_supremes(); });
   $('#selLevels').on('change', function (e) { filter_supremes(); });
   $('#selAPgranted').on('change', function (e) { filter_supremes(); });
   $('#selMinionsGranted').on('change', function (e) { filter_supremes(); });
