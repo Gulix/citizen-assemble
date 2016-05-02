@@ -38,7 +38,7 @@ builderViewModel = function(supremesList, factionsList)
           var displayed = true;
 
           // Faction
-          if (displayed && !supreme.is_faction(self.selected_faction())) {
+          if (displayed && !supreme.is_factionOK(self.selected_faction())) {
             displayed = false;
           }
 

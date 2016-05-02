@@ -62,8 +62,22 @@ supremeViewModel = function(jsonSupreme, factions) {
         self.factions(mapped);
   }
 
-  self.is_faction = function(faction_key)
+  /**
+   * Checks if the Faction Key matches the Factions of the Supremes (could be 'Without faction')
+   * @param  {string} faction_key [description]
+   * @return {boolean}             [description]
+   */
+  self.is_factionOK = function(faction_key)
   {
+    // Any faction
+    if (faction_key == '-0') { return true; }
+    // Without faction
+    if (((faction_key == '-1') || (faction_key == '-2'))
+         && (self.factions().length == 0)) { return true; }
+    // Without faction (including Freelancer)
+    if ((faction_key == '-2') && self.is_freelance()) { return true; }
+
+    // Checking for each faction of the Supreme
     for (var iFaction = 0; iFaction < self.factions().length; iFaction++)
     {
       var currFaction = self.factions()[iFaction];

@@ -58,7 +58,7 @@
         <div class='col-md-2'>
           <label for="selFactions">Faction</label>
           <select id="selFactions" class="form-control"
-                  data-bind="options: factions_list.sort(function (l, r) { return l.faction_label() > r.faction_label() ? 1 : -1 }),
+                  data-bind="options: factions_list.sort(function (l, r) { return l.sort_faction(r); }),
                              optionsText: function(item) { return item.faction_label() },
                              optionsValue: function(item) { return item.faction_key() },
                              value: selected_faction">
