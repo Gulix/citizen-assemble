@@ -67,7 +67,11 @@
         <!-- Origins -->
         <div class='col-md-2'>
           <label for="selOrigins">Origin</label>
-          <select id="selOrigins" class="form-control" ></select>
+          <select id="selOrigins" class="form-control"
+                  data-bind="options: origins_list.sort(function (l, r) { return l.sort_origin(r); }),
+                             optionsText: function(item) { return item.origin_label() },
+                             optionsValue: function(item) { return item.origin_key() },
+                             value: selected_origin"></select>
         </div>
         <!-- Roles -->
         <div class='col-md-2'>
@@ -270,6 +274,7 @@
 
   <!-- Custom scripts -->
   <script src="scripts/factionViewModel.js"></script>
+  <script src="scripts/originViewModel.js"></script>
   <script src="scripts/supremeViewModel.js"></script>
   <script src="scripts/builderViewModel.js"></script>
   <script src="scripts/popup.js"></script>
@@ -278,6 +283,8 @@
   <!-- JSON data files -->
   <script src="json/supremes.json"></script>
   <script src="json/factions.json"></script>
+  <script src="json/origins.json"></script>
+
 </body>
 <script>
 
@@ -295,7 +302,7 @@ var factionsFilled = false;
 /********************/
 function fill_supremes()
 {
-  var builderVM = new builderViewModel(jsonSupremes, jsonFactions);
+  var builderVM = new builderViewModel(jsonSupremes, jsonFactions, jsonOrigins);
   ko.applyBindings(builderVM, document.getElementById("main-view"));
 
   /*$.getJSON("json/supremes.json", function(json) {
@@ -838,20 +845,6 @@ function update_role()
   }
 }
 
-/*******************/
-/*** The Origins ***/
-/*******************/
-function fill_origins()
-{
-  $.getJSON("json/origins.json", function(json) {
-
-    for(var i = 0; i < json.length; i++)
-    {
-       $('#selOrigins').append('<option value="' + json[i].origin_key + '">' + json[i].origin_label + '</option>');
-    }
-  });
-}
-
 /********************/
 /*** The Factions ***/
 /********************/
@@ -1314,7 +1307,6 @@ $(function() {
   fillAlignments();
   // Filters
   fill_roles();
-  fill_origins();
   fill_factions();
 
   // The list of the Supremes
@@ -1331,8 +1323,6 @@ $(function() {
 
   // Events on the filters
   $('#selRoles').on('change', function (e) { filter_supremes(); });
-  $('#selOrigins').on('change', function (e) { filter_supremes(); });
-  //$('#selFactions').on('change', function (e) { filter_supremes(); });
   $('#selLevels').on('change', function (e) { filter_supremes(); });
   $('#selAPgranted').on('change', function (e) { filter_supremes(); });
   $('#selMinionsGranted').on('change', function (e) { filter_supremes(); });

@@ -1,4 +1,4 @@
-supremeViewModel = function(jsonSupreme, factions) {
+supremeViewModel = function(jsonSupreme, builderVM) {
   var self = this;
 
   if (jsonSupreme != undefined)
@@ -52,9 +52,9 @@ supremeViewModel = function(jsonSupreme, factions) {
         var mapped = ko.utils.arrayMap(
             jsonSupreme.factions,
             function (item) {
-                for (var iFaction = 0; iFaction < factions().length; iFaction++)
+                for (var iFaction = 0; iFaction < builderVM.factions_list().length; iFaction++)
                 {
-                  var currFaction = factions()[iFaction];
+                  var currFaction = builderVM.factions_list()[iFaction];
                   if (currFaction.faction_key() == item) { return currFaction; }
                 }
                 return null;
@@ -85,7 +85,6 @@ supremeViewModel = function(jsonSupreme, factions) {
     }
     return false;
   };
-
 
   // Supreme's Types list
   self.supreme_types = ko.observableArray([]);
