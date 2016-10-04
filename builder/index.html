@@ -25,7 +25,12 @@
         <form class='team-affiliation'>
           <div class="form-group">
             <label for="selTeamAffiliation">Team Alignment / Faction</label>
-            <select class="form-control" id="selTeamAffiliation"></select>
+            <select class="form-control" id="selTeamAffiliation"
+                    data-bind="foreach: affiliations, value:selected_affiliation">
+              <optgroup data-bind="attr: {label: label}, foreach: children">
+                <option data-bind="text: label, value: key"></option>
+              </optgroup>
+            </select>
           </div>
         </form>
       </div>
@@ -76,63 +81,44 @@
         <!-- Roles -->
         <div class='col-md-2'>
           <label for="selRoles">Role</label>
-          <select id="selRoles" class="form-control" ></select>
+          <select id="selRoles" class="form-control"
+                  data-bind="options: roles_list.sort(function (l, r) { return l.sort(r); }),
+                             optionsText: function(item) { return item.label() },
+                             optionsValue: function(item) { return item.key() },
+                             value: selected_role"></select>
         </div>
         <!-- Levels -->
         <div class='col-md-2'>
           <label for="selLevels">Level</label>
-          <select id="selLevels" class="form-control" >
-            <option value='0'>Any</option>
-            <option value='1'>Level 1</option>
-            <option value='2'>Level 2</option>
-            <option value='3'>Level 3</option>
-            <option value='12'>Level 1 or 2</option>
-            <option value='23'>Level 2 or 3</option>
-          </select>
+          <select id="selLevels" class="form-control"
+                  data-bind="options: levels_list,
+                             optionsText: function(item) { return item.label() },
+                             optionsValue: function(item) { return item.key() },
+                             value: selected_level"></select>
         </div>
         <!-- AP+ -->
         <div class='col-md-2'>
           <label for="selAPgranted">AP+</label>
-          <select id="selAPgranted" class="form-control" >
-            <option value='+0'>Any</option>
-            <option value='+1'>1 or more</option>
-            <option value='+2'>2 or more</option>
-            <option value='+3'>3 or more</option>
-            <option value='+4'>4 or more</option>
-            <option value='=0'>0</option>
-            <option value='=1'>1</option>
-            <option value='=2'>2</option>
-            <option value='=3'>3</option>
-            <option value='=4'>4</option>
-            <option value='-1'>1 or less</option>
-            <option value='-2'>2 or less</option>
-            <option value='-3'>3 or less</option>
-            <option value='-4'>4 or less</option>
-          </select>
+          <select id="selAPgranted" class="form-control"
+                  data-bind="options: ap_granted_choices,
+                             optionsText: 'label',
+                             optionsValue: 'key',
+                             value: selected_ap_granted"></select>
         </div>
         <!-- Minions+ -->
         <div class='col-md-2'>
           <label for="selMinionsGranted">Minions+</label>
-          <select id="selMinionsGranted" class="form-control" >
-            <option value='+0'>Any</option>
-            <option value='+1'>1 or more</option>
-            <option value='+2'>2 or more</option>
-            <option value='+3'>3 or more</option>
-            <option value='+4'>4 or more</option>
-            <option value='=0'>0</option>
-            <option value='=1'>1</option>
-            <option value='=2'>2</option>
-            <option value='=3'>3</option>
-            <option value='=4'>4</option>
-            <option value='-1'>1 or less</option>
-            <option value='-2'>2 or less</option>
-            <option value='-3'>3 or less</option>
-          </select>
+          <select id="selMinionsGranted" class="form-control"
+                  data-bind="options: minions_granted_choices,
+                             optionsText: 'label',
+                             optionsValue: 'key',
+                             value: selected_minions_granted"></select>
         </div>
         <!-- Text filter -->
         <div class='col-md-4'>
           <label for="txtFilterName">Supreme name</label>
-          <input id='txtFilterName' type="text" class="form-control" placeholder="Search for..."></input>
+          <input id='txtFilterName' type="text" class="form-control" placeholder="Search for..."
+                 data-bind='textInput: filter_name'></input>
         </div>
       </div>
     </div>
@@ -158,7 +144,7 @@
         		</div>
         		<div class='supreme-name' data-bind="text: name"></div>
         	</div>
-          <p class='text-left supreme-role'><span data-bind="text: role_key"></span> <span data-bind="css: roleLevelCssClass">lvl.<span data-bind="text: level"></span></span></p>
+          <p class='text-left supreme-role'><span data-bind="text: role_label"></span> <span data-bind="css: roleLevelCssClass">lvl.<span data-bind="text: level"></span></span></p>
           <div class='text-right supreme-additional-data'>
         		AP+ : <span data-bind="text: ap_granted"></span>
         		<br />Minions+ : <span data-bind="text: minions_granted"></span>
@@ -170,7 +156,7 @@
           <div class='bottom-footer'>
             <img data-bind="attr:{src: thumbImagePath}" width="45px" onerror="imgError(this);" />
             <div class='footer-buttons'>
-              <button type="button" class="btn btn-sm btn-default" title='Show details' data-toggle="modal" data-target="#supreme-modal-{{id}}">
+              <button type="button" class="btn btn-sm btn-default" title='Show details' data-bind="click: selectForDetail" >
                 <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
         	    </button>
               <button type="button" class="btn btn-sm btn-default btn-select-supreme" title='Add Supreme to your Team Selection' id="btn-select-supreme-{{id}}">
@@ -182,8 +168,91 @@
       </div>
     </div>
 
+    <!-- Modal Frame to view the Details of a Supreme -->
+
     <div id="list-modal-supremes">
+      <div class="modal fade" id="supreme-modal" tabindex="-1" role="dialog" aria-labelledby="supreme-modal-label">
+        <div class="modal-dialog" >
+          <!-- ko if:$data.supreme_detailed -->
+          <div class="modal-content" data-binding="with: $data.supreme_detailed">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <div class="header-modal">
+                <img data-bind="attr:{src: thumbImagePath}" width="40px" onerror="imgError(this);"></img>
+      		      <div class='supreme-name' data-bind="text: name"></div>
+              </div>
+            </div>
+            <div class="modal-body">
+              <div>
+                <div class='info-icons'>
+      		        <div class='info-icon' data-bind='css: originCssClass' ></div>
+      		        <div data-bind="css: alignmentCssClass" class='info-icon'></div>
+      		      </div>
+                <div class='informations-left-modal'>
+                  <p class='text-left'><span data-bind="text: role_label"></span> <span data-bind="css: roleLevelCssClass">lvl.<span data-bind="text: level"></span></p>
+                  <p class='text-left'>AP+ : <span data-bind="text: ap_granted"></span>
+                    <br />AP limit : <span data-bind="text: ap_limit"></span>
+                    <br />Minions+ : <span data-bind="text: minions_granted"></span><br />{{#exclusive_minions}}<span class='exclusive-minion-name' title='Exclusive Minion'>{{.}}</span>{{/exclusive_minions}}
+                  </p>
+                </div>
+                <table class='table-bordered table-traits'>
+                  <thead>
+                    <tr>
+                      <th class='traits-value traits-trump-{{strength_trump}}'><img src='img/traits_strength.png' title='Strength'/></th>
+                      <th class='traits-value traits-trump-{{defense_trump}}'><img src='img/traits_defense.png' title='Defense'/></th>
+                      <th class='traits-value traits-trump-{{agility_trump}}'><img src='img/traits_agility.png' title='Agility'/></th>
+                      <th class='traits-value traits-trump-{{energy_trump}}'><img src='img/traits_energy.png' title='Energy'/></th>
+                      <th class='traits-value traits-trump-{{mind_trump}}'><img src='img/traits_mind.png' title='Mind'/></th>
+                      <th class='traits-value traits-trump-{{spirit_trump}}'><img src='img/traits_spirit.png' title='Spirit'/></th>
+                      <th class='traits-separator'>&nbsp;</th>
+                      <th class='traits-value'>HP</th>
+                      <th class='traits-value'>Mvt</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class='traits-value traits-trump-{{strength_trump}}'>{{strength_value}}</td>
+                      <td class='traits-value traits-trump-{{defense_trump}}'>{{defense_value}}</td>
+                      <td class='traits-value traits-trump-{{agility_trump}}'>{{agility_value}}</td>
+                      <td class='traits-value traits-trump-{{energy_trump}}'>{{energy_value}}</td>
+                      <td class='traits-value traits-trump-{{mind_trump}}'>{{mind_value}}</td>
+                      <td class='traits-value traits-trump-{{spirit_trump}}'>{{spirit_value}}</td>
+                      <th class='traits-separator'>&nbsp;</td>
+                      <td class='traits-value'>{{hp_value}}</td>
+                      <td class='traits-value'>{{mvt_value}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class='clear-both'>
+                  <p class='text-left'>
+                    <strong>Factions :</strong> <span class='supreme-factions'>{{factions}}</span><span class='supreme-freelance-{{is_freelance}}' />
+                    <br /><strong>Type :</strong>{{#supreme_types}} {{.}} {{/supreme_types}} {{#elements}} <img src='img/element_{{.}}.png' class='icon-element icon-element-{{.}}' /> {{/elements}}
+                  </p>
+              </div>
+              <div class='supreme-description'>
+                {{#powers_skills}}<div class='supreme-description-powers'>Powers &amp; skills : {{.}}</div>{{/powers_skills}}
+                {{#description}}<div class='supreme-description-content'>{{.}}</div>{{/description}}
+              </div>
+              <ul class='supreme-links'>{{#links}}<li class='supreme-link'><a href='{{link}}' target='_blank'>{{description}}</a></li>{{/links}}</ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-default" title='Close details' data-dismiss="modal">
+      	      <span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
+      	    </button>
+              <button type="button" class="btn btn-sm btn-default btn-unselect-supreme-modal" title='Remove from selection' id="btn-unselect-supreme-modal-{{id}}">
+      	      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      	    </button>
+              <button type="button" class="btn btn-sm btn-default btn-select-supreme-modal" title='Add Supreme to your Team Selection' id="btn-select-supreme-modal-{{id}}">
+      	      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+      	    </button>
+            </div>
+          </div>
+          <!-- /ko -->
+        </div>
+      </div>
     </div>
+
 
     <div class="modal fade" id="modal-get-code" tabindex="-1" role="dialog" aria-labelledby="modal-get-code-label">
       <div class="modal-dialog">
@@ -275,6 +344,8 @@
   <!-- Custom scripts -->
   <script src="scripts/factionViewModel.js"></script>
   <script src="scripts/originViewModel.js"></script>
+  <script src="scripts/roleViewModel.js"></script>
+  <script src="scripts/levelFilterViewModel.js"></script>
   <script src="scripts/supremeViewModel.js"></script>
   <script src="scripts/builderViewModel.js"></script>
   <script src="scripts/popup.js"></script>
@@ -284,6 +355,8 @@
   <script src="json/supremes.json"></script>
   <script src="json/factions.json"></script>
   <script src="json/origins.json"></script>
+  <script src="json/roles.json"></script>
+  <script src="json/levelsFilter.json"></script>
 
 </body>
 <script>
@@ -295,14 +368,21 @@ window.factions = [];
 var supremesFilled = false;
 var supremesSelectionFilled = false;
 var supremesModalFilled = false;
-var factionsFilled = false;
 
 /********************/
 /*** The Supremes ***/
 /********************/
 function fill_supremes()
 {
-  var builderVM = new builderViewModel(jsonSupremes, jsonFactions, jsonOrigins);
+  var jsonData = {
+    "supremesList": jsonSupremes,
+    "factionsList": jsonFactions,
+    "originsList": jsonOrigins,
+    "rolesList": jsonRoles,
+    "levelsList": jsonLevels
+  };
+
+  var builderVM = new builderViewModel(jsonData);
   ko.applyBindings(builderVM, document.getElementById("main-view"));
 
   /*$.getJSON("json/supremes.json", function(json) {
@@ -399,49 +479,6 @@ function get_json_supreme(id)
   return null;
 }
 
-function fill_factions_name()
-{
-  $.getJSON("json/factions.json", function(jsonFactions) {
-
-	$('.supreme-factions').each(function () {
-	  var supremeFactions = $(this).html();
-      if ((supremeFactions === undefined) || (supremeFactions.length == 0))
-        $(this).html('<span class="faction-independant">Independant</span>');
-      else
-      {
-        var splitFactions = supremeFactions.split(',');
-        var newHtml = '';
-        var separator = '';
-        for(var iSupFac = 0; iSupFac < splitFactions.length; iSupFac++)
-        {
-		  var faction;
-		  for (var iFaction = 0; iFaction <= jsonFactions.length; iFaction++)
-		  {
-		    if (jsonFactions[iFaction]["faction_key"] == splitFactions[iSupFac])
-			{
-			  faction = jsonFactions[iFaction]["faction_label"];
-			  break;
-			}
-		  }
-		  if (faction !== undefined)
-		  {
-            newHtml = newHtml + separator +
-              '<span class="faction-' + splitFactions[iSupFac] + '">' + faction + '</span>';
-            separator = ', ';
-	      }
-        }
-		$(this).html(newHtml);
-      }
-    });
-  });
-}
-
-function fill_freelancer()
-{
-  $('.supreme-freelance-0').remove();
-  $('.supreme-freelance-1').replaceWith("<img class='supreme-freelance' title='Freelancer' src='img/freelancer.png' />");
-}
-
 /*************************/
 /*** Selected Supremes ***/
 /*************************/
@@ -475,7 +512,7 @@ function select_supreme(id)
   filter_supremes();
 }
 
-function unselect_supreme(id, refreshAll)
+/*function unselect_supreme(id, refreshAll)
 {
   $("#supreme-selection-" + id).hide();
   $("#supreme-selection-" + id).removeAttr("data-sort");
@@ -514,7 +551,7 @@ function unselect_supreme(id, refreshAll)
     set_unique_code();
 	check_faction_cards();
   }
-}
+}*/
 
 function clear_selection()
 {
@@ -684,7 +721,7 @@ function check_faction_cards()
 /************************/
 function load_code_from_url()
 {
-  if (!supremesFilled || !supremesSelectionFilled || !supremesModalFilled || !factionsFilled)
+  if (!supremesFilled || !supremesSelectionFilled || !supremesModalFilled )
     return;
 
   var codeFromUrl = get('code');
@@ -806,66 +843,7 @@ function warning_code(errorMessage)
   $('#enter-code-warning').show();
 }
 
-/*****************/
-/*** The Roles ***/
-/*****************/
-// Fill the "Roles" combo box
-function fill_roles()
-{
-  $.getJSON("json/roles.json", function(json) {
 
-    window.supremes_roles = json;
-    for(var i = 0; i < window.supremes_roles.length; i++)
-    {
-       $('#selRoles').append('<option value="' + window.supremes_roles[i].role_key + '">' + window.supremes_roles[i].role_label + '</option>');
-    }
-	update_role();
-  });
-}
-
-function get_role_value(role_key)
-{
-  for(var i = 0; i < window.supremes_roles.length; i++)
-  {
-    if (role_key == window.supremes_roles[i].role_key)
-      return window.supremes_roles[i].role_label;
-  }
-
-  return "???";
-}
-
-function update_role()
-{
-  if (window.supremes_roles === undefined) return;
-  if (window.supremes_list === undefined) return;
-
-  for(var i = 0; i < window.supremes_list.length; i++)
-  {
-    window.supremes_list[i].role = get_role_value(window.supremes_list[i].role_key);
-  }
-}
-
-/********************/
-/*** The Factions ***/
-/********************/
-function fill_factions()
-{
-  var ignoredFactions = [ "-0", "-1", "-2" ];
-  $('#selTeamAffiliation').append('<optgroup label="Factions" id="optgTeamAffiliationFaction"></optgroup>');
-  for(var i = 0; i < window.factions.length; i++)
-  {
-    // Add the factions in the Affiliation combo box
-    if (!isInTable(ignoredFactions, window.factions[i].faction_key))
-      $('#optgTeamAffiliationFaction').append('<option value="f_' + window.factions[i].faction_key + '">' + window.factions[i].faction_label + '</option>');
-    // Add the factions in the Factions combo box
-    //$('#selFactions').append('<option value="' + window.factions[i].faction_key + '">' + window.factions[i].faction_label + '</option>');
-  }
-
-  //$('#selFactions').val("-0");
-
-  factionsFilled = true;
-  load_code_from_url();
-}
 
 function get_selectedLeader_faction()
 {
@@ -877,17 +855,6 @@ function get_selectedLeader_faction()
   }
 
   return null;
-}
-
-/******************/
-/*** Alignments ***/
-/******************/
-function fillAlignments()
-{
-  $('#selTeamAffiliation').append('<optgroup label="Alignments">'
-                                   + '<option value="a_heroes">Heroes</option>'
-                                   + '<option value="a_villains">Villains</option>'
-                                 + '</optgroup>');
 }
 
 /************************/
@@ -950,14 +917,6 @@ function confirmAffiliationChange()
 function filter_supremes()
 {
 
-  // Role filter
-  var roleFilter = $('#selRoles').val();
-  if (roleFilter === null)
-    roleFilter = "0";
-  // Origin filter
-  var originFilter = $('#selOrigins').val();
-  if (originFilter === null)
-    originFilter = "0";
   // Faction filter
   var factionFilter = $('#selFactions').val();
   if (factionFilter === null)
@@ -976,37 +935,6 @@ function filter_supremes()
     levelsAccepted.push(2);
   if ((levelFilter == "0") || levelFilter.indexOf("3") > -1)
     levelsAccepted.push(3);
-  // AP+
-  var apFilter = $("#selAPgranted").val();
-  if (apFilter === null)
-    apFilter = "+0";
-  var apValue = Number(apFilter.substring(1));
-  if (isNaN(apValue)) apValue = 0;
-  var apgrantedAccepted = [ ];
-  if (apFilter.indexOf("+") == 0)
-    for(var i = apValue; i <= 6; i++) { apgrantedAccepted.push(i); }
-  else if (apFilter.indexOf("-") == 0)
-    for(var i = apValue; i >= 0; i--) { apgrantedAccepted.push(i); }
-  else if (apFilter.indexOf("=") == 0)
-    apgrantedAccepted.push(apValue);
-  // Minions+
-  var minionsFilter = $("#selMinionsGranted").val();
-  if (minionsFilter === null)
-    minionsFilter = "+0";
-  var minionsValue = Number(minionsFilter.substring(1));
-  if (isNaN(minionsValue)) minionsValue = 0;
-  var minionsGrantedAccepted = [ ];
-  if (minionsFilter.indexOf("+") == 0)
-    for(var i = minionsValue; i <= 6; i++) { minionsGrantedAccepted.push(i); }
-  else if (minionsFilter.indexOf("-") == 0)
-    for(var i = minionsValue; i >= 0; i--) { minionsGrantedAccepted.push(i); }
-  else if (minionsFilter.indexOf("=") == 0)
-    minionsGrantedAccepted.push(minionsValue);
-  // Filter on name
-  var filterName = $('#txtFilterName').val();
-  if (filterName === null)
-    filterName = '';
-  filterName = filterName.trim().toUpperCase();
 
   // Heroes / Villains
   var alignment = $('#selTeamAffiliation').val();
@@ -1055,8 +983,6 @@ function filter_supremes()
 
     if (
      (window.supremes_list[i].supreme_is_hidden && !isInTable(shownSupremesId, window.supremes_list[i].id)) // Special shown Supremes
-     || ((roleFilter != "0") && (window.supremes_list[i].role_key != roleFilter)) // Role
-     || ((originFilter != "0") && (window.supremes_list[i].origin != originFilter)) // Origin
      // Factions
      || (isFactionSelected && !isInTable(window.supremes_list[i].factions, factionFilter))
      || (isFactionWithout && !(window.supremes_list[i].factions.length == 0))
@@ -1071,8 +997,6 @@ function filter_supremes()
      || ((window.supremes_list[i].role_key != "powerhouse") && (apgrantedAccepted.indexOf(window.supremes_list[i].ap_granted) < 0))
      // Minions+
      || (minionsGrantedAccepted.indexOf(window.supremes_list[i].minions_granted) < 0)
-     // Filter on name
-     || ((filterName != '') && (window.supremes_list[i].name.toUpperCase().indexOf(filterName) < 0))
      // Hero
      || (isHeroesOnly && !window.supremes_list[i].is_hero)
      // Villain
@@ -1253,7 +1177,7 @@ function generate_pdf()
     // Supreme description
     cols.push({ stack: [
       { text: supreme.name, style: 'supremeName' },
-      { text: 'Level ' + supreme.level + ' ' + get_role_value(supreme.role_key), style: 'supremeRole' },
+      { text: 'Level ' + supreme.level + ' ' + supreme.role_key, style: 'supremeRole' },
     ]});
 
     tableBody.push(cols);
@@ -1304,10 +1228,7 @@ $(function() {
   $('#enter-code-error').hide();
   $('#enter-code-warning').hide();
 
-  fillAlignments();
   // Filters
-  fill_roles();
-  fill_factions();
 
   // The list of the Supremes
   fill_supremes();
@@ -1319,14 +1240,9 @@ $(function() {
 
   // Events on the Affiliation
   changeAffiliation();
-  $('#selTeamAffiliation').change(confirmAffiliationChange);
 
   // Events on the filters
-  $('#selRoles').on('change', function (e) { filter_supremes(); });
   $('#selLevels').on('change', function (e) { filter_supremes(); });
-  $('#selAPgranted').on('change', function (e) { filter_supremes(); });
-  $('#selMinionsGranted').on('change', function (e) { filter_supremes(); });
-  $('#txtFilterName').on('input', function (e) { filter_supremes(); });
   $('#honorary-member').click(function() { change_honorary_member(); });
 
   $('#btn-validate-code').click(function() { enter_unique_code($('#lbl-enter-team-code').val()); });
