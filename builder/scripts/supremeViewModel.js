@@ -61,6 +61,12 @@ supremeViewModel = function(jsonSupreme, builderVM) {
             });
         self.factions(mapped);
   }
+  // Role label
+  self.role_label = ko.observable();
+  for (var iRole = 0; iRole < builderVM.roles_list().length; iRole++)
+  {
+    if (builderVM.roles_list()[iRole].key == self.role_key()) { self.role_label(builderVM.roles_list()[iRole].label); }
+  }
 
   /**
    * Checks if the Faction Key matches the Factions of the Supremes (could be 'Without faction')
@@ -85,6 +91,15 @@ supremeViewModel = function(jsonSupreme, builderVM) {
     }
     return false;
   };
+
+  self.is_level = function(level_key)
+  {
+    if (level_key == undefined) { return false; }
+    if (level_key == '0') { return true; }
+    if (level_key.indexOf(self.level()) > -1) { return true; }
+
+    return false;
+  }
 
   // Supreme's Types list
   self.supreme_types = ko.observableArray([]);
@@ -134,4 +149,10 @@ supremeViewModel = function(jsonSupreme, builderVM) {
     }
     return path + '_thumb.jpg';
   }, self);
+
+  // Select the Supreme for Details
+  self.selectForDetail = function() {
+    builderVM.detailed_supreme(self);
+    $('#supreme-modal').modal('show');
+  }
 }

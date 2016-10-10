@@ -15,4 +15,4 @@ var jsonOrigins = [
     "origin_key": "science",
     "origin_label": "Science"
   }
-]
+];

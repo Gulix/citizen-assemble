@@ -1,4 +1,4 @@
-[
+var jsonRoles = [
   {
     "role_key": "0",
     "role_label": "Any"
@@ -35,4 +35,4 @@
     "role_key": "infiltrator",
     "role_label": "Infiltrator"
   }
-]
+];
