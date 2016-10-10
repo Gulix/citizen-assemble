@@ -126,5 +126,13 @@
 	"faction_required": "redrepublik",
 	"origin_required": null,
 	"alignment_required": null
+  },
+  {
+    "id": 17,
+    "card_name": "Aura of Enchantment",
+    "leaders_required": [ 165 ],
+	"faction_required": null,
+	"origin_required": null,
+	"alignment_required": "hero"
   }
 ]
