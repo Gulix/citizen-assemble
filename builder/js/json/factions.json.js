@@ -4,24 +4,6 @@ function loadFactions() {
 
   var jsonFactions = [
   {
-    "faction_key": "-0",
-    "faction_label": "Any",
-    "id": "00",
-    "faction_color": "#000000"
-  },
-  {
-    "faction_key": "-1",
-    "faction_label": "Without",
-    "id": "-1",
-    "faction_color": "#000000"
-  },
-  {
-    "faction_key": "-2",
-    "faction_label": "Without (including Freelance)",
-    "id": "-2",
-    "faction_color": "#000000"
-  },
-  {
     "faction_key": "arc",
     "faction_label": "A.R.C.",
     "id": "AR",

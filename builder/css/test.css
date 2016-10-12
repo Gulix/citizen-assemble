@@ -39,14 +39,14 @@ h2 {
   font-family: 'Bangers', cursive;
 }
 
-/**************************************/
-/* Selection of Factions / Alignments */
-/**************************************/
-.factions-boxes {
+/********************/
+/* Team Affiliation */
+/********************/
+.affiliation-boxes {
   flex-wrap: wrap;
   display: flex;
 }
-.faction-box {
+.affiliation-box {
   background: #BEB6A3;
   padding: 5px;
   width: 189px;
@@ -63,13 +63,13 @@ h2 {
   font-family: 'Bangers', cursive;
 }
 
-.faction-box:hover {
+.affiliation-box:hover {
   background: #7EBDA4; /* Kids-sized Fedora */
   border-width: 6px;
   margin: 7px;
 }
 
-.faction-box img {
+.affiliation-box img {
   max-width: 150px;
   max-height: 80px;
   display: block;

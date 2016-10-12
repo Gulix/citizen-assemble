@@ -13,22 +13,13 @@ require.config({
 
 require(['knockout',
          'components/registration',
-         'json/factions.json',
-         'viewmodels/factionVM',
+         'viewmodels/teamBuilderVM',
          'domReady!'
-       ], function(ko, components, Factions, FactionVM){
+       ], function(ko, components, TeamBuilderVM){
 
   components.register();
 
-  var jsonFactions = Factions.load();
-  var viewModel = { 'factions': [ ] };
-  for (var iFaction = 0; iFaction < jsonFactions.length; iFaction++)
-  {
-    var factionVM = FactionVM.newFactionVM(jsonFactions[iFaction]);
-    if (!factionVM.is_special_faction()) {
-      viewModel.factions.push(factionVM);
-    }
-  }
+  var viewModel = TeamBuilderVM.newTeamBuilderVM();;
 
    ko.applyBindings(viewModel);
 
