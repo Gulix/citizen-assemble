@@ -1,5 +1,7 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Citizen Assemble ! Pulp City Team Builder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/test.css" />
@@ -19,31 +21,8 @@
 
   <div class="faction-selection global-container">
     <h2>Choose your faction / alignment</h2>
-    <div class="factions-boxes">
-      <div class="faction-box" style="border-color: #2090FF">
-        <img src="img/factions/ulthar.png" />
-        Ulthar
-      </div>
-      <div class="faction-box" style="border-color: #0088FF">
-        <img src="img/factions/supreme-alliance.png" />
-        Supreme Alliance
-      </div>
-      <div class="faction-box" style="border-color: #8A8A8A">
-        <img src="img/factions/heroes.png" />
-        Heroes
-      </div>
-      <div class="faction-box" style="border-color: #800080">
-        <img src="img/factions/villains.png" />
-        Villains
-      </div>
-      <div class="faction-box" style="border-color: #8028E0">
-        <img src="img/factions/coven.png" />
-        Coven
-      </div>
-      <div class="faction-box" style="border-color: #708090">
-        <img src="img/factions/forgotten.png" />
-        Forgotten
-      </div>
+    <div class="factions-boxes" data-bind="foreach: factions">
+      <faction-box params="faction: $data"></faction-box>
     </div>
   </div>
 
@@ -88,5 +67,7 @@
     <h2>Recruit your Supremes</h2>
 
   </div>
+
+  <script src="js/vendor/require.min.js" data-main="js/main.js"></script>
 </body>
 </html>
