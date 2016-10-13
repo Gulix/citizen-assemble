@@ -2,7 +2,8 @@ require.config({
     paths: {
         'jQuery': 'vendor/jquery-3.0.0.min',
         'knockout': 'vendor/knockout-3.4.0',
-        'lodash': 'vendor/lodash'
+        'lodash': 'vendor/lodash',
+        'tinycolor': 'vendor/tinycolor'
     },
     shim: {
         'jQuery': {

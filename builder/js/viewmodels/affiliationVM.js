@@ -4,7 +4,7 @@ define(['knockout',
         'json/factions.json'
       ], function(ko, FactionVM, OriginVM, Factions) {
 
-function affiliationVM(jsonFaction, isHeroes, isVillains, jsonOrigin, isIndependent)
+function affiliationVM(jsonFaction, isHeroes, isVillains, jsonOrigin, isIndependent, selectAffiliation)
 {
   var self = this;
 
@@ -16,34 +16,47 @@ function affiliationVM(jsonFaction, isHeroes, isVillains, jsonOrigin, isIndepend
   self.isVillains = null;
   self.isIndependent = null;
   self.originVM = null;
+  self.isOriginSelection = false;
+  self.selectAffiliation = selectAffiliation;
 
+  /**********************************/
+  /* Accessors / Computed variables */
+  /**********************************/
   self.label = ko.pureComputed(function() {
     if (self.factionVM != null) {
       return self.factionVM.faction_label;
-    } else if (self.isHeroes) {
+    } else {
       var sReturn = '';
       if (self.isIndependent) sReturn = 'Indy ';
-      return sReturn + "Heroes";
-    } else if (self.isVillains) {
-      var sReturn = '';
-      if (self.isIndependent) sReturn = 'Indy ';
-      return sReturn + "Villains";
+      if (self.isHeroes) sReturn += 'Heroes';
+      if (self.isVillains) sReturn += 'Villains';
+      if (self.originVM != null) {
+        sReturn += ' (' + self.originVM.origin_label + ')'
+      }
+
+      return sReturn;
     }
     return '';
   });
   self.key = ko.pureComputed(function() {
     if (self.factionVM != null) {
       return self.factionVM.faction_key;
-    } else if (self.isHeroes) {
-      return "heroes";
-    } else if (self.isVillains) {
-      return "villains";
+    } else {
+      var sKey = '';
+      if (self.isHeroes) sKey = "heroes";
+      if (self.isVillains) sKey = "villains";
+      if (self.originVM != null) {
+        sKey += '_' + self.originVM.origin_key;
+      }
+      return sKey;
     }
     return '';
   });
   self.rgbColor = ko.pureComputed(function() {
     if (self.factionVM != null) {
       return self.factionVM.faction_color;
+    } else if (self.originVM != null) {
+      return self.originVM.origin_color;
     } else if (self.isHeroes) {
       return "#a4a7b6";
     } else if (self.isVillains) {
@@ -55,7 +68,44 @@ function affiliationVM(jsonFaction, isHeroes, isVillains, jsonOrigin, isIndepend
   /*****************/
   /*** Functions ***/
   /*****************/
+  self.isFinal = function() {
+    return (self.factionVM != null) ||
+      ((self.isIndependent != null) && self.isOriginSelection);
+  }
 
+  self.nextAffiliations = function() {
+    if (self.factionVM == null) {
+      if (self.isIndependent == null) {
+        var affiliationsIndyOrNot = [];
+        affiliationsIndyOrNot.push(new affiliationVM(null, self.isHeroes, self.isVillains, null, true, self.selectAffiliation));
+        affiliationsIndyOrNot.push(new affiliationVM(null, self.isHeroes, self.isVillains, null, false, self.selectAffiliation));
+
+        return affiliationsIndyOrNot;
+      } else {
+        var affiliationsOriginChoice = [];
+
+        var without = new affiliationVM(null, self.isHeroes, self.isVillains, null, self.isIndependent, self.selectAffiliation);
+        without.isOriginSelection = true;
+        affiliationsOriginChoice.push(without);
+        affiliationsOriginChoice.push(new affiliationVM(null, self.isHeroes, self.isVillains,
+          OriginVM.newOriginVM({ "origin_key": "mystery", "origin_label": "Mystery", "origin_color": "#DD0000" }),
+          self.isIndependent, self.selectAffiliation));
+        affiliationsOriginChoice.push(new affiliationVM(null, self.isHeroes, self.isVillains,
+          OriginVM.newOriginVM({ "origin_key": "nature", "origin_label": "Nature", "origin_color": "#0050DD" }),
+          self.isIndependent, self.selectAffiliation));
+        affiliationsOriginChoice.push(new affiliationVM(null, self.isHeroes, self.isVillains,
+          OriginVM.newOriginVM({ "origin_key": "science", "origin_label": "Science", "origin_color": "#F8C70D" }),
+          self.isIndependent, self.selectAffiliation));
+
+        return affiliationsOriginChoice;
+      }
+    }
+    return [];
+  }
+
+  self.selectOnClick = function() {
+    self.selectAffiliation(self);
+  }
 
   /*************************/
   /* Object Initialization */
@@ -64,25 +114,27 @@ function affiliationVM(jsonFaction, isHeroes, isVillains, jsonOrigin, isIndepend
   if ((isIndependent != null) && (isIndependent != undefined)) self.isIndependent = isIndependent;
   if ((isHeroes != null) && (isHeroes != undefined)) self.isHeroes = isHeroes;
   if ((isVillains != null) && (isVillains != undefined)) self.isVillains = isVillains;
-  if (jsonOrigin != null) self.originVM = OriginVM.newOriginVM(jsonOrigin);
+  if (jsonOrigin != null)
+  {
+    self.originVM = OriginVM.newOriginVM(jsonOrigin);
+    self.isOriginSelection = true;
+  }
 }
 
 return {
-    getAllAffiliations: function() {
+    getAllStartingAffiliations: function(selectAffiliation) {
       var affiliations = [ ];
 
       // From factions
       var factions = Factions.load();
       for (var iFaction = 0; iFaction < factions.length; iFaction++)
       {
-        affiliations.push(new affiliationVM(factions[iFaction], null, null, null, null));
+        affiliations.push(new affiliationVM(factions[iFaction], null, null, null, null, selectAffiliation));
       }
 
       // From Alignment
-      affiliations.push(new affiliationVM(null, true, false, null, false));
-      affiliations.push(new affiliationVM(null, false, true, null, false));
-      affiliations.push(new affiliationVM(null, true, false, null, true));
-      affiliations.push(new affiliationVM(null, false, true, null, true));
+      affiliations.push(new affiliationVM(null, true, false, null, null, selectAffiliation));
+      affiliations.push(new affiliationVM(null, false, true, null, null, selectAffiliation));
 
       return affiliations;
     }
