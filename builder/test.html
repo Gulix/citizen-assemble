@@ -42,37 +42,24 @@
           </div>
         </div>
       </div>
-      <div class="roster-supreme supreme-origin-nature" style="background-image: url(img/supremes/solar.jpg)">
-        <div class="supreme-icons">
-          <div class="supreme-icon-herovillain"></div>
-          <div class="supreme-icon-nature"></div>
-        </div>
-        <div><div class="supreme-recruit-values"><span class="label">AP+ :</span> 3</div></div>
-        <div><div class="supreme-recruit-values"><span class="label">Mi+ :</span> 0</div></div>
-        <div class="supreme-name">Dark Solar</div>
-        <div class="supreme-role">Leader Lvl.3</div>
-      </div>
-      <div class="roster-supreme supreme-origin-nature" style="background-image: url(img/supremes/seabolt.jpg)">
-        <div class="supreme-icons">
-          <div class="supreme-icon-villain"></div>
-          <div class="supreme-icon-nature"></div>
-        </div>
-        <div><div class="supreme-recruit-values"><span class="label">AP+ :</span> 2</div></div>
-        <div><div class="supreme-recruit-values"><span class="label">Mi+ :</span> 0</div></div>
-        <div class="supreme-name">Seabolt</div>
-        <div class="supreme-role">Brawler Lvl.2</div>
-      </div>
+      <!-- ko foreach: rosterSupremes -->
+      <supreme-box params="supreme: $data"></supreme-box>
+      <!-- /ko -->
     </div>
   </div>
   <!-- /ko -->
 
+  <!-- ko if: recruitmentDisplayed -->
   <div class="menu-bar">
   </div>
 
   <div class="supreme-selection global-container">
     <h2>Recruit your Supremes</h2>
-
+    <div class="recruitment-list" data-bind="foreach: recruitableSupremes">
+      <supreme-box params="supreme: $data"></supreme-box>
+    </div>
   </div>
+  <!-- /ko -->
 
   <script src="js/vendor/require.min.js" data-main="js/main.js"></script>
 </body>

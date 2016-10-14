@@ -124,6 +124,14 @@ h2 {
   overflow: hidden;
 }
 
+/***************/
+/* Recruitment */
+/***************/
+.recruitment-list {
+  flex-wrap: wrap;
+  display: flex;
+}
+
 /************/
 /* Supremes */
 /************/
@@ -156,7 +164,7 @@ h2 {
   background-image: url(../img/origin_nature.png);
 }
 .supreme-icon-science {
-  background-image: url(../img/origin_science.png);
+  background-image: url(../img/origin_science_shadowed.png);
 }
 .supreme-icon-mystery {
   background-image: url(../img/origin_mystery.png);

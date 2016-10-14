@@ -1,4 +1,13 @@
-define(['knockout', 'tinycolor', 'viewmodels/affiliationVM'], function(ko, TinyColor, AffiliationVM) {
+define(['knockout',
+        'tinycolor',
+        'lodash',
+        'viewmodels/affiliationVM',
+        'viewmodels/supremeVM'],
+function(ko,
+         TinyColor,
+         _,
+         AffiliationVM,
+         SupremeVM) {
 
 function teamBuilderVM()
 {
@@ -9,6 +18,8 @@ function teamBuilderVM()
   /*************************/
   self.affiliations = ko.observableArray([]);
   self.selectedAffiliation = ko.observable(null);
+  self.recruitableSupremes = ko.observableArray([]);
+  self.rosterSupremes = ko.observableArray([]);
 
   /**********************************/
   /* Accessors & Computed Variables */
@@ -18,6 +29,9 @@ function teamBuilderVM()
   });
   self.myTeamDisplayed = ko.pureComputed(function() {
     return self.selectedAffiliation() != null;
+  });
+  self.recruitmentDisplayed = ko.pureComputed(function() {
+    return self.recruitableSupremes().length > 0;
   });
 
   /* ----- Affiliation of the Team -----*/
@@ -51,9 +65,29 @@ function teamBuilderVM()
     if (selectedAffiliation.isFinal()) {
       self.selectedAffiliation(selectedAffiliation);
       self.affiliations([]);
+      self.recruitableSupremes(SupremeVM.loadForAffiliation(selectedAffiliation, self.recruitSupreme, self.dismissSupreme));
+      self.rosterSupremes([]);
     } else { // Affiliation that leads to other affiliations
       self.affiliations(selectedAffiliation.nextAffiliations());
+      self.rosterSupremes([]);
     }
+  }
+
+  /*----- Recruitment of Supremes -----*/
+  self.recruitSupreme = function(supremeVM) {
+    _.remove(self.recruitableSupremes(), function(currentObject) {
+        return currentObject.jsonData.id === supremeVM.jsonData.id;
+    });
+    self.recruitableSupremes.valueHasMutated();
+    self.rosterSupremes.push(supremeVM);
+  }
+
+  self.dismissSupreme = function(supremeVM) {
+    _.remove(self.rosterSupremes(), function(currentObject) {
+        return currentObject.jsonData.id === supremeVM.jsonData.id;
+    });
+    self.rosterSupremes.valueHasMutated();
+    self.recruitableSupremes.push(supremeVM);
   }
 
   /*************************/
