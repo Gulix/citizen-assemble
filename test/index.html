@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Citizen Assemble ! Pulp City Team Builder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/test.css" />
+    <link href="https://fonts.googleapis.com/css?family=Bangers|Oswald" rel="stylesheet">
+  </head>
+<body>
+  <div class="page-header">
+    <div class="global-container">Citizen Assemble !</div>
+  </div>
+
+  <div class="menu-bar">
+    <div class="global-container">
+      <div class="menu-box">Home</div>
+      <div class="menu-box">FAQ</div>
+    </div>
+  </div>
+
+  <!-- ko if: isAffiliationDisplayed -->
+  <div class="affiliation-selection global-container">
+    <h2>Choose your faction / alignment</h2>
+    <div class="affiliation-boxes" data-bind="foreach: affiliations">
+      <affiliation-box params="affiliation: $data"></affiliation-box>
+    </div>
+  </div>
+  <!-- /ko -->
+
+  <!-- ko if: myTeamDisplayed -->
+  <div class="supreme-roster global-container">
+    <h2>My Team</h2>
+    <div class="my-roster">
+      <div class="roster-general">
+        <div class="team-affiliation" data-bind="attr: { 'style': affiliationStyle }">
+          <img data-bind="attr: { 'src': affiliationImageSrc }" />
+          <div class="roster-resume">
+            <div class="roster-resume-detail"><span class="label">Levels :</span> 5</div>
+            <div class="roster-resume-detail"><span class="label">AP+ :</span> 5</div>
+            <div class="roster-resume-detail"><span class="label">Mi+ :</span> 0</div>
+          </div>
+        </div>
+      </div>
+      <!-- ko foreach: rosterSupremes -->
+      <supreme-box params="supreme: $data"></supreme-box>
+      <!-- /ko -->
+    </div>
+  </div>
+  <!-- /ko -->
+
+  <!-- ko if: recruitmentDisplayed -->
+  <div class="menu-bar">
+  </div>
+
+  <div class="supreme-selection global-container">
+    <h2>Recruit your Supremes</h2>
+    <div class="recruitment-list" data-bind="foreach: recruitableSupremes">
+      <supreme-box params="supreme: $data"></supreme-box>
+    </div>
+  </div>
+  <!-- /ko -->
+
+  <script src="js/vendor/require.min.js" data-main="js/main.js"></script>
+</body>
+</html>

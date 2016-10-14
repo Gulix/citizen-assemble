@@ -1,0 +1,30 @@
+{{#supremes}}
+<div class='col-md-2 supreme-list-element' id='supreme-list-{{id}}'>
+    <div class='header'>
+		<div class='info-icons'>
+		  <div class='info-icon supreme-origin-{{origin}}' />
+		  <div class='info-icon hero-villain-{{is_hero}}{{is_villain}}'/>
+		</div>
+		<div class='supreme-name'>{{name}}</div>
+	</div>
+    
+    <p class='text-left supreme-role'>{{role}} <span class='role-level-{{level}}'>lvl.{{level}}</span></p>
+    <div class='text-right supreme-additional-data'>
+		AP+ : {{ap_granted}}
+		<br />Minions+ : {{minions_granted}}
+		<br /><span class='supreme-factions'>{{factions}}</span><span class='supreme-freelance-{{is_freelance}}' />
+	</div>
+    <div class='bottom-footer'>
+      <img src="img/supremes/{{#picture_id}}{{.}}{{/picture_id}}{{^picture_id}}{{id}}{{/picture_id}}_thumb.jpg" width="45px" onerror="imgError(this);" />
+	  <div class='footer-buttons'>
+        <button type="button" class="btn btn-sm btn-default" title='Show details' data-toggle="modal" data-target="#supreme-modal-{{id}}">
+          <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+	    </button>
+        <button type="button" class="btn btn-sm btn-default btn-select-supreme" title='Add Supreme to your Team Selection' id="btn-select-supreme-{{id}}">
+		  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+		</button>    
+	  </div>
+    </div>
+    
+</div>
+{{/supremes}}
