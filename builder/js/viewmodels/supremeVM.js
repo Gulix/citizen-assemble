@@ -12,6 +12,17 @@ function supremeVM(jsonSupreme, recruit, dismiss)
   self.recruitInTeam = recruit;
   self.dismissFromTeam = dismiss;
 
+  /*********************/
+  /* Accessors on data */
+  /*********************/
+  self.isRole = function(roleKey)
+  {
+    return (self.jsonData.role_key == roleKey)
+      || ((self.jsonData.other_roles != null) && _.find(self.jsonData.other_roles, function(s) { return s == roleKey; }));
+  }
+  self.isLeader = function() { return self.isRole("leader"); }
+  self.isPowerhouse = function() { return self.isRole("powerhouse"); }
+  self.isHidden = function() {return (self.jsonData.supreme_is_hidden != null) && self.jsonData.supreme_is_hidden; }
 
   /*************/
   /* Functions */
@@ -48,6 +59,27 @@ function supremeVM(jsonSupreme, recruit, dismiss)
   self.dismiss = function() {
     self.dismissFromTeam(self);
     self.isRecruited(false);
+  }
+
+  // Does the current Supreme prohibits the Recruitment of the joiningSupreme ?
+  self.prohibitsRecruitmentOf = function(joiningSupreme) {
+    // Yes if they're the same
+    if (joiningSupreme.jsonData.id == self.jsonData.id) return true;
+    // Yes if they're both Leaders (only one per team)
+    if (joiningSupreme.isLeader() && self.isLeader()) return true;
+    // Yes if they're both Powerhouses (only one per team)
+    if (joiningSupreme.isPowerhouse() && self.isPowerhouse()) return true;
+    // Yes if the joiningSupreme is in the "Excluded Supremes" list of the current Supreme
+    if ((self.jsonData.excluded_supremes != null)
+      && _.find(self.jsonData.excluded_supremes, function(o) { return o == joiningSupreme.jsonData.id; })) return true;
+  }
+  // Does the current Supreme activate the Recruitment of the joiningSupreme ?
+  self.activatesRecruitmentOf = function(joiningSupreme) {
+    // Yes if the joiningSupreme is in the "Shown Supremes" list of the current Supreme
+    if (self.jsonData.shown_supremes != null) {
+      return _.find(self.jsonData.shown_supremes, function(o) { return o == joiningSupreme.jsonData.id; });
+    }
+    return false;
   }
 }
 
