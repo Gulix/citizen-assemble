@@ -1,8 +1,9 @@
 define(['knockout',
         'viewmodels/factionVM',
         'viewmodels/originVM',
-        'json/factions.json'
-      ], function(ko, FactionVM, OriginVM, Factions) {
+        'json/factions.json',
+        'tinycolor'
+      ], function(ko, FactionVM, OriginVM, Factions, TinyColor) {
 
 function affiliationVM(jsonFaction, isHeroes, isVillains, jsonOrigin, isIndependent, selectAffiliation)
 {
@@ -106,6 +107,23 @@ function affiliationVM(jsonFaction, isHeroes, isVillains, jsonOrigin, isIndepend
   self.selectOnClick = function() {
     self.selectAffiliation(self);
   }
+
+  /*******************/
+  /* Styles function */
+  /*******************/
+  self.imageSrc = ko.pureComputed(function() {
+    return "img/factions/" + self.key() + ".png";
+  });
+  self.style = ko.pureComputed(function() {
+    var affiliationColor = TinyColor(self.rgbColor());
+
+    var style = 'border-color: ' + self.rgbColor() + '; '
+      + 'background-color: '
+      + (affiliationColor.isLight() ? affiliationColor.darken().toHexString() : affiliationColor.lighten(25).toHexString())
+      + '; color: '
+      + TinyColor.mostReadable(self.rgbColor(), ["#fff", "#000"]).toHexString();
+    return style;
+  });
 
   /*************************/
   /* Object Initialization */
