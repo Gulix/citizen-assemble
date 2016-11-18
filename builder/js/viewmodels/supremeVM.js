@@ -24,6 +24,8 @@ function supremeVM(jsonSupreme, recruit, dismiss)
   self.isPowerhouse = function() { return self.isRole("powerhouse"); }
   self.isHidden = function() {return (self.jsonData.supreme_is_hidden != null) && self.jsonData.supreme_is_hidden; }
 
+  self.getShownSupremesID = function() { return self.jsonData.shown_supremes; }
+
   /*************/
   /* Functions */
   /*************/
@@ -43,7 +45,7 @@ function supremeVM(jsonSupreme, recruit, dismiss)
         }
         // Origin Limit
         if (matching && (affiliationVM.originVM != null)) {
-          matching = self.jsonData.origin == affiliationVM.originVM.origin_key;
+          matching = affiliationVM.originVM.supremeMatches(self);
         }
         return matching;
       }

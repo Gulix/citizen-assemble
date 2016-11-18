@@ -50,6 +50,21 @@ function teamVM(affiliation)
     _.remove(self.rosterSupremes(), function(currentObject) {
         return currentObject.jsonData.id === supremeVM.jsonData.id;
     });
+
+    // Some control are needed because some Supremes can be recruited only by the presence of another one
+    // For example, Moonchild authorizing Loup-Garou II to join her
+    // or the Honorary Member leaving the Team when the Leader also leaves
+    // TODO: warning the User of these effects ?
+    var shownSupremes = supremeVM.getShownSupremesID();
+    if ((shownSupremes != null) && (shownSupremes.length > 0)) {
+      _.forEach(self.rosterSupremes(), function(supreme) {
+        if (_.find(shownSupremes, function(o) { return o == supreme.jsonData.id; })) {
+          self.dismissSupreme(supreme);
+        }
+      });
+    }
+
+
     self.rosterSupremes.valueHasMutated();
   }
 

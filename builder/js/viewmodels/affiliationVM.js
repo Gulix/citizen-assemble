@@ -89,14 +89,11 @@ function affiliationVM(jsonFaction, isHeroes, isVillains, jsonOrigin, isIndepend
         without.isOriginSelection = true;
         affiliationsOriginChoice.push(without);
         affiliationsOriginChoice.push(new affiliationVM(null, self.isHeroes, self.isVillains,
-          OriginVM.newOriginVM({ "origin_key": "mystery", "origin_label": "Mystery", "origin_color": "#DD0000" }),
-          self.isIndependent, self.selectAffiliation));
+          OriginVM.MysteryOrigin(), self.isIndependent, self.selectAffiliation));
         affiliationsOriginChoice.push(new affiliationVM(null, self.isHeroes, self.isVillains,
-          OriginVM.newOriginVM({ "origin_key": "nature", "origin_label": "Nature", "origin_color": "#0050DD" }),
-          self.isIndependent, self.selectAffiliation));
+          OriginVM.NatureOrigin(), self.isIndependent, self.selectAffiliation));
         affiliationsOriginChoice.push(new affiliationVM(null, self.isHeroes, self.isVillains,
-          OriginVM.newOriginVM({ "origin_key": "science", "origin_label": "Science", "origin_color": "#F8C70D" }),
-          self.isIndependent, self.selectAffiliation));
+          OriginVM.ScienceOrigin(), self.isIndependent, self.selectAffiliation));
 
         return affiliationsOriginChoice;
       }

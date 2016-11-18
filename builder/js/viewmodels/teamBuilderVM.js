@@ -3,13 +3,15 @@ define(['knockout',
         'lodash',
         'viewmodels/affiliationVM',
         'viewmodels/supremeVM',
-        'viewmodels/teamVM'],
+        'viewmodels/teamVM',
+        'viewmodels/supremeFilter'],
 function(ko,
          TinyColor,
          _,
          AffiliationVM,
          SupremeVM,
-         TeamVM) {
+         TeamVM,
+         SupremeFilter) {
 
 function teamBuilderVM()
 {
@@ -19,9 +21,9 @@ function teamBuilderVM()
   /* Variables Declaration */
   /*************************/
   self.affiliations = ko.observableArray([]);
-  //self.selectedAffiliation = ko.observable(null);
   self.supremesPool = ko.observableArray([]);
   self.team = ko.observable(null);
+  self.supremeFilter = ko.observable(null);
 
   /**********************************/
   /* Accessors & Computed Variables */
@@ -57,9 +59,11 @@ function teamBuilderVM()
       supremes.push(currentSupreme);
     }
 
+    // User Filter
+    supremes = self.supremeFilter().filter(supremes);
+
     // TODO: let the user choose the sort method
     return _.sortBy(supremes, [function(o) { return o.jsonData.name; }]);
-    //return supremes;
   });
 
 
@@ -71,8 +75,6 @@ function teamBuilderVM()
   self.selectAffiliation = function(selectedAffiliation) {
     // Final affiliation ?
     if (selectedAffiliation.isFinal()) {
-      //self.selectedAffiliation(selectedAffiliation);
-      //self.team().affiliationVM(self.selectedAffiliation());
       self.affiliations([]);
       self.team(TeamVM.newTeamVM(selectedAffiliation));
       self.supremesPool(SupremeVM.loadForAffiliation(selectedAffiliation, self.recruitSupreme, self.dismissSupreme));
@@ -95,6 +97,7 @@ function teamBuilderVM()
   /* Object Initialization */
   /*************************/
   self.affiliations(AffiliationVM.getAllStartingAffiliations(self.selectAffiliation));
+  self.supremeFilter(SupremeFilter.newFilter());
 }
 
 return {
