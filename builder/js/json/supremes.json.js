@@ -772,7 +772,8 @@ function loadSupremes() {
     "exclusive_minions": "+ Draku",
     "elements": [   ],
     "ap_limit": 3,
-    "supreme_types": [  "non-living" ]
+    "supreme_types": [  "non-living" ],
+    "excluded_supremes": [ 22 ]
     },{
     "id": 22,
     "name": "Sanguine (night)",
@@ -804,7 +805,8 @@ function loadSupremes() {
     "exclusive_minions": "+ Draku",
     "elements": [  "darkness" ],
     "ap_limit": 4,
-    "supreme_types": [  "non-living" ]
+    "supreme_types": [  "non-living" ],
+    "excluded_supremes": [ 21 ]
     },{
     "id": 23,
     "name": "Supreme Zed",
