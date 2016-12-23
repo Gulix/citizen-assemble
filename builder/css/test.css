@@ -106,6 +106,36 @@ h2 {
   margin-right: auto;
 }
 
+.roster-mask {
+  position:relative;
+  top:-152px;
+  left: -8px;
+  padding: 5px;
+  width: 140px;
+  height: 140px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: inherit;
+  background: rgba(120, 120, 120, 0.8);
+}
+
+.roster-mask .action-button {
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  border-left-style: solid;
+  border-width: 2px;
+  border-color: white;
+  color: white;
+  background-color: #F25B2166;
+  margin-top: 10px;
+}
+
+.roster-mask .action-button:hover {
+  border-bottom-style: solid;
+  background-color: #F25B21;
+}
+
 .roster-resume {
   margin: 10px;
   font-family: 'Bangers', cursive;

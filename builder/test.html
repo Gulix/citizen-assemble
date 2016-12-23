@@ -32,13 +32,17 @@
   <div class="supreme-roster global-container" data-bind="with: team">
     <h2>My Team</h2>
     <div class="my-roster">
-      <div class="roster-general">
+      <div class="roster-general" data-bind="event: { mouseover: showActions, mouseout: hideActions }">
         <div class="team-affiliation" data-bind="attr: { 'style': affiliationStyle }">
           <img data-bind="attr: { 'src': affiliationImageSrc }" />
           <div class="roster-resume">
             <div class="roster-resume-detail"><span class="label">Levels :</span> <span data-bind="text: totalLevels"></span></div>
             <div class="roster-resume-detail"><span class="label">AP+ :</span> <span data-bind="text: totalActionPoints"></span></div>
             <div class="roster-resume-detail"><span class="label">Mi+ :</span> <span data-bind="text: totalMinionsPoints"></span></div>
+          </div>
+          <div class="roster-mask" data-bind="visible: actionsVisible">
+            <div class="action-button" data-bind="click: clearRoster">Clear</div>
+            <div class="action-button">Get Code</div>
           </div>
         </div>
       </div>

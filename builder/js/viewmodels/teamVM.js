@@ -16,6 +16,7 @@ function teamVM(affiliation)
   /*************************/
   self.rosterSupremes = ko.observableArray([]);
   self.affiliationVM = ko.observable(null);
+  self.actionsVisible = ko.observable(false);
 
   /**********************************/
   /* Accessors & Computed Variables */
@@ -76,6 +77,15 @@ function teamVM(affiliation)
     return _.find(self.rosterSupremes(), function(o) { return o.activatesRecruitmentOf(joiningSupreme); })
   }
 
+
+
+  /* Actions on the team */
+  self.showActions = function() {
+    self.actionsVisible(true);
+  }
+  self.hideActions = function() {
+    self.actionsVisible(false);
+  }
   self.clearRoster = function() {
     self.rosterSupremes([]);
   }

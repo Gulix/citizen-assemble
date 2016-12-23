@@ -22,6 +22,6 @@ require(['knockout',
 
   var viewModel = TeamBuilderVM.newTeamBuilderVM();;
 
-   ko.applyBindings(viewModel);
+  ko.applyBindings(viewModel);
 
 });
