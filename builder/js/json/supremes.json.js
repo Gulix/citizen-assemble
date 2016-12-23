@@ -3737,7 +3737,8 @@ function loadSupremes() {
     "elements": [  "light", "darkness" ],
     "ap_limit": 5,
     "supreme_types": [  "living" ],
-    "excluded_supremes": [ 57, 94 ]
+    "excluded_supremes": [ 57, 94 ],
+    "pictureId": 94
     },{
     "id": 114,
     "name": "Mecha Spartan",
@@ -4799,7 +4800,8 @@ function loadSupremes() {
     "ap_limit": 0,
     "supreme_types": [  ],
     "excluded_supremes": [ 146 ],
-    "other_roles": [ "blaster" ]
+    "other_roles": [ "blaster" ],
+    "pictureId": 146
     },{
     "id": 148,
     "name": "Red Robot - Gunner",
@@ -5526,7 +5528,8 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 3,
     "supreme_types": [  "mechanical" ],
-    "exclusive_factions": [ "forgotten" ]
+    "exclusive_factions": [ "forgotten" ],
+    "pictureId": 114
     },{
     "id": 1005,
     "name": "Mecha Spartan",
@@ -5559,7 +5562,8 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 3,
     "supreme_types": [  "mechanical" ],
-    "exclusive_factions": [ "forgotten" ]
+    "exclusive_factions": [ "forgotten" ],
+    "pictureId": 114
     },{
     "id": 1006,
     "name": "Terror Cotta Warrior",
@@ -5857,7 +5861,8 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 3,
     "supreme_types": [  "living" ],
-    "supreme_is_hidden": true
+    "supreme_is_hidden": true, 
+    "pictureId": 42
     },{
     "id": 1015,
     "name": "Gravito Grimm",
