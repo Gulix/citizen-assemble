@@ -105,6 +105,23 @@ function affiliationVM(jsonFaction, isHeroes, isVillains, jsonOrigin, isIndepend
     self.selectAffiliation(self);
   }
 
+  // Returns the Unique Code identifying the Affiliation
+  self.getUniqueCode = function() {
+    if (self.factionVM != null) {
+      return self.factionVM.id();
+    } else {
+      var code = self.isHeroes ? "H" : "V";
+      if ((self.originVM != null) && !self.originVM.isAllOrigins()) {
+        code += self.originVM.origin_key.substring(0,1);
+      }
+      code = self.isIndependent ? code.toLowerCase() : code.toUpperCase();
+      if ((self.originVM == null) || self.originVM.isAllOrigins()) {
+        code += '_';
+      }
+      return code;
+    }
+  }
+
   /*******************/
   /* Styles function */
   /*******************/

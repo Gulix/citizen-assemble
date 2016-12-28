@@ -42,8 +42,14 @@
           </div>
           <div class="roster-mask" data-bind="visible: actionsVisible">
             <div class="action-button" data-bind="click: clearRoster">Clear</div>
-            <div class="action-button">Get Code</div>
+            <div class="action-button" data-bind="click: showCode">Get Code</div>
           </div>
+        </div>
+      </div>
+      <div class="roster-general" data-bind="visible: isTeamCodeVisible">
+        <div>Unique Team Code</div>
+        <div>
+          <input type="text" readonly class="team-code" data-bind="value: teamCode"></input>
         </div>
       </div>
       <!-- ko foreach: rosterSupremes -->

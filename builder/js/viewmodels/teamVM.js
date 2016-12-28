@@ -1,10 +1,12 @@
 define(['knockout',
         'lodash',
-        'viewmodels/supremeVM'
+        'viewmodels/supremeVM',
+        'scripts/teamCode'
        ],
 function(ko,
          _,
-         SupremeVM
+         SupremeVM,
+         TeamCode
          ) {
 
 function teamVM(affiliation)
@@ -17,6 +19,8 @@ function teamVM(affiliation)
   self.rosterSupremes = ko.observableArray([]);
   self.affiliationVM = ko.observable(null);
   self.actionsVisible = ko.observable(false);
+  self.isTeamCodeVisible = ko.observable(false);
+  self.teamCode = ko.observable('');
 
   /**********************************/
   /* Accessors & Computed Variables */
@@ -77,6 +81,10 @@ function teamVM(affiliation)
     return _.find(self.rosterSupremes(), function(o) { return o.activatesRecruitmentOf(joiningSupreme); })
   }
 
+  /* Generates the Unique code of the Roster Team */
+  self.generateTeamCode = function() {
+    self.teamCode(TeamCode.getTeamCodeFromRoster(self));
+  }
 
 
   /* Actions on the team */
@@ -88,6 +96,13 @@ function teamVM(affiliation)
   }
   self.clearRoster = function() {
     self.rosterSupremes([]);
+  }
+  self.showCode = function() {
+    self.generateTeamCode();
+    self.isTeamCodeVisible(true);
+  }
+  self.hideCode = function() {
+    self.isTeamCodeVisible(false);
   }
 
   /*************************/
