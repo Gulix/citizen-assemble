@@ -258,3 +258,51 @@ h2 {
   font-family: 'Bangers', cursive;
   font-size: 1.2em;
 }
+
+/* Modal Box */
+.modal-box {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  bottom: 0px;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  max-width: 50%;
+  min-width: 20%;
+  background: #BEB6A3;
+  border: solid 2px #F25B21;
+  padding: 15px;
+  min-height: 20%;
+}
+
+.modal-label {
+  font-family: 'Bangers', cursive;
+  color: #F25B21;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-size: 2.3em;
+  margin-bottom: 10px;
+}
+
+.modal-close {
+  position: fixed;
+  right: 5px;
+  top: 5px;
+  width: 64px;
+  height: 64px;
+  background: url('../img/cancel.png');
+  cursor: pointer;
+}
+
+.team-code {
+  width: 100%;
+}

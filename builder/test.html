@@ -46,10 +46,13 @@
           </div>
         </div>
       </div>
-      <div class="roster-general" data-bind="visible: isTeamCodeVisible">
-        <div>Unique Team Code</div>
-        <div>
-          <input type="text" readonly class="team-code" data-bind="value: teamCode"></input>
+      <div class="modal-box" data-bind="visible: isTeamCodeVisible">
+        <div class="modal-close" data-bind="click: hideCode"></div>
+        <div class="modal-content">
+          <div class="modal-label">Unique Team Code</div>
+          <div>
+            <input type="text" readonly class="team-code" data-bind="value: teamCode"></input>
+          </div>
         </div>
       </div>
       <!-- ko foreach: rosterSupremes -->
