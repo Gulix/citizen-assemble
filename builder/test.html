@@ -22,6 +22,7 @@
   <!-- ko if: isAffiliationDisplayed -->
   <div class="affiliation-selection global-container">
     <h2>Choose your faction / alignment</h2>
+    <div class="step-back" data-bind="click: goBack, visible: goBackIsVisible"></div>
     <div class="affiliation-boxes" data-bind="foreach: affiliations">
       <affiliation-box params="affiliation: $data"></affiliation-box>
     </div>
@@ -29,6 +30,9 @@
   <!-- /ko -->
 
   <!-- ko if: myTeamDisplayed -->
+  <div class="global-container">
+    <div class="step-back" data-bind="click: goBack"></div>
+  </div>
   <div class="supreme-roster global-container" data-bind="with: team">
     <h2>My Team</h2>
     <div class="my-roster">

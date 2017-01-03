@@ -24,6 +24,7 @@ function teamBuilderVM()
   self.supremesPool = ko.observableArray([]);
   self.team = ko.observable(null);
   self.supremeFilter = ko.observable(null);
+  self.goBackIsVisible = ko.observable(false);
 
   /**********************************/
   /* Accessors & Computed Variables */
@@ -41,22 +42,25 @@ function teamBuilderVM()
   /* Which Supremes can be recruited by the current Roster team ? */
   self.recruitableSupremes = ko.pureComputed(function() {
     var supremes = [];
-    for (var iSup = 0; iSup < self.supremesPool().length; iSup++) {
-      var currentSupreme = self.supremesPool()[iSup];
+    if (self.team() != null)
+    {
+      for (var iSup = 0; iSup < self.supremesPool().length; iSup++) {
+        var currentSupreme = self.supremesPool()[iSup];
 
-      // Supremes already selected are not recruitable
-      // Excluded Supremes, depending on who is already recruited (Solar / Dark Solar / Avatar of the Jaguar), are not recruitable
-      // Only one Leader / one Powerhouse (check also other roles, see Stygian)
-      if (self.team().prohibitsRecruitmentOf(currentSupreme)) {
-        continue;
-      }
-      // Hidden Supremes with no Recruited Supremes that Show them (Moonchild / Loup-Garou II relationship)
-      if (currentSupreme.isHidden()
-        && !self.team().activatesRecruitmentOf(currentSupreme)) {
-        continue;
-      }
+        // Supremes already selected are not recruitable
+        // Excluded Supremes, depending on who is already recruited (Solar / Dark Solar / Avatar of the Jaguar), are not recruitable
+        // Only one Leader / one Powerhouse (check also other roles, see Stygian)
+        if (self.team().prohibitsRecruitmentOf(currentSupreme)) {
+          continue;
+        }
+        // Hidden Supremes with no Recruited Supremes that Show them (Moonchild / Loup-Garou II relationship)
+        if (currentSupreme.isHidden()
+          && !self.team().activatesRecruitmentOf(currentSupreme)) {
+          continue;
+        }
 
-      supremes.push(currentSupreme);
+        supremes.push(currentSupreme);
+      }
     }
 
     // User Filter
@@ -65,7 +69,6 @@ function teamBuilderVM()
     // TODO: let the user choose the sort method
     return _.sortBy(supremes, [function(o) { return o.jsonData.name; }]);
   });
-
 
   /*************/
   /* Functions */
@@ -81,6 +84,8 @@ function teamBuilderVM()
     } else { // Affiliation that leads to other affiliations
       self.affiliations(selectedAffiliation.nextAffiliations());
       self.team(null);
+      self.goBackIsVisible(true);
+      self.supremesPool([]);
     }
   }
 
@@ -91,6 +96,14 @@ function teamBuilderVM()
 
   self.dismissSupreme = function(supremeVM) {
     self.team().dismissSupreme(supremeVM);
+  }
+
+  /* Going back one step */
+  self.goBack = function() {
+    self.affiliations(AffiliationVM.getAllStartingAffiliations(self.selectAffiliation));
+    self.team(null);
+    self.goBackIsVisible(false);
+    self.supremesPool([]);
   }
 
   /*************************/

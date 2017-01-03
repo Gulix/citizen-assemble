@@ -86,7 +86,6 @@ function teamVM(affiliation)
     self.teamCode(TeamCode.getTeamCodeFromRoster(self));
   }
 
-
   /* Actions on the team */
   self.showActions = function() {
     self.actionsVisible(true);

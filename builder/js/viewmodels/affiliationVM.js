@@ -157,16 +157,16 @@ return {
     getAllStartingAffiliations: function(selectAffiliation) {
       var affiliations = [ ];
 
+      // From Alignment
+      affiliations.push(new affiliationVM(null, true, false, null, null, selectAffiliation));
+      affiliations.push(new affiliationVM(null, false, true, null, null, selectAffiliation));
+
       // From factions
       var factions = Factions.load();
       for (var iFaction = 0; iFaction < factions.length; iFaction++)
       {
         affiliations.push(new affiliationVM(factions[iFaction], null, null, null, null, selectAffiliation));
       }
-
-      // From Alignment
-      affiliations.push(new affiliationVM(null, true, false, null, null, selectAffiliation));
-      affiliations.push(new affiliationVM(null, false, true, null, null, selectAffiliation));
 
       return affiliations;
     }

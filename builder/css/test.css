@@ -61,6 +61,7 @@ h2 {
   border-style: solid;
   border-width: 3px;
   font-family: 'Bangers', cursive;
+  cursor: pointer;
 }
 
 .affiliation-box:hover {
@@ -305,4 +306,13 @@ h2 {
 
 .team-code {
   width: 100%;
+}
+
+/* Button-Icon to go back one step */
+
+.step-back {
+  background: url('../img/go-back-arrow.svg');
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
 }
