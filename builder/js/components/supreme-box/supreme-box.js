@@ -5,7 +5,15 @@ define(['knockout'], function(ko) {
 
     self.supremeVM = params.supreme;
 
-    /* Properties */
+    self.areActionsShown = ko.observable(false);
+    self.isRecruitable = ko.pureComputed(function() {
+      return !self.supremeVM.isRecruited();
+    });
+    self.isDismissable = ko.pureComputed(function() {
+      return self.supremeVM.isRecruited();
+    });
+
+    /* Static Properties */
     self.supremeName = self.supremeVM.jsonData.name;
     self.ap_granted = self.supremeVM.jsonData.ap_granted;
     self.minions_granted = self.supremeVM.jsonData.minions_granted;
@@ -17,12 +25,21 @@ define(['knockout'], function(ko) {
     self.supremeImgUrl = "background-image: url(img/supremes/" + ((self.supremeVM.jsonData.pictureId != null) ? self.supremeVM.jsonData.pictureId : self.supremeVM.jsonData.id) + ".jpg)";
 
     /* Functions */
-    self.recruitDismiss = function() {
-      if (self.supremeVM.isRecruited()) {
-        self.supremeVM.dismiss();
-      } else {
-        self.supremeVM.recruit();
-      }
+    self.showActions = function() {
+      self.areActionsShown(true);
+    }
+    self.hideActions = function() {
+      self.areActionsShown(false);
+    }
+
+    self.recruit = function() {
+      if (!self.supremeVM.isRecruited()) self.supremeVM.recruit();
+    }
+    self.dismiss = function() {
+      if (self.supremeVM.isRecruited()) self.supremeVM.dismiss();
+    }
+    self.showInfos = function() {
+
     }
   }
 
