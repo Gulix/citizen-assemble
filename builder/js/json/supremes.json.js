@@ -272,7 +272,9 @@ function loadSupremes() {
     "links": [
         { "link": "http://pulp-city.com/heroes-and-villains/villain-twilight/", "description": "Background story" },
         { "link": "http://newstore.pulp-city.com/index.php?route=product/product&product_id=147", "description": "Buy / View card on Pulp City Store" }
-    ]
+    ],
+    "excluded_supremes": [ 166 ],
+    "field_commander": false
     },{
     "id": 7,
     "name": "Guerilla",
@@ -5354,6 +5356,7 @@ function loadSupremes() {
     "supreme_types": [  "mechanical" ],
     "powers_skills": "Super-speed, limited machine control.",
     "excluded_supremes": [ 1 ],
+    "field_commander": true,
     "excluded_factions": [ "redrepublik" ],
     "description": "The first non-human to become a university professor, Androida still finds time to teach while being one of the world's most prominent Supremes. When not on campus or Hero duty, she runs several women's shelters and still finds time to play the role of Heavy Metal's PR face. With the reconstruction after the Fall, Androida has become fast friends with the feisty Rosie Rude, helping Rosie to adjust to her own new-found role as Supreme.",
     "links": [
@@ -5392,6 +5395,47 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 5,
     "supreme_types": [  "living" ]
+
+    },{
+    "id": 166,
+    "name": "Twilight",
+    "level": 2,
+    "role_key": "infiltrator",
+    "ap_granted": 4,
+    "minions_granted": 0,
+    "factions": [  "coven", "theway" ],
+    "is_hero": 0,
+    "is_villain": 1,
+    "is_freelance": 0,
+    "origin": "mystery",
+    "strength_value": 3,
+    "defense_value": 4,
+    "agility_value": 5,
+    "energy_value": 4,
+    "mind_value": 4,
+    "spirit_value": 4,
+    "strength_trump": 0,
+    "defense_trump": 0,
+    "agility_trump": 1,
+    "energy_trump": 0,
+    "mind_trump": 1,
+    "spirit_trump": 0,
+    "hp_value": 7,
+    "mvt_type": "blink",
+    "mvt_value": 5,
+    "is_stealth": 1,
+    "exclusive_minions": "",
+    "elements": [  "darkness" ],
+    "ap_limit": 5,
+    "supreme_types": [  "living" ],
+    "powers_skills": "Assassination, infiltration, spirit walking, martial arts and gun expertise.",
+    "description": "Confilcted as the Coven's prime assassin, Twilight is a martial arts expert (sent to study in Asia), gun expert and covert ops specialist. As with most of its non-supernatural members, Twilight is an orphan, indoctrinated and brainwashed at early age. What is not obvious is that Twilight utilizes minor voodoo charms that allow her to hide and travel in the spirit world. Chips and cracks have started showing in her loyalty, mostly due to the exposure to the darker supernatural practices of the Coven.",
+    "links": [
+        { "link": "http://pulp-city.com/heroes-and-villains/villain-twilight/", "description": "Background story" },
+        { "link": "http://newstore.pulp-city.com/index.php?route=product/product&product_id=147", "description": "Buy / View card on Pulp City Store" }
+    ],
+    "excluded_supremes": [ 6 ],
+    "field_commander": true
     },{
     "id": 1001,
     "name": "Moon Coyote",
@@ -5861,7 +5905,7 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 3,
     "supreme_types": [  "living" ],
-    "supreme_is_hidden": true, 
+    "supreme_is_hidden": true,
     "pictureId": 42
     },{
     "id": 1015,
