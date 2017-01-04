@@ -40,6 +40,12 @@ function teamVM(affiliation)
   self.totalMinionsPoints = ko.pureComputed(function() {
     return _.sumBy(self.rosterSupremes(), function(o) { return o.jsonData.minions_granted; });
   });
+  self.isCardsVisible = ko.pureComputed(function() {
+    return self.nbLeaderCards() > 0;
+  })
+  self.nbLeaderCards = ko.pureComputed(function() {
+    return _.sumBy(self.rosterSupremes(), function(o) { return o.grantedLeaderCards(self.rosterSupremes()); });
+  })
 
   /*************/
   /* Functions */

@@ -26,6 +26,20 @@ function supremeVM(jsonSupreme, recruit, dismiss)
 
   self.getShownSupremesID = function() { return self.jsonData.shown_supremes; }
 
+  self.grantedLeaderCards = function(supremesList)
+  {
+    if (self.isLeader()) return 3;
+    if ((self.jsonData.field_commander != null) && self.jsonData.field_commander)
+    {
+      // Field Commander grants one Leader Card if all the Models in the Team share a Faction with the Supreme
+      // (TODO : check for Minions too)
+      if (_.every(supremesList, function(s) {
+        return s.shareFactionWith(self);
+      })) return 1;
+    }
+    return 0;
+  } // TODO : Will need to add the new Power of Androida / Twilight
+
   /*************/
   /* Functions */
   /*************/
@@ -51,6 +65,16 @@ function supremeVM(jsonSupreme, recruit, dismiss)
       }
     }
     return false;
+  }
+
+  self.shareFactionWith = function(supremeVM) {
+    return _.find(self.jsonData.factions, function(f1)
+    {
+      return _.find(supremeVM.jsonData.factions, function(f2)
+      {
+        return f1.faction_key == f2.faction_key;
+      }); 
+    });
   }
 
   self.recruit = function() {

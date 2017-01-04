@@ -51,6 +51,11 @@
           </div>
         </div>
       </div>
+      <div class="roster-cards" data-bind="visible: isCardsVisible">
+        <div class="card-title"><span class="icon-cards"></span><span data-bind="text: nbLeaderCards"></span> Leader Cards</div>
+        <div class="card-action"><span class="icon-add-card card-action-icon"></span>Select one ...</div>
+
+      </div>
       <div class="modal-box" data-bind="visible: isTeamCodeVisible">
         <div class="modal-close" data-bind="click: hideCode"></div>
         <div class="modal-content">
