@@ -1,0 +1,1252 @@
+<html>
+  <head>
+    <script src="js/mustache.js"></script>
+
+    <title>Citizen Assemble ! Pulp City Team Builder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+<body>
+  <div class="container-fluid" id="main-view">
+    <div class="row">
+      <div class="col-md-2">
+        <div class='github-buttons'>
+          <button type="button" class="btn btn-default" title='About this project' id='btnAbout'
+                  data-toggle="modal" data-target="#modal-about" >
+            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> About ?
+          </button>
+        </div>
+        <div class='github-buttons'>
+          <a aria-label="Watch gulix/citizen-assemble on GitHub" data-count-aria-label="# watchers on GitHub" data-count-api="/repos/gulix/citizen-assemble#subscribers_count" data-count-href="/gulix/citizen-assemble/watchers" data-style="mega" href="https://github.com/gulix/citizen-assemble" class="github-button">Watch on Github</a>
+        </div>
+
+
+        <form class='team-affiliation'>
+          <div class="form-group">
+            <label for="selTeamAffiliation">Team Alignment / Faction</label>
+            <select class="form-control" id="selTeamAffiliation"
+                    data-bind="foreach: affiliations, value:selected_affiliation">
+              <optgroup data-bind="attr: {label: label}, foreach: children">
+                <option data-bind="text: label, value: key"></option>
+              </optgroup>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-9 col-md-offset-1">
+        <h1>Citizen Assemble !</h1>
+        <h2>A team builder for <b>Pulp City</b></h2>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="row">
+
+      <!-- Team Summary -->
+	  <div class='col-md-2 team-summary'>
+	    <dl class="dl-horizontal">
+          <dt>Team Level</dt><dd id='team-summary-level'></dd>
+		  <dt># of Supremes</dt><dd id='team-summary-number'></dd>
+		  <dt>AP+</dt><dd id='team-summary-apgranted'></dd>
+		  <dt>Minions+</dt><dd id='team-summary-minionsgranted'></dd>
+        </dl>
+		<div class='team-summary-exclusiveminions'></div>
+		<div class="alert alert-info faction-card text-center" id="faction-card" role="alert">
+		  <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
+          Faction card granted !
+		</div>
+	  </div>
+
+      <div class='col-md-10'>
+        <!-- Factions -->
+        <div class='col-md-2'>
+          <label for="selFactions">Faction</label>
+          <select id="selFactions" class="form-control"
+                  data-bind="options: factions_list.sort(function (l, r) { return l.sort_faction(r); }),
+                             optionsText: function(item) { return item.faction_label() },
+                             optionsValue: function(item) { return item.faction_key() },
+                             value: selected_faction">
+          </select>
+        </div>
+        <!-- Origins -->
+        <div class='col-md-2'>
+          <label for="selOrigins">Origin</label>
+          <select id="selOrigins" class="form-control"
+                  data-bind="options: origins_list.sort(function (l, r) { return l.sort_origin(r); }),
+                             optionsText: function(item) { return item.origin_label() },
+                             optionsValue: function(item) { return item.origin_key() },
+                             value: selected_origin"></select>
+        </div>
+        <!-- Roles -->
+        <div class='col-md-2'>
+          <label for="selRoles">Role</label>
+          <select id="selRoles" class="form-control"
+                  data-bind="options: roles_list.sort(function (l, r) { return l.sort(r); }),
+                             optionsText: function(item) { return item.label() },
+                             optionsValue: function(item) { return item.key() },
+                             value: selected_role"></select>
+        </div>
+        <!-- Levels -->
+        <div class='col-md-2'>
+          <label for="selLevels">Level</label>
+          <select id="selLevels" class="form-control"
+                  data-bind="options: levels_list,
+                             optionsText: function(item) { return item.label() },
+                             optionsValue: function(item) { return item.key() },
+                             value: selected_level"></select>
+        </div>
+        <!-- AP+ -->
+        <div class='col-md-2'>
+          <label for="selAPgranted">AP+</label>
+          <select id="selAPgranted" class="form-control"
+                  data-bind="options: ap_granted_choices,
+                             optionsText: 'label',
+                             optionsValue: 'key',
+                             value: selected_ap_granted"></select>
+        </div>
+        <!-- Minions+ -->
+        <div class='col-md-2'>
+          <label for="selMinionsGranted">Minions+</label>
+          <select id="selMinionsGranted" class="form-control"
+                  data-bind="options: minions_granted_choices,
+                             optionsText: 'label',
+                             optionsValue: 'key',
+                             value: selected_minions_granted"></select>
+        </div>
+        <!-- Text filter -->
+        <div class='col-md-4'>
+          <label for="txtFilterName">Supreme name</label>
+          <input id='txtFilterName' type="text" class="form-control" placeholder="Search for..."
+                 data-bind='textInput: filter_name'></input>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Selected items -->
+      <div class="col-md-2">
+        <div class="alert alert-warning honorary-member text-center" id="honorary-member" role="alert">
+		      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            Honorary Member<br /><span id="honorary-member-detail"></span>
+		    </div>
+
+        <div class="supremes-selected-list" id="list-selected">
+        </div>
+      </div>
+      <!-- List of Supremes -->
+      <div class="col-md-10 supremes-list" id="list-supremes" data-bind="foreach: filtered_supremes().sort(function (l, r) { return l.name() > r.name() ? 1 : -1 })">
+        <div class='col-md-2 supreme-list-element' id='supreme-list-{{id}}'>
+          <div class='header'>
+        	  <div class='info-icons'>
+        		  <div data-bind="css: originCssClass" class='info-icon' ></div>
+        		  <div data-bind="css: alignmentCssClass" class='info-icon'></div>
+        		</div>
+        		<div class='supreme-name' data-bind="text: name"></div>
+        	</div>
+          <p class='text-left supreme-role'><span data-bind="text: role_label"></span> <span data-bind="css: roleLevelCssClass">lvl.<span data-bind="text: level"></span></span></p>
+          <div class='text-right supreme-additional-data'>
+        		AP+ : <span data-bind="text: ap_granted"></span>
+        		<br />Minions+ : <span data-bind="text: minions_granted"></span>
+            <br />
+              <span class='supreme-factions' data-bind="foreach: factions"><!-- ko if: $index() > 0 -->, <!-- /ko --><span data-bind="text: faction_label, css: factionCssClass"></span></span>
+              <span class='supreme-factions' data-bind="if: factions().length == 0"><span class="faction-independant">Independant</span></span>
+              <!-- ko if: is_freelance() --><img class='supreme-freelance' title='Freelancer' src='img/freelancer.png' /><!-- /ko -->
+        	</div>
+          <div class='bottom-footer'>
+            <img data-bind="attr:{src: thumbImagePath}" width="45px" onerror="imgError(this);" />
+            <div class='footer-buttons'>
+              <button type="button" class="btn btn-sm btn-default" title='Show details' data-bind="click: selectForDetail" >
+                <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+        	    </button>
+              <button type="button" class="btn btn-sm btn-default btn-select-supreme" title='Add Supreme to your Team Selection' id="btn-select-supreme-{{id}}">
+        		    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        		  </button>
+        	  </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Frame to view the Details of a Supreme -->
+
+    <div id="list-modal-supremes">
+      <div class="modal fade" id="supreme-modal" tabindex="-1" role="dialog" aria-labelledby="supreme-modal-label">
+        <div class="modal-dialog" >
+          <!-- ko if:$data.supreme_detailed -->
+          <div class="modal-content" data-binding="with: $data.supreme_detailed">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <div class="header-modal">
+                <img data-bind="attr:{src: thumbImagePath}" width="40px" onerror="imgError(this);"></img>
+      		      <div class='supreme-name' data-bind="text: name"></div>
+              </div>
+            </div>
+            <div class="modal-body">
+              <div>
+                <div class='info-icons'>
+      		        <div class='info-icon' data-bind='css: originCssClass' ></div>
+      		        <div data-bind="css: alignmentCssClass" class='info-icon'></div>
+      		      </div>
+                <div class='informations-left-modal'>
+                  <p class='text-left'><span data-bind="text: role_label"></span> <span data-bind="css: roleLevelCssClass">lvl.<span data-bind="text: level"></span></p>
+                  <p class='text-left'>AP+ : <span data-bind="text: ap_granted"></span>
+                    <br />AP limit : <span data-bind="text: ap_limit"></span>
+                    <br />Minions+ : <span data-bind="text: minions_granted"></span><br />{{#exclusive_minions}}<span class='exclusive-minion-name' title='Exclusive Minion'>{{.}}</span>{{/exclusive_minions}}
+                  </p>
+                </div>
+                <table class='table-bordered table-traits'>
+                  <thead>
+                    <tr>
+                      <th class='traits-value traits-trump-{{strength_trump}}'><img src='img/traits_strength.png' title='Strength'/></th>
+                      <th class='traits-value traits-trump-{{defense_trump}}'><img src='img/traits_defense.png' title='Defense'/></th>
+                      <th class='traits-value traits-trump-{{agility_trump}}'><img src='img/traits_agility.png' title='Agility'/></th>
+                      <th class='traits-value traits-trump-{{energy_trump}}'><img src='img/traits_energy.png' title='Energy'/></th>
+                      <th class='traits-value traits-trump-{{mind_trump}}'><img src='img/traits_mind.png' title='Mind'/></th>
+                      <th class='traits-value traits-trump-{{spirit_trump}}'><img src='img/traits_spirit.png' title='Spirit'/></th>
+                      <th class='traits-separator'>&nbsp;</th>
+                      <th class='traits-value'>HP</th>
+                      <th class='traits-value'>Mvt</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class='traits-value traits-trump-{{strength_trump}}'>{{strength_value}}</td>
+                      <td class='traits-value traits-trump-{{defense_trump}}'>{{defense_value}}</td>
+                      <td class='traits-value traits-trump-{{agility_trump}}'>{{agility_value}}</td>
+                      <td class='traits-value traits-trump-{{energy_trump}}'>{{energy_value}}</td>
+                      <td class='traits-value traits-trump-{{mind_trump}}'>{{mind_value}}</td>
+                      <td class='traits-value traits-trump-{{spirit_trump}}'>{{spirit_value}}</td>
+                      <th class='traits-separator'>&nbsp;</td>
+                      <td class='traits-value'>{{hp_value}}</td>
+                      <td class='traits-value'>{{mvt_value}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class='clear-both'>
+                  <p class='text-left'>
+                    <strong>Factions :</strong> <span class='supreme-factions'>{{factions}}</span><span class='supreme-freelance-{{is_freelance}}' />
+                    <br /><strong>Type :</strong>{{#supreme_types}} {{.}} {{/supreme_types}} {{#elements}} <img src='img/element_{{.}}.png' class='icon-element icon-element-{{.}}' /> {{/elements}}
+                  </p>
+              </div>
+              <div class='supreme-description'>
+                {{#powers_skills}}<div class='supreme-description-powers'>Powers &amp; skills : {{.}}</div>{{/powers_skills}}
+                {{#description}}<div class='supreme-description-content'>{{.}}</div>{{/description}}
+              </div>
+              <ul class='supreme-links'>{{#links}}<li class='supreme-link'><a href='{{link}}' target='_blank'>{{description}}</a></li>{{/links}}</ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-default" title='Close details' data-dismiss="modal">
+      	      <span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
+      	    </button>
+              <button type="button" class="btn btn-sm btn-default btn-unselect-supreme-modal" title='Remove from selection' id="btn-unselect-supreme-modal-{{id}}">
+      	      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      	    </button>
+              <button type="button" class="btn btn-sm btn-default btn-select-supreme-modal" title='Add Supreme to your Team Selection' id="btn-select-supreme-modal-{{id}}">
+      	      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+      	    </button>
+            </div>
+          </div>
+          <!-- /ko -->
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="modal-get-code" tabindex="-1" role="dialog" aria-labelledby="modal-get-code-label">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="modal-get-code-label">Get Team unique code</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="lbl-current-team-code">Unique code for your Team</label>
+              <input type="text" class="form-control" id="lbl-current-team-code" readonly>
+            </div>
+            <div class="form-group">
+              <label for="lbl-current-team-code-url">URL for your Team</label>
+              <input type="text" class="form-control" id="lbl-current-team-code-url" readonly>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modal-enter-code" tabindex="-1" role="dialog" aria-labelledby="modal-enter-code-label">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="modal-enter-code-label">Enter a Team unique code</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="lbl-enter-team-code">Unique code for your Team</label>
+              <input type="text" class="form-control" id="lbl-enter-team-code" >
+            </div>
+            <div class="bg-danger" id="enter-code-error">Message</div>
+            <div class="bg-warning" id="enter-code-warning">Message</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id='btn-validate-code'>Enter code</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About box -->
+    <div class="modal fade" id="modal-about" tabindex="-1" role="dialog" aria-labelledby="modal-about-label">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="modal-about-label">About Citizen Assemble !</h4>
+          </div>
+          <div class="modal-body">
+            <p><strong>Citizen Assemble !</strong> is a web project intended to provide a Team Builder for the miniatures game <strong>Pulp City</strong>.</p>
+            <p>This project is open-source, has been created by <a href='http://github.com/gulix'>Gulix</a>, and welcome any willing participants.</p>
+            <p>Watch this project on github : <a href='http://github.com/gulix/citizen-assemble'>http://github.com/gulix/citizen-assemble</a></p>
+            <p>Current version : 1.0.1 &lt;2016-01-30&gt;</p>
+            <h4>Pulp City</h4>
+            <ul>
+              <li><a href='http://pulp-city.com/'>Pulp City homepage</a></li>
+              <li><a href='http://forum.pulp-city.com/'>Pulp City forum</a></li>
+            </ul>
+            <h4>Projects employed in this project</h4>
+            <ul>
+              <li><a href='http://getbootstrap.com'>Bootstrap</a></li>
+              <li><a href='http://jquery.com'>Jquery</a></li>
+              <li><a href='https://github.com/janl/mustache.js'>Mustache.js</a></li>
+              <li><a href='https://github.com/bpampuch/pdfmake'>Pdfmake</a></li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/pdfmake.min.js"></script>
+  <script src="js/vfs_fonts.js"></script>
+  <script src="js/knockout-3.4.0.js"></script>
+  <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+
+  <!-- Custom scripts -->
+  <script src="scripts/factionViewModel.js"></script>
+  <script src="scripts/originViewModel.js"></script>
+  <script src="scripts/roleViewModel.js"></script>
+  <script src="scripts/levelFilterViewModel.js"></script>
+  <script src="scripts/supremeViewModel.js"></script>
+  <script src="scripts/builderViewModel.js"></script>
+  <script src="scripts/popup.js"></script>
+  <script src="scripts/honoraryMember.js"></script>
+
+  <!-- JSON data files -->
+  <script src="json/supremes.json"></script>
+  <script src="json/factions.json"></script>
+  <script src="json/origins.json"></script>
+  <script src="json/roles.json"></script>
+  <script src="json/levelsFilter.json"></script>
+
+</body>
+<script>
+
+window.supremes_list = [];
+window.selected_supremes_list = [];
+window.factions = [];
+
+var supremesFilled = false;
+var supremesSelectionFilled = false;
+var supremesModalFilled = false;
+
+/********************/
+/*** The Supremes ***/
+/********************/
+function fill_supremes()
+{
+  var jsonData = {
+    "supremesList": jsonSupremes,
+    "factionsList": jsonFactions,
+    "originsList": jsonOrigins,
+    "rolesList": jsonRoles,
+    "levelsList": jsonLevels
+  };
+
+  var builderVM = new builderViewModel(jsonData);
+  ko.applyBindings(builderVM, document.getElementById("main-view"));
+
+  /*$.getJSON("json/supremes.json", function(json) {
+
+    // Sort by Name
+    json.sort(function(a, b)
+    {
+      if (a.name < b.name) return -1;
+      if (b.name < a.name) return 1;
+      return 0;
+    });
+    window.supremes_list = json;
+    window.selected_supremes_list = [];
+
+    // Fill some fields (key to value)
+	update_role();
+
+    // View to render via Mustache
+    var view = { "supremes": window.supremes_list };
+
+    // The main list
+    $.ajax(
+    {
+      url: "mustache/supremes.mst",
+      success: function( mustacheTemplate )
+        {
+          var renderedHtml = Mustache.render(mustacheTemplate, view);
+          $("#list-supremes").html(renderedHtml);
+          fill_factions_name();
+		      fill_freelancer();
+          filter_supremes();
+          $(".btn-select-supreme").click(function() { select_supreme(getSupremeId("btn-select-supreme-", $(this).attr('id'))); });
+          supremesFilled = true;
+          load_code_from_url();
+        },
+      dataType: "text"
+    });
+
+    // The Supremes rendered on a modal view
+    $.ajax(
+    {
+      url: "mustache/supremes_modal.mst",
+      success: function( mustacheTemplate )
+        {
+          var renderedHtml = Mustache.render(mustacheTemplate, view);
+          $("#list-modal-supremes").html(renderedHtml);
+          fill_freelancer();
+          setPopupsElements();
+          // Clear the Description div if it has no child
+          $(".supreme-description").each(function() { if($(this).children().length == 0) { $(this).hide(); } });
+          // Events on Buttons
+          $(".btn-select-supreme-modal").click(function() { select_supreme(getSupremeId("btn-select-supreme-modal-", $(this).attr('id'))); });
+          $(".btn-unselect-supreme-modal").click(function() { unselect_supreme(getSupremeId("btn-unselect-supreme-modal-", $(this).attr('id')), true); });
+          $(".btn-unselect-supreme-modal").hide();
+          supremesSelectionFilled = true;
+          load_code_from_url();
+        },
+      dataType: "text"
+    });
+
+    // The "Selected Supremes" list
+    $.ajax(
+    {
+      url: "mustache/supremes_selection.mst",
+      success: function( mustacheTemplate )
+        {
+          // Render the Supremes with a Mustache template
+          var renderedHtml = Mustache.render(mustacheTemplate, view);
+          $("#list-selected").html(renderedHtml);
+          // Hiding the elements
+          $(".supreme-selection").each(function() { $( this ).hide(); });
+          // Click on Buttons
+          $(".btn-unselect-supreme").click(function() { unselect_supreme(getSupremeId("btn-unselect-supreme-", $(this).attr('id')), true); });
+		  $('#btnHideSelectionFooter').click(function() { hide_selection_footer(); });
+          $('#btnShowSelectionFooter').click(function() { show_selection_footer(); });
+          $('#btn-print-team').click(function() { generate_pdf(); });
+		  $(".supreme-selection > .header").click(function()
+          {
+            toggle_selection_footer(getSupremeId("supreme-selection-", $(this).parent().attr('id')));
+          });
+          supremesModalFilled = true;
+          load_code_from_url();
+        },
+      dataType: "text"
+    });
+  });*/
+}
+
+function get_json_supreme(id)
+{
+  for(var i=0; i<window.supremes_list.length; i++)
+    if (window.supremes_list[i].id == id) return window.supremes_list[i];
+
+  return null;
+}
+
+/*************************/
+/*** Selected Supremes ***/
+/*************************/
+function select_supreme(id)
+{
+  $("#supreme-selection-" + id).show();
+  // Buttons in the modal view
+  $("#btn-select-supreme-modal-" + id).hide();
+  $("#btn-unselect-supreme-modal-" + id).show();
+  var supremeSelected = get_json_supreme(id);
+
+  // Is 'Honorary Member' selected ?
+  if (isSelectedAsHonoraryMember(supremeSelected))
+  {
+    supremeSelected.is_honorary_member = true;
+    $("#supreme-selection-" + id + " .supreme-name").html('<span class="glyphicon glyphicon-star icon-honorary-member" aria-hidden="true" title="Honorary Member" />' + supremeSelected.name);
+  }
+  else
+  {
+    supremeSelected.is_honorary_member = false;
+    $("#supreme-selection-" + id + " .icon-honorary-member").remove();
+  }
+
+  window.selected_supremes_list.push(supremeSelected);
+
+  sort_selected_supremes();
+  update_summary();
+  check_honorary_member();
+  set_unique_code();
+  check_faction_cards();
+  filter_supremes();
+}
+
+/*function unselect_supreme(id, refreshAll)
+{
+  $("#supreme-selection-" + id).hide();
+  $("#supreme-selection-" + id).removeAttr("data-sort");
+  // Buttons in the modal view
+  $("#btn-select-supreme-modal-" + id).show();
+  $("#btn-unselect-supreme-modal-" + id).hide();
+  for(var i=0; i<window.selected_supremes_list.length; i++)
+  {
+    if (window.selected_supremes_list[i].id == id)
+    {
+      // If this is a Leader, all the Honorary Members are also removed
+      var isLeader = window.selected_supremes_list[i].role_key == 'leader'
+        || isInTable(window.selected_supremes_list[i].other_roles, 'leader');
+      window.selected_supremes_list.splice(i, 1);
+      break;
+    }
+  }
+  // Removing the Honorary Member
+  if (isLeader)
+  {
+    for(var i=0; i<window.selected_supremes_list.length; i++)
+    {
+      if (window.selected_supremes_list[i].is_honorary_member)
+      {
+        unselect_supreme(window.selected_supremes_list[i].id, false);
+      }
+    }
+  }
+
+  if (refreshAll)
+  {
+    sort_selected_supremes();
+    check_honorary_member();
+    filter_supremes();
+    update_summary();
+    set_unique_code();
+	check_faction_cards();
+  }
+}*/
+
+function clear_selection()
+{
+  $('.supreme-selection').hide();
+  window.selected_supremes_list.splice(0, window.selected_supremes_list.length);
+  filter_supremes();
+  update_summary();
+}
+
+function sort_selected_supremes()
+{
+  // Apply sort index
+  $(".supreme-selection:hidden").attr("data-sort", window.selected_supremes_list.length + 1);
+  for (var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
+  {
+    $("#supreme-selection-" + window.selected_supremes_list[iSup].id).attr("data-sort", iSup);
+  }
+
+  var $supreme_list = $('#list-selected');
+  var $supremes = $supreme_list.children();
+
+  $supremes.sort(function(a,b){
+    var aSort = a.getAttribute('data-sort');
+    var bSort = b.getAttribute('data-sort');
+
+    if (aSort === undefined) aSort = window.selected_supremes_list.length + 1;
+    if (bSort === undefined) bSort = window.selected_supremes_list.length + 1;
+
+    if (aSort > bSort)
+      return 1;
+  if (aSort < bSort)
+      return -1;
+  return 0;
+  });
+
+  $supremes.detach().appendTo($supreme_list);
+}
+
+function hide_selection_footer()
+{
+  $('.supreme-selected-list-element .supreme-role').slideUp(300);
+  $('.supreme-selected-list-element .bottom-footer').slideUp(300);
+}
+
+function show_selection_footer()
+{
+  $('.supreme-selected-list-element .supreme-role').slideDown(300);
+  $('.supreme-selected-list-element .bottom-footer').slideDown(300);
+}
+
+function toggle_selection_footer(id)
+{
+  $('#supreme-selection-' + id +' .supreme-role').slideToggle(300);
+  $('#supreme-selection-' + id +' .bottom-footer').slideToggle(300);
+}
+
+/********************/
+/*** Faction card ***/
+/********************/
+function load_faction_cards()
+{
+  $.getJSON("json/factions-cards.json", function(jsonCards) {
+    window.faction_cards = jsonCards;
+	check_faction_cards();
+  });
+}
+
+function check_faction_cards()
+{
+  if ((window.faction_cards === undefined) || (window.faction_cards === null))
+  {
+    load_faction_cards();
+	return;
+  }
+
+  // Checking if any of the cards comply with the Team selection
+  var cardGranted = null;
+  for(var iCard = 0; iCard < window.faction_cards.length; iCard++)
+  {
+    // Is the required leader present in the team ?
+	var leaderFound = false;
+	for (var iLeader = 0; iLeader < window.selected_supremes_list.length; iLeader++)
+	{
+	  leaderFound = isInTable(window.faction_cards[iCard].leaders_required, window.selected_supremes_list[iLeader].id);
+	  if (leaderFound) break;
+	}
+	if (!leaderFound) continue;
+
+	// Condition on the faction of the Supremes
+	if (window.faction_cards[iCard].faction_required !== null)
+	{
+	  var factionOK = true;
+	  for(var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
+	  {
+	    if(!isInTable(window.selected_supremes_list[iSup].factions, window.faction_cards[iCard].faction_required)
+		   && ((window.selected_supremes_list[iSup].is_honorary_member !== undefined) && !window.selected_supremes_list[iSup].is_honorary_member))
+		{
+		  factionOK = false;
+		  break;
+		}
+	  }
+	  if (factionOK)
+	  {
+	    cardGranted = window.faction_cards[iCard];
+		break;
+	  }
+	}
+
+	// Condition on the Origin of the Supremes
+	if (window.faction_cards[iCard].origin_required !== null)
+	{
+	  var originOK = true;
+	  for(var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
+	  {
+	    if(window.selected_supremes_list[iSup].origin != window.faction_cards[iCard].origin_required)
+		{
+		  originOK = false;
+		  break;
+		}
+	  }
+	  if (originOK)
+	  {
+	    cardGranted = window.faction_cards[iCard];
+		break;
+	  }
+	}
+
+	// Condition on the Alignment of the Supremes
+	if (window.faction_cards[iCard].alignment_required !== null)
+	{
+	  var isHeroRequired = window.faction_cards[iCard].alignment_required == "hero";
+	  var isVillainRequired = window.faction_cards[iCard].alignment_required == "villain";
+	  var alignmentOK = true;
+	  for(var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
+	  {
+	    // Supremes must not be in any Faction (or be a Freelancer or an Honorary Member)
+	    if((!window.selected_supremes_list[iSup].is_hero && isHeroRequired)
+		   || (!window.selected_supremes_list[iSup].is_villain && isVillainRequired)
+		   || ((window.selected_supremes_list[iSup].factions.length > 0)
+		       && !window.selected_supremes_list[iSup].is_freelance
+               && !window.selected_supremes_list[iSup].is_honorary_member))
+		{
+		  alignmentOK = false;
+		  break;
+		}
+	  }
+	  if (alignmentOK)
+	  {
+	    cardGranted = window.faction_cards[iCard];
+		break;
+	  }
+	}
+  }
+
+  if (cardGranted !== null)
+  {
+    $('#faction-card').show();
+  }
+  else
+  {
+    $('#faction-card').hide();
+  }
+}
+
+/************************/
+/*** Team Unique Code ***/
+/************************/
+function load_code_from_url()
+{
+  if (!supremesFilled || !supremesSelectionFilled || !supremesModalFilled )
+    return;
+
+  var codeFromUrl = get('code');
+  if (codeFromUrl !== undefined)
+  {
+    enter_unique_code(codeFromUrl);
+  }
+}
+
+function get_unique_code()
+{
+  var uniqueCode = '';
+  // First 2 chars : Team affiliation
+  var aff = $('#selTeamAffiliation').val();
+  if (aff == 'a_heroes')
+    uniqueCode = 'HE';
+  else if (aff == 'a_villains')
+    uniqueCode = 'VI';
+  else
+  {
+    for(var iFaction = 0; iFaction < window.factions.length; iFaction++)
+    {
+      if (aff == "f_" + window.factions[iFaction].faction_key)
+      {
+        uniqueCode = window.factions[iFaction].id;
+        break;
+      }
+    }
+  }
+  // Next char : max number of character to id a supreme
+  var idNbCharMax = 0;
+  for (var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
+  {
+    idNbCharMax = Math.max(idNbCharMax, window.selected_supremes_list[iSup].id.toString().length);
+  }
+  uniqueCode = uniqueCode + idNbCharMax;
+
+  // List of Supremes'ID
+  for (var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
+  {
+    uniqueCode += pad(window.selected_supremes_list[iSup].id, idNbCharMax);
+  }
+
+  return uniqueCode;
+}
+
+function set_unique_code()
+{
+  var uniqueCode = get_unique_code();
+
+  $('#lbl-current-team-code').val(uniqueCode);
+  $('#lbl-current-team-code-url').val(location.protocol + '//' + location.host + location.pathname + "?code=" + uniqueCode);
+}
+
+function enter_unique_code(teamCode)
+{
+  $.getJSON("json/factions.json", function(jsonFactions) {
+    clear_selection();
+
+    $('#enter-code-error').hide();
+    $('#enter-code-warning').hide();
+
+    // First 2 chars : Team affiliation
+    var teamAffiliation = teamCode.substring(0, 2);
+    var teamAffCode = '';
+    if (teamAffiliation == 'HE')
+      teamAffCode = 'a_heroes';
+    else if (teamAffiliation == 'VI')
+      teamAffCode = 'a_villains';
+    else
+    {
+      for(var iFaction = 0; iFaction < jsonFactions.length; iFaction++)
+      {
+        if (teamAffiliation == jsonFactions[iFaction].id.toString())
+        {
+          teamAffCode = 'f_' + jsonFactions[iFaction].faction_key;
+          break;
+        }
+      }
+    }
+    if (teamAffCode == '')
+    {
+        error_code("No faction or Alignment matches this code.");
+        return;
+    }
+    $('#selTeamAffiliation').val(teamAffCode);
+    changeAffiliation();
+
+    // Next char : max number of character to id a supreme
+    var idNbCharMax = Number(teamCode.substring(2, 3));
+    if (isNaN(idNbCharMax) || (idNbCharMax <= 0))
+    {
+      error_code("Incorrect value for the code.");
+      return;
+    }
+
+    for(var iChar = 3; iChar < teamCode.length; iChar += idNbCharMax)
+    {
+      var supremeId = Number(teamCode.substring(iChar, iChar + idNbCharMax));
+      if (isNaN(supremeId))
+      {
+        warning_code("Part of the code has been ignored because it doesn't match a Supreme code.");
+        return;
+      }
+      select_supreme(supremeId);
+    }
+  });
+}
+
+function error_code(errorMessage)
+{
+  $('#enter-code-error').html(errorMessage);
+  $('#enter-code-error').show();
+}
+
+function warning_code(errorMessage)
+{
+  $('#enter-code-warning').html(errorMessage);
+  $('#enter-code-warning').show();
+}
+
+
+
+function get_selectedLeader_faction()
+{
+  for (var iSup = 0; iSup < window.selected_supremes_list.length; iSup++)
+  {
+    if (window.selected_supremes_list[iSup].role_key == "leader"
+        || isInTable(window.selected_supremes_list[iSup].other_roles, 'leader'))
+      return window.selected_supremes_list[iSup].factions;
+  }
+
+  return null;
+}
+
+/************************/
+/*** Team Affiliation ***/
+/************************/
+function changeAffiliation()
+{
+  var affiliation = $('#selTeamAffiliation').val();
+  if (affiliation === null) return;
+  var isAlignment = (affiliation.indexOf('a_') === 0);
+  var isFaction = (affiliation.indexOf('f_') === 0);
+
+  if (isFaction)
+  {
+    // The faction filter is set and disabled to the selected Faction in the Affiliation
+    var keyFaction = affiliation.substring(2);
+    //$('#selFactions').val(keyFaction);
+    $('#selFactions').prop('disabled', 'disabled');
+  }
+  else if (isAlignment)
+  {
+    $('#selFactions').prop('disabled', false);
+  }
+
+  filter_supremes();
+}
+
+function getSupremeId(strStartId, strId)
+{
+  if (strId === undefined)
+    return 0;
+  return strId.substring(strStartId.length);
+}
+
+function confirmAffiliationChange()
+{
+  var countSelectedSupremes = $('.supreme-selection:visible').length;
+  if (countSelectedSupremes > 0)
+  {
+    if (!confirm('Are you sure you want to change your Team Affiliation ?\nYour team composition will be cleared.'))
+    {
+      var current = $.data(this, 'current');
+      if ((current === null) || (current === undefined))
+        current = "a_heroes";
+      $(this).val(current); // added parenthesis (edit)
+      return false;
+    }
+  }
+
+  $.data(this, 'current', $(this).val());
+  clear_selection();
+  check_honorary_member();
+  changeAffiliation();
+  check_faction_cards();
+}
+
+/**************/
+/*** Filter ***/
+/**************/
+function filter_supremes()
+{
+
+  // Faction filter
+  var factionFilter = $('#selFactions').val();
+  if (factionFilter === null)
+    factionFilter = "-0";
+  var isFactionSelected = !isInTable(["-0", "-1", "-2"], factionFilter);
+  var isFactionWithout = (factionFilter == "-1");
+  var isFactionWithoutWithFreelance = (factionFilter == "-2");
+  // Levels
+  var levelsAccepted = [ ];
+  var levelFilter = $("#selLevels").val();
+  if (levelFilter === null)
+    levelFilter = "0";
+  if ((levelFilter == "0") || levelFilter.indexOf("1") > -1)
+    levelsAccepted.push(1);
+  if ((levelFilter == "0") || levelFilter.indexOf("2") > -1)
+    levelsAccepted.push(2);
+  if ((levelFilter == "0") || levelFilter.indexOf("3") > -1)
+    levelsAccepted.push(3);
+
+  // Heroes / Villains
+  var alignment = $('#selTeamAffiliation').val();
+  var isHeroesOnly = (alignment == 'a_heroes');
+  var isVillainsOnly = (alignment == 'a_villains');
+  var isAlignementFaction = alignment.substring(0, 2) == "f_";
+
+  // Honorary Member active ?
+  var isHonoraryMember = $('#honorary-member').hasClass('honorary-member-active');
+  if (isHonoraryMember && isFactionSelected)
+  {
+    isFactionSelected = false; // Honorary Member means we can select from any faction
+  }
+
+  var excludeLeader = false; // Only one Leader
+  var excludePowerhouse = false; // Only one Powerhouse
+  var excludedSupremesId = []; // List of excluded Supremes
+  var shownSupremesId = []; // Special shown Supremes
+  for (var iSel=0; iSel < window.selected_supremes_list.length; iSel++)
+  {
+    if ((window.selected_supremes_list[iSel].role_key == "leader")
+        || isInTable(window.selected_supremes_list[iSel].other_roles, 'leader'))
+      excludeLeader = true;
+    if ((window.selected_supremes_list[iSel].role_key == "powerhouse")
+        || isInTable(window.selected_supremes_list[iSel].other_roles, 'powerhouse'))
+      excludePowerhouse = true;
+
+    // Excluded supremes
+    if (window.selected_supremes_list[iSel].excluded_supremes)
+    {
+      for (var iExcl = 0; iExcl < window.selected_supremes_list[iSel].excluded_supremes.length; iExcl++)
+        excludedSupremesId.push(window.selected_supremes_list[iSel].excluded_supremes[iExcl]);
+    }
+
+    // Shown supremes only when another is selected
+    if (window.selected_supremes_list[iSel].shown_supremes)
+    {
+      for (var iShwn = 0; iShwn < window.selected_supremes_list[iSel].shown_supremes.length; iShwn++)
+        shownSupremesId.push(window.selected_supremes_list[iSel].shown_supremes[iShwn]);
+    }
+  }
+
+  for(var i=0; i < window.supremes_list.length; i++)
+  {
+    var isSelected = $('#supreme-selection-' + window.supremes_list[i].id).is(':visible');
+
+    if (
+     (window.supremes_list[i].supreme_is_hidden && !isInTable(shownSupremesId, window.supremes_list[i].id)) // Special shown Supremes
+     // Factions
+     || (isFactionSelected && !isInTable(window.supremes_list[i].factions, factionFilter))
+     || (isFactionWithout && !(window.supremes_list[i].factions.length == 0))
+     || (isFactionWithoutWithFreelance && !(window.supremes_list[i].factions.length == 0) && !window.supremes_list[i].is_freelance)
+     // Exclusive factions (Supreme only available in some factions, such as #2 & #3 of Troopers)
+     || ((window.supremes_list[i].exclusive_factions !== undefined)
+         && (!isAlignementFaction || !isInTable(window.supremes_list[i].exclusive_factions, factionFilter)))
+     // Level
+     || ($.inArray(window.supremes_list[i].level, levelsAccepted) == -1)
+     // AP+
+     || ((window.supremes_list[i].role_key == "powerhouse") && (apgrantedAccepted.indexOf(0) < 0))
+     || ((window.supremes_list[i].role_key != "powerhouse") && (apgrantedAccepted.indexOf(window.supremes_list[i].ap_granted) < 0))
+     // Minions+
+     || (minionsGrantedAccepted.indexOf(window.supremes_list[i].minions_granted) < 0)
+     // Hero
+     || (isHeroesOnly && !window.supremes_list[i].is_hero)
+     // Villain
+     || (isVillainsOnly && !window.supremes_list[i].is_villain)
+     || isSelected
+     // Only one Leader / Powerhouse
+     || (excludeLeader && ((window.supremes_list[i].role_key == "leader") || isInTable(window.supremes_list[i].other_roles, 'leader')))
+     || (excludePowerhouse && ((window.supremes_list[i].role_key == "powerhouse") || isInTable(window.supremes_list[i].other_roles, 'powerhouse')))
+     // Excluded supremes
+     || (isInTable(excludedSupremesId, window.supremes_list[i].id))
+     // Excluded factions
+     || (isAlignementFaction && window.supremes_list[i].excluded_factions && isInTable(window.supremes_list[i].excluded_factions, factionFilter))
+    )
+    {
+      $('#supreme-list-' + window.supremes_list[i].id).hide();
+    }
+    else
+    {
+      $('#supreme-list-' + window.supremes_list[i].id).show();
+    }
+  }
+}
+
+/***************/
+/*** Summary ***/
+/***************/
+function update_summary()
+{
+  var teamLevel = 0;
+  var teamNumber = 0;
+  var teamAP = 0;
+  var teamMinions = 0;
+  var exclusiveMinions = [ ];
+  for(var i=0; i<window.supremes_list.length; i++)
+  {
+    if ($("#supreme-selection-" + window.supremes_list[i].id).is(':visible') == true)
+    {
+      teamLevel += window.supremes_list[i].level;
+      teamNumber += 1;
+      if (window.supremes_list[i].role_key != "powerhouse")
+        teamAP += window.supremes_list[i].ap_granted;
+      teamMinions += window.supremes_list[i].minions_granted;
+	  if (window.supremes_list[i].exclusive_minions.length > 0)
+      {
+        exclusiveMinions.push(window.supremes_list[i].exclusive_minions);
+      }
+    }
+  }
+
+  $("#team-summary-level").html(teamLevel);
+  $("#team-summary-number").html(teamNumber);
+  $("#team-summary-apgranted").html(teamAP);
+  $("#team-summary-minionsgranted").html(teamMinions);
+  if (exclusiveMinions.length == 0)
+  {
+    $(".team-summary-exclusiveminions").hide();
+	$(".team-summary-exclusiveminions").html("");
+  } else {
+    var htmlExclusiveMinions = "";
+	for(var iExcl = 0; iExcl < exclusiveMinions.length; iExcl++)
+	{
+	  if (iExcl > 0)
+	    htmlExclusiveMinions += '<br />';
+	  htmlExclusiveMinions += exclusiveMinions[iExcl];
+	}
+	$(".team-summary-exclusiveminions").show();
+	$(".team-summary-exclusiveminions").html(htmlExclusiveMinions);
+  }
+}
+
+/********************/
+/*** Print to PDF ***/
+/********************/
+function generate_pdf()
+{
+  var docDefinition = {
+    content: [ ],
+    styles: {
+      header: {
+        fontSize: 36,
+        bold: true,
+        marginBottom: 20
+      },
+      projectDescription: {
+        fontSize: 20,
+        italics: true,
+        marginBottom: 3,
+        marginLeft: 10
+      },
+      projectUrl: {
+        fontSize: 16,
+        color: 'blue',
+        decoration: 'underline',
+        italics: true,
+        marginBottom: 10,
+        marginLeft: 20
+      },
+      affiliationTitle: {
+        fontSize: 24,
+        bold: true,
+        marginBottom: 10
+      },
+      affiliationContent: {
+        fontSize: 24,
+        marginBottom: 10
+      },
+      supremesHeader: {
+        fontSize: 22,
+        bold: true,
+        marginTop: 25
+      },
+      supremeName: {
+        fontSize: 20,
+        bold: true,
+        marginTop: 5
+      },
+      supremeRole: {
+        fontSize: 16
+      }
+    }
+  };
+
+  // Header generation
+  docDefinition.content.push({ text: 'Supreme Team', style: 'header' });
+  docDefinition.content.push({ text: 'built through the "Citizen Assemble !" project', style: 'projectDescription' });
+  docDefinition.content.push({ text: 'http://github.com/gulix/citizen-assemble', style: 'projectUrl' });
+
+  // Team Faction or Alignment
+  var affiliation = $('#selTeamAffiliation').val();
+  if (affiliation == 'a_heroes')
+  {
+    docDefinition.content.push({ text: [
+        { text: 'Alignment : ', style: 'affiliationTitle' },
+        { text: 'Team of Heroes', style: 'affiliationContent' }
+    ]});
+  }
+  else if (affiliation == 'a_villains')
+  {
+    docDefinition.content.push({ text: [
+        { text: 'Alignment : ', style: 'affiliationTitle' },
+        { text: 'Team of Villains', style: 'affiliationContent' }
+    ]});
+  }
+  else
+  {
+    var keyFaction = affiliation.substring(2);
+    var faction = null;
+    for(var iFaction = 0; iFaction < window.factions.length; iFaction++)
+    {
+      if (window.factions[iFaction].faction_key == keyFaction)
+      {
+        faction = window.factions[iFaction];
+        break;
+      }
+    }
+    docDefinition.content.push({ text: [
+        { text: 'Faction : ', style: 'affiliationTitle' },
+        { text: faction.faction_label, style: 'affiliationContent' }
+    ]});
+  }
+  // Unique code
+  docDefinition.content.push({ text: [
+    { text: 'Unique code : ', style: 'affiliationTitle' },
+    { text: get_unique_code(), style: 'affiliationContent' }
+  ]});
+
+  // List of Supremes
+  var tableBody = [ ];
+  // Header
+  tableBody.push([ {text: ''}, {text: 'Selected supremes', style: 'supremesHeader' } ]);
+
+  for (var iSupreme = 0; iSupreme < window.selected_supremes_list.length; iSupreme++)
+  {
+    var supreme = window.selected_supremes_list[iSupreme];
+    var cols = [ ];
+    // TODO : Supreme image
+    cols.push({ text: '' });
+    // Supreme description
+    cols.push({ stack: [
+      { text: supreme.name, style: 'supremeName' },
+      { text: 'Level ' + supreme.level + ' ' + supreme.role_key, style: 'supremeRole' },
+    ]});
+
+    tableBody.push(cols);
+  }
+  docDefinition.content.push({ table: { body: tableBody }, layout: 'lightHorizontalLines' });
+
+  pdfMake.createPdf(docDefinition).download();
+}
+
+/************************/
+/*** Helper Functions ***/
+/************************/
+function isInTable(tableData, searchedData)
+{
+  if ((tableData === undefined) || (tableData === null))
+    return false;
+
+  for(var i=0; i<tableData.length; i++)
+  {
+    if (tableData[i] == searchedData)
+      return true;
+  }
+  return false;
+}
+
+function get(name)
+{
+  if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+    return decodeURIComponent(name[1]);
+}
+
+function pad (str, max) {
+  str = str.toString();
+  return str.length < max ? pad("0" + str, max) : str;
+}
+
+function imgError(image) {
+    image.onerror = "";
+    image.src = "img/default_thumbnail.jpg";
+    return true;
+}
+
+/********************/
+/*** Page loading ***/
+/********************/
+$(function() {
+
+  $('#enter-code-error').hide();
+  $('#enter-code-warning').hide();
+
+  // Filters
+
+  // The list of the Supremes
+  fill_supremes();
+
+  update_summary();
+  check_honorary_member();
+  check_faction_cards();
+
+
+  // Events on the Affiliation
+  changeAffiliation();
+
+  // Events on the filters
+  $('#selLevels').on('change', function (e) { filter_supremes(); });
+  $('#honorary-member').click(function() { change_honorary_member(); });
+
+  $('#btn-validate-code').click(function() { enter_unique_code($('#lbl-enter-team-code').val()); });
+});
+
+</script>
+</html>
