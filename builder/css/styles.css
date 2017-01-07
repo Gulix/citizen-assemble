@@ -198,6 +198,96 @@ h2 {
   font-size: 16px;
 }
 
+.card-honorary-member {
+  color: #911913;
+  font-family: 'Bangers', cursive;
+  font-size: 14px;
+  text-align: left;
+}
+
+.card-honorary-member-name {
+  color: #000000;
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  margin-left: 15px;
+  text-align: left;
+}
+
+/* Leader Cards */
+.leader-cards-list {
+  display: inline-flex;
+}
+
+.leader-card {
+  margin: 5px;
+  border: solid 4px #FFFFFF;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 180px;
+  height: 250px;
+  flex: 1;
+  padding: 4px;
+}
+
+.leader-card:hover {
+  border-color: #F25B21;
+  background-color: #857f72;
+}
+
+.leader-card-disabled {
+  border-color: #7f7f7f;
+  background-color: #d8d3c7;
+}
+
+.leader-card-disabled:hover {
+  border-color: #7f7f7f;
+  background-color: #d8d3c7;
+}
+
+.leader-card-title {
+  text-align: center;
+  font-family: 'Bangers', cursive;
+  font-size: 20px;
+  color: #F25B21;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.leader-card-disabled .leader-card-title {
+  color: #AAAAAA;
+}
+
+.leader-card-text {
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+  margin-top: 8px;
+  overflow: hidden;
+  text-align: justify;
+  color: #000000;
+  text-overflow: ellipsis;
+}
+
+.leader-card-disabled .leader-card-text {
+  color: #7f7f7f;
+  font-style: italic;
+}
+
+.leader-card-legend {
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  margin-top: 12px;
+  text-align: center;
+  color: #000000;
+}
+
+.leader-card-disabled .leader-card-legend {
+  color: #7f7f7f;
+}
+
+
 /***************/
 /* Recruitment */
 /***************/
@@ -298,6 +388,13 @@ h2 {
   font-size: 1.4em;
 }
 
+.supreme-name-honorary-member {
+  background: #bc9597;
+  border-top-color: #381517;
+  border-bottom-color: #381517;
+  color: #911913;
+}
+
 .hovered-supreme-panel .supreme-name {
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   background: none;
@@ -368,6 +465,7 @@ h2 {
   top: 0px;
   left: 0px;
   width: 100%;
+  height: 100%;
   bottom: 0px;
   background: rgba(0,0,0,0.7);
   display: flex;
@@ -376,12 +474,17 @@ h2 {
 }
 
 .modal-content {
-  max-width: 50%;
+  max-width: 70%;
   min-width: 20%;
   background: #BEB6A3;
   border: solid 2px #F25B21;
   padding: 15px;
   min-height: 20%;
+  max-height: 80%;
+}
+
+.modal-content-large {
+  overflow-y: scroll;
 }
 
 .modal-label {

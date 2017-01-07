@@ -11,6 +11,7 @@ function supremeVM(jsonSupreme, recruit, dismiss)
   self.isRecruited = ko.observable(false);
   self.recruitInTeam = recruit;
   self.dismissFromTeam = dismiss;
+  self.isHonoraryMember = ko.observable(false);
 
   /*********************/
   /* Accessors on data */
@@ -67,13 +68,20 @@ function supremeVM(jsonSupreme, recruit, dismiss)
     return false;
   }
 
+  self.isIndependant = function() {
+    return _.isEmpty(self.jsonData.factions);
+  }
+  self.isFreelance = function() {
+    return self.jsonData.is_freelance == 1;
+  }
+
   self.shareFactionWith = function(supremeVM) {
     return _.find(self.jsonData.factions, function(f1)
     {
       return _.find(supremeVM.jsonData.factions, function(f2)
       {
         return f1.faction_key == f2.faction_key;
-      }); 
+      });
     });
   }
 
@@ -120,6 +128,17 @@ return {
         if (vm.matchesAffiliation(affiliationVM)) {
           supremesReturned.push(vm);
         }
+      }
+
+      return supremesReturned;
+    },
+    loadAll: function(recruitAction, dismissAction) {
+      var supremesLoaded = Supremes.load();
+      var supremesReturned = [ ];
+      for (var iSupreme = 0; iSupreme < supremesLoaded.length; iSupreme++)
+      {
+        var vm = new supremeVM(supremesLoaded[iSupreme], recruitAction, dismissAction);
+        supremesReturned.push(vm);
       }
 
       return supremesReturned;

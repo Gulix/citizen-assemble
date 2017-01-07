@@ -9,10 +9,10 @@
   <div data-bind="visible: !areActionsShown()">
     <div class="supreme-recruit-values"><span class="label">Mi+ :</span> <span data-bind="text: minions_granted"></span></div>
   </div>
-  <div class="supreme-name" data-bind="text: supremeName, visible: !areActionsShown()"></div>
+  <div class="supreme-name" data-bind="visible: !areActionsShown(), css: { 'supreme-name-honorary-member': isHonoraryMember }"><span class="icon-honorary-member" data-bind="visible: isHonoraryMember"></span><span data-bind="text: supremeName"></span><span class="icon-honorary-member"  data-bind="visible: isHonoraryMember"></span></div>
   <div class="supreme-role" data-bind="text: roleAndLevel, visible: !areActionsShown()"></div>
   <div class="hovered-supreme-panel" data-bind="visible: areActionsShown()">
-    <div class="supreme-name" data-bind="text: supremeName"></div>
+    <div class="supreme-name" data-bind="css: { 'supreme-name-honorary-member': isHonoraryMember }"><span class="icon-honorary-member" data-bind="visible: isHonoraryMember"></span><span data-bind="text: supremeName"></span><span class="icon-honorary-member"  data-bind="visible: isHonoraryMember"></span></div>
     <div class="supreme-role" data-bind="text: roleAndLevel"></div>
     <div class="supreme-actions">
       <div class="supreme-actions-icons">

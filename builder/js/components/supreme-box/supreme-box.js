@@ -12,6 +12,7 @@ define(['knockout'], function(ko) {
     self.isDismissable = ko.pureComputed(function() {
       return self.supremeVM.isRecruited();
     });
+    self.isHonoraryMember = self.supremeVM.isHonoraryMember();
 
     /* Static Properties */
     self.supremeName = self.supremeVM.jsonData.name;
@@ -22,7 +23,7 @@ define(['knockout'], function(ko) {
       (self.supremeVM.jsonData.is_hero ? (self.supremeVM.jsonData.is_villain ? "herovillain" : "hero") : "villain");
     self.originIconCss = "supreme-icon-" + self.supremeVM.jsonData.origin;
     self.originCss = "supreme-origin-" + self.supremeVM.jsonData.origin;
-    self.supremeImgUrl = "background-image: url(img/supremes/" + ((self.supremeVM.jsonData.pictureId != null) ? self.supremeVM.jsonData.pictureId : self.supremeVM.jsonData.id) + ".jpg)";
+    self.supremeImgUrl = "background-image: url(img/supremes/" + ((self.supremeVM.jsonData.picture_id != null) ? self.supremeVM.jsonData.picture_id : self.supremeVM.jsonData.id) + ".jpg)";
 
     /* Functions */
     self.showActions = function() {

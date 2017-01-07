@@ -3092,7 +3092,8 @@ function loadSupremes() {
     "exclusive_minions": "",
     "elements": [   ],
     "ap_limit": 3,
-    "supreme_types": [  "living" ]
+    "supreme_types": [  "living" ],
+    "excluded_supremes": [ 167 ]
     },{
     "id": 94,
     "name": "Solar",
@@ -3740,7 +3741,7 @@ function loadSupremes() {
     "ap_limit": 5,
     "supreme_types": [  "living" ],
     "excluded_supremes": [ 57, 94 ],
-    "pictureId": 94
+    "picture_id": 94
     },{
     "id": 114,
     "name": "Mecha Spartan",
@@ -4803,7 +4804,7 @@ function loadSupremes() {
     "supreme_types": [  ],
     "excluded_supremes": [ 146 ],
     "other_roles": [ "blaster" ],
-    "pictureId": 146
+    "picture_id": 146
     },{
     "id": 148,
     "name": "Red Robot - Gunner",
@@ -5437,6 +5438,39 @@ function loadSupremes() {
     "excluded_supremes": [ 6 ],
     "field_commander": true
     },{
+    "id": 167,
+    "name": "Sister Bedlam",
+    "level": 1,
+    "role_key": "support",
+    "ap_granted": 2,
+    "minions_granted": 0,
+    "factions": [ "coven"  ],
+    "is_hero": 0,
+    "is_villain": 1,
+    "is_freelance": 0,
+    "origin": "science",
+    "strength_value": 4,
+    "defense_value": 3,
+    "agility_value": 3,
+    "energy_value": 2,
+    "mind_value": 4,
+    "spirit_value": 3,
+    "strength_trump": 0,
+    "defense_trump": 0,
+    "agility_trump": 0,
+    "energy_trump": 0,
+    "mind_trump": 1,
+    "spirit_trump": 0,
+    "hp_value": 4,
+    "mvt_type": "sprint",
+    "mvt_value": 4,
+    "is_stealth": 1,
+    "exclusive_minions": "",
+    "elements": [   ],
+    "ap_limit": 3,
+    "supreme_types": [  "non-living" ],
+    "excluded_supremes": [ 93 ]
+    },{
     "id": 1001,
     "name": "Moon Coyote",
     "level": 1,
@@ -5469,7 +5503,8 @@ function loadSupremes() {
     "ap_limit": 4,
     "supreme_types": [  "living" ],
     "excluded_supremes": [ 1002, 64, 65 ],
-    "supreme_is_hidden": true
+    "supreme_is_hidden": true,
+    "picture_id": 64
     },{
     "id": 1002,
     "name": "Moonchild",
@@ -5477,7 +5512,7 @@ function loadSupremes() {
     "role_key": "brawler",
     "ap_granted": 2,
     "minions_granted": 0,
-    "factions": [  "bloodwatch" ],
+    "factions": [  "coven" ],
     "is_hero": 0,
     "is_villain": 1,
     "is_freelance": 0,
@@ -5504,7 +5539,7 @@ function loadSupremes() {
     "supreme_types": [  "living" ],
     "excluded_supremes": [ 1001, 64, 65 ],
     "supreme_is_hidden": true,
-    "pictureId": 65
+    "picture_id": 65
     },{
     "id": 1003,
     "name": "Loup Garou II",
@@ -5539,7 +5574,7 @@ function loadSupremes() {
     "supreme_types": [  "living" ],
     "excluded_supremes": [ 99 ],
     "supreme_is_hidden": true,
-    "pictureId": 99
+    "picture_id": 99
     },{
     "id": 1004,
     "name": "Mecha Spartan",
@@ -5573,7 +5608,7 @@ function loadSupremes() {
     "ap_limit": 3,
     "supreme_types": [  "mechanical" ],
     "exclusive_factions": [ "forgotten" ],
-    "pictureId": 114
+    "picture_id": 114
     },{
     "id": 1005,
     "name": "Mecha Spartan",
@@ -5607,7 +5642,7 @@ function loadSupremes() {
     "ap_limit": 3,
     "supreme_types": [  "mechanical" ],
     "exclusive_factions": [ "forgotten" ],
-    "pictureId": 114
+    "picture_id": 114
     },{
     "id": 1006,
     "name": "Terror Cotta Warrior",
@@ -5906,7 +5941,7 @@ function loadSupremes() {
     "ap_limit": 3,
     "supreme_types": [  "living" ],
     "supreme_is_hidden": true,
-    "pictureId": 42
+    "picture_id": 42
     },{
     "id": 1015,
     "name": "Gravito Grimm",
