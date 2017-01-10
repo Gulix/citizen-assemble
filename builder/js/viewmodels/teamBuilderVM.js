@@ -4,14 +4,16 @@ define(['knockout',
         'viewmodels/affiliationVM',
         'viewmodels/supremeVM',
         'viewmodels/teamVM',
-        'viewmodels/supremeFilter'],
+        'viewmodels/supremeFilter',
+        'scripts/teamCode'],
 function(ko,
          TinyColor,
          _,
          AffiliationVM,
          SupremeVM,
          TeamVM,
-         SupremeFilter) {
+         SupremeFilter,
+         TeamCode) {
 
 function teamBuilderVM()
 {
@@ -25,6 +27,7 @@ function teamBuilderVM()
   self.team = ko.observable(null);
   self.supremeFilter = ko.observable(null);
   self.goBackIsVisible = ko.observable(false);
+  self.teamCodeInput = ko.observable('');
 
   /**********************************/
   /* Accessors & Computed Variables */
@@ -78,15 +81,19 @@ function teamBuilderVM()
   self.selectAffiliation = function(selectedAffiliation) {
     // Final affiliation ?
     if (selectedAffiliation.isFinal()) {
-      self.affiliations([]);
-      self.team(TeamVM.newTeamVM(selectedAffiliation));
-      self.supremesPool(SupremeVM.loadForAffiliation(selectedAffiliation, self.recruitSupreme, self.dismissSupreme));
+      self.loadTeamForAffiliation(selectedAffiliation);
     } else { // Affiliation that leads to other affiliations
       self.affiliations(selectedAffiliation.nextAffiliations());
       self.team(null);
       self.goBackIsVisible(true);
       self.supremesPool([]);
     }
+  }
+
+  self.loadTeamForAffiliation = function(affiliationVM) {
+    self.affiliations([]);
+    self.team(TeamVM.newTeamVM(affiliationVM));
+    self.supremesPool(SupremeVM.loadForAffiliation(affiliationVM, self.recruitSupreme, self.dismissSupreme));
   }
 
   /*----- Recruitment of Supremes -----*/
@@ -104,6 +111,13 @@ function teamBuilderVM()
     self.team(null);
     self.goBackIsVisible(false);
     self.supremesPool([]);
+  }
+
+  /*------- Team Code -------*/
+  self.enterTeamCode = function() {
+    if ((self.teamCodeInput() != null) && (self.teamCodeInput().length > 0)) {
+      TeamCode.loadFromCode(self, self.teamCodeInput());
+    }
   }
 
   /*************************/

@@ -22,6 +22,11 @@
 
   <!-- ko if: isAffiliationDisplayed -->
   <div class="affiliation-selection global-container">
+    <h2>Enter a Code</h2>
+    <div class="enter-code">
+      <input type="text" class="team-code" data-bind="value: teamCodeInput"></input>
+      <div class="button" data-bind="click: enterTeamCode">Enter Code</div>
+    </div>
     <h2>Choose your faction / alignment</h2>
     <div class="step-back" data-bind="click: goBack, visible: goBackIsVisible"></div>
     <div class="affiliation-boxes" data-bind="foreach: affiliations">
@@ -55,7 +60,7 @@
         <div class="card-title"><span class="icon-cards"></span><span data-bind="text: nbLeaderCards"></span> Leader Cards</div>
         <div class="card-action" data-bind="click: showLeaderCardSelection"><span class="icon-add-card card-action-icon"></span>Select one ...</div>
         <div class="card-honorary-member" data-bind="visible: isHonoraryMemberSelected"><span class="icon-honorary-member"></span>Honorary Member</div>
-        <div class="card-honorary-member-name" data-bind="visible: isHonoraryMemberSelected, text: honoraryMemberName"></div>        
+        <div class="card-honorary-member-name" data-bind="visible: isHonoraryMemberSelected, text: honoraryMemberName"></div>
       </div>
       <!-- ko foreach: rosterSupremes -->
       <supreme-box params="supreme: $data"></supreme-box>

@@ -110,15 +110,7 @@ function affiliationVM(jsonFaction, isHeroes, isVillains, jsonOrigin, isIndepend
     if (self.factionVM != null) {
       return self.factionVM.id();
     } else {
-      var code = self.isHeroes ? "H" : "V";
-      if ((self.originVM != null) && !self.originVM.isAllOrigins()) {
-        code += self.originVM.origin_key.substring(0,1);
-      }
-      code = self.isIndependent ? code.toLowerCase() : code.toUpperCase();
-      if ((self.originVM == null) || self.originVM.isAllOrigins()) {
-        code += '_';
-      }
-      return code;
+      return self.isHeroes ? "H_" : "V_";
     }
   }
 
@@ -169,6 +161,26 @@ return {
       }
 
       return affiliations;
+    },
+
+    /* Returns the Affiliation corresponding to the code (see also getUniqueCode) */
+    getByCode: function(code) {
+      if (code == "H_") {
+        var heroesAffiliation = new affiliationVM(null, true, false, null, false, null);
+        heroesAffiliation.isOriginSelection = true;
+        return heroesAffiliation;
+      } else if (code == "V_") {
+        var villainsAffiliation = new affiliationVM(null, false, true, null, false, null);
+        villainsAffiliation.isOriginSelection = true;
+        return villainsAffiliation;
+      } else {
+        var factions = Factions.load();
+        var faction = _.find(factions, function(f) { return f.id == code; });
+        if (faction != null) {
+          return new affiliationVM(faction, null, null, null, null, null);
+        }
+      }
+      return null;
     }
   }
 });

@@ -142,6 +142,11 @@ return {
       }
 
       return supremesReturned;
+    },
+    getByCode: function(code, recruitAction, dismissAction) {
+      var supremes = Supremes.load();
+      var supreme = _.find(supremes, function(s) { return s.id == code; });
+      return new supremeVM(supreme, recruitAction, dismissAction);
     }
   }
 });

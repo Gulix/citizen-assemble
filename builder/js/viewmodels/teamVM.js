@@ -119,14 +119,19 @@ function teamVM(affiliation)
     return _.sortBy(supremes, [function(o) { return o.jsonData.name; }]);
   })
 
+  self.honoraryMember = ko.pureComputed(function() {
+    var honoraryMember = _.find(self.rosterSupremes(), function(s) { return s.isHonoraryMember(); });
+    return honoraryMember;
+  });
   self.honoraryMemberName = ko.pureComputed(function() {
-    if (self.isHonoraryMemberSelected())
+    var hm = self.honoraryMember();
+    if (hm != null)
     {
-      var honoraryMember = _.find(self.rosterSupremes(), function(s) { return s.isHonoraryMember(); });
-      if (honoraryMember != null) return honoraryMember.jsonData.name;
+      return hm.jsonData.name;
     }
     return '';
   });
+
 
   /*************/
   /* Functions */
@@ -230,7 +235,7 @@ function teamVM(affiliation)
       }
     }
     self.recruitSupreme(supremeVM);
-    self.endHonoraryMemberSelection();
+    self.isHonoraryMembersSelectable(false);
     self.hideLeaderCardSelection();
     self.isHonoraryMemberSelected(true);
   }
