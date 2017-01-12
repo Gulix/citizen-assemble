@@ -1,0 +1,25 @@
+<div class="roster-supreme" data-bind="css: originCss, attr: { style: supremeImgUrl }, event: { mouseover: showActions, mouseout: hideActions }">
+  <div class="supreme-icons">
+    <div data-bind="css: alignmentIconCss"></div>
+    <div data-bind="css: originIconCss"></div>
+  </div>
+  <div data-bind="visible: !areActionsShown()">
+    <div class="supreme-recruit-values"><span class="label">AP+ :</span> <span data-bind="text: ap_granted"></span></div>
+  </div>
+  <div data-bind="visible: !areActionsShown()">
+    <div class="supreme-recruit-values"><span class="label">Mi+ :</span> <span data-bind="text: minions_granted"></span></div>
+  </div>
+  <div class="supreme-name" data-bind="visible: !areActionsShown(), css: { 'supreme-name-honorary-member': isHonoraryMember }"><span class="icon-honorary-member" data-bind="visible: isHonoraryMember"></span><span data-bind="text: supremeName"></span><span class="icon-honorary-member"  data-bind="visible: isHonoraryMember"></span></div>
+  <div class="supreme-role" data-bind="text: roleAndLevel, visible: !areActionsShown()"></div>
+  <div class="hovered-supreme-panel" data-bind="visible: areActionsShown()">
+    <div class="supreme-name" data-bind="css: { 'supreme-name-honorary-member': isHonoraryMember }"><span class="icon-honorary-member" data-bind="visible: isHonoraryMember"></span><span data-bind="text: supremeName"></span><span class="icon-honorary-member"  data-bind="visible: isHonoraryMember"></span></div>
+    <div class="supreme-role" data-bind="text: roleAndLevel"></div>
+    <div class="supreme-actions">
+      <div class="supreme-actions-icons">
+        <div class="supreme-action supreme-info" title="Show Informations" data-bind="click: showInfos"><span class="icon icon-info"></span></div>
+        <div class="supreme-action" title="Recruit" data-bind="click: recruit, visible: isRecruitable"><span class="icon icon-recruit"></span></div>
+        <div class="supreme-action" title="Dismiss" data-bind="click: dismiss, visible: isDismissable"><span class="icon icon-dismiss"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
