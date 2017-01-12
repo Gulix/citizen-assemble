@@ -1,12 +1,14 @@
 define(['knockout',
         'lodash',
         'viewmodels/supremeVM',
-        'scripts/teamCode'
+        'scripts/teamCode',
+        'scripts/url'
        ],
 function(ko,
          _,
          SupremeVM,
-         TeamCode
+         TeamCode,
+         UrlHelper
          ) {
 
 function teamVM(affiliation)
@@ -132,6 +134,11 @@ function teamVM(affiliation)
     return '';
   });
 
+  self.teamCodeUrl = ko.pureComputed(function() {
+    var url = UrlHelper.getUrlWithTeamCode(self.teamCode());
+    return url;
+  })
+
 
   /*************/
   /* Functions */
@@ -157,11 +164,21 @@ function teamVM(affiliation)
     // For example, Moonchild authorizing Loup-Garou II to join her
     // or the Honorary Member leaving the Team when the Leader also leaves
     // TODO: warning the User of these effects ?
+
+    // Removing the Honorary Member if the Supreme Granting the Power is removed
+    if ((self.supremeGrantingHonorary() != null)
+        && (self.supremeGrantingHonorary().jsonData.id == supremeVM.jsonData.id)
+        && (self.honoraryMember() != null))
+    {
+      self.dismissSupreme(self.honoraryMember());
+      self.isHon
+    }
+    // Supremes available only if other are selected
     var shownSupremes = supremeVM.getShownSupremesID();
     if ((shownSupremes != null) && (shownSupremes.length > 0)) {
       _.forEach(self.rosterSupremes(), function(supreme) {
         if (_.find(shownSupremes, function(o) { return o == supreme.jsonData.id; })) {
-          self.dismissSupreme(supreme);
+          self.dismissHonoraryMember(supreme);
         }
       });
     }

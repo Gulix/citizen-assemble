@@ -5,7 +5,8 @@ define(['knockout',
         'viewmodels/supremeVM',
         'viewmodels/teamVM',
         'viewmodels/supremeFilter',
-        'scripts/teamCode'],
+        'scripts/teamCode',
+        'scripts/url'],
 function(ko,
          TinyColor,
          _,
@@ -13,7 +14,8 @@ function(ko,
          SupremeVM,
          TeamVM,
          SupremeFilter,
-         TeamCode) {
+         TeamCode,
+         UrlHelper) {
 
 function teamBuilderVM()
 {
@@ -28,6 +30,7 @@ function teamBuilderVM()
   self.supremeFilter = ko.observable(null);
   self.goBackIsVisible = ko.observable(false);
   self.teamCodeInput = ko.observable('');
+  self.isAboutBoxVisible = ko.observable(false);
 
   /**********************************/
   /* Accessors & Computed Variables */
@@ -120,11 +123,16 @@ function teamBuilderVM()
     }
   }
 
+  /* ------- About Box -------- */
+  self.showAboutBox = function() { self.isAboutBoxVisible(true); }
+  self.hideAboutBox = function() { self.isAboutBoxVisible(false); }
+
   /*************************/
   /* Object Initialization */
   /*************************/
   self.affiliations(AffiliationVM.getAllStartingAffiliations(self.selectAffiliation));
   self.supremeFilter(SupremeFilter.newFilter());
+  self.teamCodeInput(UrlHelper.getTeamCodeFromUrl());
 }
 
 return {

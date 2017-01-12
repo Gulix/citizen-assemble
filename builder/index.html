@@ -10,13 +10,17 @@
   </head>
 <body>
   <div class="page-header">
-    <div class="global-container">Citizen Assemble !</div>
+    <div class="global-container">
+      <h1>Citizen Assemble !</h1>
+      <h3>A Team-Builder for Pulp City</h3>
+    </div>
   </div>
 
   <div class="menu-bar">
     <div class="global-container">
-      <div class="menu-box">Home</div>
-      <div class="menu-box">FAQ</div>
+      <div class="menu-box"><a href="#">Home</a></div>
+      <div class="menu-box"><a href="http://www.pulp-city.com" target="_blank">Pulp City</a></div>
+      <div class="menu-box clickable" data-bind="click: showAboutBox">About</div>
     </div>
   </div>
 
@@ -91,8 +95,19 @@
     <div class="modal-close" data-bind="click: hideCode"></div>
     <div class="modal-content">
       <div class="modal-label">Unique Team Code</div>
-      <div>
-        <input type="text" readonly class="team-code" data-bind="value: teamCode"></input>
+      <div class="input-code">
+        <label>Code</label>
+        <div class="input-with-button">
+          <input type="text" readonly class="team-code" id="team-code" data-bind="value: teamCode"></input>
+          <div class="btncopy" data-clipboard-target="#team-code">Copy</div>
+        </div>
+      </div>
+      <div class="input-code">
+        <label>Link to Team</label>
+        <div class="input-with-button">
+          <input type="text" readonly class="team-code" id="team-code-url" data-bind="value: teamCodeUrl"></input>
+          <div class="btncopy" data-clipboard-target="#team-code-url">Copy</div>
+        </div>
       </div>
     </div>
   </div>
@@ -134,6 +149,38 @@
   </div>
   <!-- /ko -->
   <!-- /ko -->
+  <!-- /ko -->
+
+  <!-- ko if: isAboutBoxVisible -->
+  <div class="modal-box">
+    <div class="modal-close" data-bind="click: hideAboutBox"></div>
+      <div class="modal-content modal-content-large">
+        <div class="modal-label">About "Citizen Assemble !"</div>
+          <h3>A Team Builder</h3>
+          <div class="about-text"><em>Citizen Assemble !</em> is a Team Builder for the Miniatures Games <em>Pulp City</em>.
+            This tool will help you choose your Supremes and share your team with the World.
+            The rules of Recruitment are all present, and the list of characters is updated regularly.</div>
+          <div class="about-text">The pictures of the Supremes are from the <a href="http://www.pulp-city.com" target="_blank">Pulp City official website</a>.</div>
+          <h3>Open-Source Project</h3>
+          <div class="about-text"><em>Citizen Assemble !</em> is an Open-Source project, hosted on <a href="http://www.github.com/gulix/citizen-assemble" target="_blank">GitHub</a>.
+            It currently is on <em>version 2.0</em>. Feel free to join in to enhance the software !
+            You can also <a href="http://www.github.com/gulix/citizen-assemble/issues/new" target="_blank">post issues</a> if you encouter bugs, or if a functionality is missing.</div>
+          <div class="about-text"><em>Citizen Assemble !</em> uses the following open-source project :</div>
+          <ul class="about-text">
+            <li><a href="https://jquery.com/" targer="_blank">Jquery</a> (Javascript Framework)</li>
+            <li><a href="http://knockoutjs.com/" targer="_blank">Knockout</a> (Data management)</li>
+            <li><a href="https://lodash.com/" targer="_blank">Lodash</a> (Javascript Helpers)</li>
+            <li><a href="http://requirejs.org/" targer="_blank">RequireJS</a> (File management)</li>
+            <li><a href="https://github.com/bgrins/TinyColor" targer="_blank">TinyColor</a> (Color Helpers)</li>
+          </ul>
+          <div class="about-text"><em>Citizen Assemble !</em> also makes use of the following fonts, provided by Google Fonts :</div>
+          <ul class="about-text">
+            <li><a href="https://fonts.google.com/specimen/Oswald" targer="_blank">Oswald</a></li>
+            <li><a href="https://fonts.google.com/specimen/Bangers" targer="_blank">Bangers</a></li>
+          </ul>
+        </div>
+    </div>
+  </div>
   <!-- /ko -->
 
   <script src="js/vendor/require.min.js" data-main="js/main.js"></script>
