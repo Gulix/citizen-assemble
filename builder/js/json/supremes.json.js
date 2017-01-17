@@ -5871,7 +5871,8 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 3,
     "supreme_types": [  "living" ],
-    "supreme_is_hidden": true
+    "supreme_is_hidden": true,
+    "picture_id": 38
     },{
     "id": 1011,
     "name": "Grimm Digger",
