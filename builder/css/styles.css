@@ -511,14 +511,18 @@ h3 {
 .modal-content {
   max-width: 70%;
   min-width: 20%;
+  min-height: 20%;
+  max-height: 80%;
+  position: relative;
+}
+
+.modal-frame {
   background: #BEB6A3;
   border: solid 2px #F25B21;
   padding: 15px;
-  min-height: 20%;
-  max-height: 80%;
 }
 
-.modal-content-large {
+.modal-frame-large {
   overflow-y: scroll;
 }
 
@@ -535,13 +539,20 @@ h3 {
 }
 
 .modal-close {
-  position: fixed;
-  right: 5px;
-  top: 5px;
-  width: 64px;
-  height: 64px;
-  background: url('../img/cancel.png');
   cursor: pointer;
+  font-size: 42px;
+  top:-30px;
+  right:-20px;
+  position: absolute;
+  color: #000000;
+}
+.modal-close:hover {
+  color: #F25B21;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 .team-code {
