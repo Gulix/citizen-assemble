@@ -350,14 +350,22 @@ h3 {
 
 .supreme-origin-mystery {
   border-color: #D00;
+  color: #D00;
 }
 
 .supreme-origin-science {
   border-color: #F8C70D;
+  color: #f8c70d;
+  text-shadow:
+    -1px -1px 0 #333,
+    1px -1px 0 #333,
+    -1px 1px 0 #333,
+    1px 1px 0 #333;
 }
 
 .supreme-origin-nature {
   border-color: #0050DD;
+  color: #0050dd;
 }
 
 .supreme-icons {
@@ -662,4 +670,99 @@ h3 {
 .about-text a:hover, .about-text a:active, .about-text a:focus {
   color: #F25B21;
   text-decoration: underline;
+}
+
+/**********/
+/* Filter */
+/**********/
+.supremes-filter {
+  display: inline-flex;
+  width: 100%;
+}
+
+.supremes-filter fieldset {
+  font-family: 'Oswald', sans-serif;
+  border: 3px solid #F25B21;
+  border-radius: 5px;
+  flex-grow: 1;
+}
+
+.supremes-filter fieldset legend {
+    color: #F25B21;
+    font-size: 22px;
+    border-radius: 5px;
+}
+
+.text-filter {
+  width: 100%;
+}
+.text-filter input {
+  width: 100%;
+}
+
+.supremes-filter select {
+  font-family: 'Oswald', sans-serif;
+  width: 100%;
+}
+
+/* Filter on Origins */
+.origins-filter {
+  display: flex;
+}
+
+.origin-filter-choice {
+  flex: 1;
+  font-size: 32px;
+  text-align: center;
+  cursor: default;
+}
+
+.origin-active:hover {
+  text-shadow:
+    -1px -1px 0 #F25B21,
+    1px -1px 0 #F25B21,
+    -1px 1px 0 #F25B21,
+    1px 1px 0 #F25B21;
+}
+
+.origin-inactive {
+  color: #7f7f7f;
+  text-shadow: none;
+}
+
+.origin-inactive:hover {
+  color: #333333;
+}
+
+/* Filter on Alignments */
+.alignments-filter {
+  display: flex;
+}
+
+.alignment-filter-choice {
+  flex: 1;
+  font-size: 32px;
+  text-align: center;
+  cursor: default;
+}
+
+.alignment-active {
+  color: #000;
+}
+
+.alignment-active:hover {
+  text-shadow:
+    -1px -1px 0 #FFF,
+    1px -1px 0 #FFF,
+    -1px 1px 0 #FFF,
+    1px 1px 0 #FFF;
+}
+
+.alignment-inactive {
+  color: #B1B1B1;
+  text-shadow: none;
+}
+
+.alignment-inactive:hover {
+  color: #666666;
 }
