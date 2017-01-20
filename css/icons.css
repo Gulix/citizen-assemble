@@ -1,0 +1,132 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?9bxijh');
+  src:  url('fonts/icomoon.eot?9bxijh#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?9bxijh') format('truetype'),
+    url('fonts/icomoon.woff?9bxijh') format('woff'),
+    url('fonts/icomoon.svg?9bxijh#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-herovillain:before {
+  content: "\e905";
+}
+.icon-element-air:before {
+  content: "\41";
+}
+.icon-smash:before {
+  content: "\42";
+}
+.icon-element-darkness:before {
+  content: "\44";
+}
+.icon-element-earth:before {
+  content: "\45";
+}
+.icon-element-fire:before {
+  content: "\46";
+}
+.icon-hero:before {
+  content: "\48";
+}
+.icon-element-light:before {
+  content: "\4c";
+}
+.icon-origin-mystery:before {
+  content: "\4d";
+}
+.icon-origin-nature:before {
+  content: "\4e";
+}
+.icon-origin-science:before {
+  content: "\53";
+}
+.icon-villain:before {
+  content: "\56";
+}
+.icon-element-water:before {
+  content: "\57";
+}
+.icon-agility:before {
+  content: "\61";
+}
+.icon-bounding:before {
+  content: "\62";
+}
+.icon-defense:before {
+  content: "\64";
+}
+.icon-energy:before {
+  content: "\65";
+}
+.icon-fly:before {
+  content: "\66";
+}
+.icon-blink:before {
+  content: "\6b";
+}
+.icon-mind:before {
+  content: "\6d";
+}
+.icon-spirit:before {
+  content: "\70";
+}
+.icon-strength:before {
+  content: "\73";
+}
+.icon-sprint:before {
+  content: "\74";
+}
+.icon-wall-crawling:before {
+  content: "\77";
+}
+.icon-remove-card:before {
+  content: "\e902";
+}
+.icon-add-card:before {
+  content: "\e903";
+}
+.icon-one-card:before {
+  content: "\e901";
+}
+.icon-cards:before {
+  content: "\e900";
+}
+.icon-honorary-member:before {
+  content: "\e904";
+}
+.icon-undo:before {
+  content: "\e965";
+}
+.icon-question:before {
+  content: "\ea09";
+}
+.icon-info:before {
+  content: "\ea0c";
+}
+.icon-close:before {
+  content: "\ea0d";
+}
+.icon-dismiss:before {
+  content: "\ea0f";
+}
+.icon-recruit:before {
+  content: "\ea10";
+}
+

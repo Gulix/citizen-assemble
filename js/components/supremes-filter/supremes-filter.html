@@ -1,0 +1,29 @@
+<div class="supremes-filter">
+  <fieldset>
+    <legend>Name</legend>
+    <div class="text-filter" >
+      <input type="text" data-bind="textInput: filter.textFilter"></input>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Origins</legend>
+    <div class="origins-filter" data-bind="foreach: filter.origins">
+      <div data-bind="css: allCssClasses, click: toggle"></div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Roles</legend>
+    <div>
+      <select data-bind="options: filter.roles, optionsText: 'role_label', value: filter.selectedRole"></select>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Alignment</legend>
+    <div class="alignments-filter" data-bind="foreach: filter.alignments">
+      <div data-bind="css: allCssClasses, click: toggle"></div>
+    </div>
+  </fieldset>
+</div>
