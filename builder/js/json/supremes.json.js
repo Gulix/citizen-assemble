@@ -968,7 +968,8 @@ function loadSupremes() {
     "exclusive_minions": "",
     "elements": [  "air", "water" ],
     "ap_limit": 4,
-    "supreme_types": [  "living" ]
+    "supreme_types": [  "living" ],
+    "excluded_supremes": [ 170 ],
     },{
     "id": 28,
     "name": "Nuke",
@@ -5535,6 +5536,39 @@ function loadSupremes() {
     "ap_limit": 4,
     "supreme_types": [  "living" ]
     },{
+    "id": 170,
+    "name": "Perun",
+    "level": 2,
+    "role_key": "brawler",
+    "ap_granted": 2,
+    "minions_granted": 0,
+    "factions": [  "supremealliance" ],
+    "is_hero": 1,
+    "is_villain": 0,
+    "is_freelance": 0,
+    "origin": "nature",
+    "strength_value": 5,
+    "defense_value": 4,
+    "agility_value": 3,
+    "energy_value": 5,
+    "mind_value": 4,
+    "spirit_value": 6,
+    "strength_trump": 1,
+    "defense_trump": 0,
+    "agility_trump": 0,
+    "energy_trump": 1,
+    "mind_trump": 0,
+    "spirit_trump": 0,
+    "hp_value": 10,
+    "mvt_type": "flight",
+    "mvt_value": 5,
+    "is_stealth": 0,
+    "exclusive_minions": "",
+    "elements": [  "air", "water" ],
+    "ap_limit": 4,
+    "supreme_types": [  "living" ],
+    "excluded_supremes": [ 27 ],
+    },{
     "id": 1001,
     "name": "Moon Coyote",
     "level": 1,
@@ -5739,7 +5773,8 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 3,
     "supreme_types": [  "mechanical" ],
-    "exclusive_factions": [ "jadecult" ]
+    "exclusive_factions": [ "jadecult" ],
+    "picture_id": 100
     },{
     "id": 1007,
     "name": "Terror Cotta Warrior",
@@ -5772,7 +5807,8 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 3,
     "supreme_types": [  "mechanical" ],
-    "exclusive_factions": [ "jadecult" ]
+    "exclusive_factions": [ "jadecult" ],
+    "picture_id": 100
     },{
     "id": 1008,
     "name": "Taurus Shock Trooper",
@@ -5805,7 +5841,8 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 3,
     "supreme_types": [  "living" ],
-    "exclusive_factions": [ "ulthar" ]
+    "exclusive_factions": [ "ulthar" ],
+    "picture_id": 133
     },{
     "id": 1009,
     "name": "Taurus Shock Trooper",
@@ -5838,7 +5875,8 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 3,
     "supreme_types": [  "living" ],
-    "exclusive_factions": [ "ulthar" ]
+    "exclusive_factions": [ "ulthar" ],
+    "picture_id": 133
     },{
     "id": 1010,
     "name": "Grimmancer",
@@ -5905,7 +5943,8 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 3,
     "supreme_types": [  "living" ],
-    "supreme_is_hidden": true
+    "supreme_is_hidden": true,
+    "picture_id": 39
     },{
     "id": 1012,
     "name": "Grimmrock",
@@ -5938,7 +5977,8 @@ function loadSupremes() {
     "elements": [  "earth" ],
     "ap_limit": 3,
     "supreme_types": [  "living" ],
-    "supreme_is_hidden": true
+    "supreme_is_hidden": true,
+    "picture_id": 40
     },{
     "id": 1013,
     "name": "Toxic Grimmvenger",
@@ -6073,7 +6113,8 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 4,
     "supreme_types": [  "living" ],
-    "supreme_is_hidden": true
+    "supreme_is_hidden": true,
+    "picture_id": 44
     },{
     "id": 1018,
     "name": "Spartagrimm",
@@ -6106,7 +6147,8 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 3,
     "supreme_types": [  "living" ],
-    "supreme_is_hidden": true
+    "supreme_is_hidden": true,
+    "picture_id": 45
     },{
     "id": 1019,
     "name": "Grimmbiote",
@@ -6139,7 +6181,8 @@ function loadSupremes() {
     "elements": [  "darkness" ],
     "ap_limit": 3,
     "supreme_types": [  "living" ],
-    "supreme_is_hidden": true
+    "supreme_is_hidden": true,
+    "picture_id": 54
     },{
     "id": 1020,
     "name": "Grimm BunBun",
@@ -6172,7 +6215,8 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 3,
     "supreme_types": [  "living" ],
-    "supreme_is_hidden": true
+    "supreme_is_hidden": true,
+    "picture_id": 74
     },{
     "id": 1021,
     "name": "Hooligrimm",
@@ -6205,7 +6249,8 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 3,
     "supreme_types": [  "living" ],
-    "supreme_is_hidden": true
+    "supreme_is_hidden": true,
+    "picture_id": 120
     },{
     "id": 1022,
     "name": "The Big Grimmowski",
@@ -6238,7 +6283,8 @@ function loadSupremes() {
     "elements": [   ],
     "ap_limit": 3,
     "supreme_types": [  "living" ],
-    "supreme_is_hidden": true
+    "supreme_is_hidden": true,
+    "picture_id": 121
     },{
     "id": 1023,
     "name": "Grimmtorch",
@@ -6271,7 +6317,8 @@ function loadSupremes() {
     "elements": [  "fire" ],
     "ap_limit": 3,
     "supreme_types": [  "living" ],
-    "supreme_is_hidden": true
+    "supreme_is_hidden": true,
+    "picture_id": 122
     },{
     "id": 1024,
     "name": "Red Robot - Gunner",
