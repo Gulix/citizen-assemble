@@ -24,169 +24,172 @@
     </div>
   </div>
 
-  <!-- ko if: isAffiliationDisplayed -->
-  <div class="affiliation-selection global-container">
-    <h2>Enter a Code</h2>
-    <div class="enter-code">
-      <input type="text" class="team-code" data-bind="value: teamCodeInput"></input>
-      <div class="button" data-bind="click: enterTeamCode">Enter Code</div>
-    </div>
-    <h2>Choose your faction / alignment</h2>
-    <div class="step-back" data-bind="click: goBack, visible: goBackIsVisible"></div>
-    <div class="affiliation-boxes" data-bind="foreach: affiliations">
-      <affiliation-box params="affiliation: $data"></affiliation-box>
-    </div>
-  </div>
-  <!-- /ko -->
-
-  <!-- ko if: myTeamDisplayed -->
-  <div class="global-container">
-    <div class="step-back" data-bind="click: goBack"></div>
-  </div>
-  <div class="supreme-roster global-container" data-bind="with: team">
-    <h2>My Team</h2>
-    <div class="my-roster">
-      <div class="roster-general" data-bind="event: { mouseover: showActions, mouseout: hideActions }">
-        <div class="team-affiliation" data-bind="attr: { 'style': affiliationStyle }">
-          <img data-bind="attr: { 'src': affiliationImageSrc }" />
-          <div class="roster-resume">
-            <div class="roster-resume-detail"><span class="label">Levels :</span> <span data-bind="text: totalLevels"></span></div>
-            <div class="roster-resume-detail"><span class="label">AP+ :</span> <span data-bind="text: totalActionPoints"></span></div>
-            <div class="roster-resume-detail"><span class="label">Mi+ :</span> <span data-bind="text: totalMinionsPoints"></span></div>
-          </div>
-          <div class="roster-mask" data-bind="visible: actionsVisible">
-            <div class="action-button" data-bind="click: clearRoster">Clear</div>
-            <div class="action-button" data-bind="click: showCode">Get Code</div>
-          </div>
-        </div>
+  <div style="display: none" data-bind="visible: engineLoaded">
+    <!-- ko if: isAffiliationDisplayed -->
+    <div class="affiliation-selection global-container">
+      <h2>Enter a Code</h2>
+      <div class="enter-code">
+        <input type="text" class="team-code" data-bind="value: teamCodeInput"></input>
+        <div class="button" data-bind="click: enterTeamCode">Enter Code</div>
       </div>
-      <div class="roster-cards" data-bind="visible: isCardsVisible">
-        <div class="card-title"><span class="icon-cards"></span><span data-bind="text: nbLeaderCards"></span> Leader Cards</div>
-        <div class="card-action" data-bind="click: showLeaderCardSelection"><span class="icon-add-card card-action-icon"></span>Select one ...</div>
-        <div class="card-honorary-member" data-bind="visible: isHonoraryMemberSelected"><span class="icon-honorary-member"></span>Honorary Member</div>
-        <div class="card-honorary-member-name" data-bind="visible: isHonoraryMemberSelected, text: honoraryMemberName"></div>
-      </div>
-      <!-- ko foreach: rosterSupremes -->
-      <supreme-box params="supreme: $data"></supreme-box>
-      <!-- /ko -->
-    </div>
-  </div>
-  <!-- /ko -->
-
-  <!-- ko if: recruitmentDisplayed -->
-  <div class="menu-bar">
-  </div>
-
-  <div class="supreme-selection global-container">
-    <h2>Recruit your Supremes</h2>
-    <supremes-filter params="filter: supremeFilter"></supremes-filter>
-
-    <div class="recruitment-list" data-bind="foreach: recruitableSupremes">
-      <supreme-box params="supreme: $data"></supreme-box>
-    </div>
-  </div>
-  <!-- /ko -->
-
-  <!-- ko if: myTeamDisplayed -->
-  <!-- ko with: team -->
-  <div class="modal-box" data-bind="visible: isTeamCodeVisible">
-    <div class="modal-content">
-      <div class="icon-close modal-close" data-bind="click: hideCode"></div>
-      <div class="modal-frame">
-        <div class="modal-label">Unique Team Code</div>
-        <div class="input-code">
-          <label>Code</label>
-          <div class="input-with-button">
-            <input type="text" readonly class="team-code" id="team-code" data-bind="value: teamCode"></input>
-            <div class="btncopy" data-clipboard-target="#team-code">Copy</div>
-          </div>
-        </div>
-        <div class="input-code">
-          <label>Link to Team</label>
-          <div class="input-with-button">
-            <input type="text" readonly class="team-code" id="team-code-url" data-bind="value: teamCodeUrl"></input>
-            <div class="btncopy" data-clipboard-target="#team-code-url">Copy</div>
-          </div>
-        </div>
+      <h2>Choose your faction / alignment</h2>
+      <div class="step-back" data-bind="click: goBack, visible: goBackIsVisible"></div>
+      <div class="affiliation-boxes" data-bind="foreach: affiliations">
+        <affiliation-box params="affiliation: $data"></affiliation-box>
       </div>
     </div>
-  </div>
-  <div class="modal-box" data-bind="visible: isLeaderCardSelectionVisible">
-    <div class="modal-content">
-      <div class="icon-close modal-close" data-bind="click: hideLeaderCardSelection"></div>
-      <div class="modal-frame">
-        <div class="modal-label">Select a Leader Card</div>
-        <div class="leader-cards-list">
-          <!-- ko if: !isHonoraryMemberSelected() -->
-          <!-- ko foreach: leaderCardsProviders -->
-          <div class="leader-card" data-bind="click: function() { $parent.chooseHonoraryMember($data) }">
-            <div class="leader-card-title">Honorary Member</div>
-            <div class="leader-card-text">One Supreme in your Team may be counted as the same Faction as the Leader.</div>
-            <div class="leader-card-legend">Provided by <span data-bind="text: jsonData.name"></span></div>
+    <!-- /ko -->
+
+    <!-- ko if: myTeamDisplayed -->
+    <div class="global-container">
+      <div class="step-back" data-bind="click: goBack"></div>
+    </div>
+    <div class="supreme-roster global-container" data-bind="with: team">
+      <h2>My Team</h2>
+      <div class="my-roster">
+        <div class="roster-general" data-bind="event: { mouseover: showActions, mouseout: hideActions }">
+          <div class="team-affiliation" data-bind="attr: { 'style': affiliationStyle }">
+            <img data-bind="attr: { 'src': affiliationImageSrc }" />
+            <div class="roster-resume">
+              <div class="roster-resume-detail"><span class="label">Levels :</span> <span data-bind="text: totalLevels"></span></div>
+              <div class="roster-resume-detail"><span class="label">AP+ :</span> <span data-bind="text: totalActionPoints"></span></div>
+              <div class="roster-resume-detail"><span class="label">Mi+ :</span> <span data-bind="text: totalMinionsPoints"></span></div>
+            </div>
+            <div class="roster-mask" data-bind="visible: actionsVisible">
+              <div class="action-button" data-bind="click: clearRoster">Clear</div>
+              <div class="action-button" data-bind="click: showCode">Get Code</div>
+            </div>
           </div>
-          <!-- /ko -->
-          <!-- /ko -->
-          <div class="leader-card leader-card-disabled">
-            <div class="leader-card-title">Recruitment Blitz</div>
-            <div class="leader-card-text">Your Team has an additional 3 Levels of Minions Cards.</div>
+        </div>
+        <div class="roster-cards" data-bind="visible: isCardsVisible">
+          <div class="card-title"><span class="icon-cards"></span><span data-bind="text: nbLeaderCards"></span> Leader Cards</div>
+          <div class="card-action" data-bind="click: showLeaderCardSelection"><span class="icon-add-card card-action-icon"></span>Select one ...</div>
+          <div class="card-honorary-member" data-bind="visible: isHonoraryMemberSelected"><span class="icon-honorary-member"></span>Honorary Member</div>
+          <div class="card-honorary-member-name" data-bind="visible: isHonoraryMemberSelected, text: honoraryMemberName"></div>
+        </div>
+        <!-- ko foreach: rosterSupremes -->
+        <supreme-box params="supreme: $data"></supreme-box>
+        <!-- /ko -->
+      </div>
+    </div>
+    <!-- /ko -->
+
+    <!-- ko if: recruitmentDisplayed -->
+    <div class="menu-bar">
+    </div>
+
+    <div class="supreme-selection global-container">
+      <h2>Recruit your Supremes</h2>
+      <supremes-filter params="filter: supremeFilter"></supremes-filter>
+
+      <div class="recruitment-list" data-bind="foreach: recruitableSupremes">
+        <supreme-box params="supreme: $data"></supreme-box>
+      </div>
+    </div>
+    <!-- /ko -->
+
+    <!-- ko if: myTeamDisplayed -->
+    <!-- ko with: team -->
+    <div class="modal-box" data-bind="visible: isTeamCodeVisible">
+      <div class="modal-content">
+        <div class="icon-close modal-close" data-bind="click: hideCode"></div>
+        <div class="modal-frame">
+          <div class="modal-label">Unique Team Code</div>
+          <div class="input-code">
+            <label>Code</label>
+            <div class="input-with-button">
+              <input type="text" readonly class="team-code" id="team-code" data-bind="value: teamCode"></input>
+              <div class="btncopy" data-clipboard-target="#team-code">Copy</div>
+            </div>
+          </div>
+          <div class="input-code">
+            <label>Link to Team</label>
+            <div class="input-with-button">
+              <input type="text" readonly class="team-code" id="team-code-url" data-bind="value: teamCodeUrl"></input>
+              <div class="btncopy" data-clipboard-target="#team-code-url">Copy</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- ko if: isHonoraryMembersSelectable -->
-  <div class="modal-box">
-    <div class="modal-content">
-      <div class="icon-close modal-close" data-bind="click: endHonoraryMemberSelection"></div>
-      <div class="modal-frame modal-frame-large">
-        <div class="modal-label">Select your Honorary Member</div>
-        <div data-bind="with: $parent.supremeFilter">
-          <select data-bind="options: origins, optionsText: 'origin_label', value: selectedOrigin,"></select>
-          <select data-bind="options: roles, optionsText: 'role_label', value: selectedRole,"></select>
-        </div>
-        <div class="recruitment-list scrollable-list" data-bind="foreach: possibleHonoraryMembers">
-          <supreme-box params="supreme: $data"></supreme-box>
+    <div class="modal-box" data-bind="visible: isLeaderCardSelectionVisible">
+      <div class="modal-content">
+        <div class="icon-close modal-close" data-bind="click: hideLeaderCardSelection"></div>
+        <div class="modal-frame">
+          <div class="modal-label">Select a Leader Card</div>
+          <div class="leader-cards-list">
+            <!-- ko if: !isHonoraryMemberSelected() -->
+            <!-- ko foreach: leaderCardsProviders -->
+            <div class="leader-card" data-bind="click: function() { $parent.chooseHonoraryMember($data) }">
+              <div class="leader-card-title">Honorary Member</div>
+              <div class="leader-card-text">One Supreme in your Team may be counted as the same Faction as the Leader.</div>
+              <div class="leader-card-legend">Provided by <span data-bind="text: jsonData.name"></span></div>
+            </div>
+            <!-- /ko -->
+            <!-- /ko -->
+            <div class="leader-card leader-card-disabled">
+              <div class="leader-card-title">Recruitment Blitz</div>
+              <div class="leader-card-text">Your Team has an additional 3 Levels of Minions Cards.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- /ko -->
-  <!-- /ko -->
-  <!-- /ko -->
-
-  <!-- ko if: isAboutBoxVisible -->
-  <div class="modal-box">
-    <div class="modal-content">
-      <div class="icon-close modal-close" data-bind="click: hideAboutBox"></div>
-      <div class="modal-frame modal-frame-large">
-        <div class="modal-label">About "Citizen Assemble !"</div>
-          <h3>A Team Builder</h3>
-          <div class="about-text"><em>Citizen Assemble !</em> is a Team Builder for the Miniatures Games <em>Pulp City</em>.
-            This tool will help you choose your Supremes and share your team with the World.
-            The rules of Recruitment are all present, and the list of characters is updated regularly.</div>
-          <div class="about-text">The pictures of the Supremes are from the <a href="http://www.pulp-city.com" target="_blank">Pulp City official website</a>.</div>
-          <h3>Open-Source Project</h3>
-          <div class="about-text"><em>Citizen Assemble !</em> is an Open-Source project, hosted on <a href="http://www.github.com/gulix/citizen-assemble" target="_blank">GitHub</a>.
-            It currently is on <em>version 2.0</em>. Feel free to join in to enhance the software !
-            You can also <a href="http://www.github.com/gulix/citizen-assemble/issues/new" target="_blank">post issues</a> if you encouter bugs, or if a functionality is missing.</div>
-          <div class="about-text"><em>Citizen Assemble !</em> uses the following open-source project :</div>
-          <ul class="about-text">
-            <li><a href="https://jquery.com/" targer="_blank">Jquery</a> (Javascript Framework)</li>
-            <li><a href="http://knockoutjs.com/" targer="_blank">Knockout</a> (Data management)</li>
-            <li><a href="https://lodash.com/" targer="_blank">Lodash</a> (Javascript Helpers)</li>
-            <li><a href="http://requirejs.org/" targer="_blank">RequireJS</a> (File management)</li>
-            <li><a href="https://github.com/bgrins/TinyColor" targer="_blank">TinyColor</a> (Color Helpers)</li>
-          </ul>
-          <div class="about-text"><em>Citizen Assemble !</em> also makes use of the following fonts, provided by Google Fonts :</div>
-          <ul class="about-text">
-            <li><a href="https://fonts.google.com/specimen/Oswald" targer="_blank">Oswald</a></li>
-            <li><a href="https://fonts.google.com/specimen/Bangers" targer="_blank">Bangers</a></li>
-          </ul>
+    <!-- ko if: isHonoraryMembersSelectable -->
+    <div class="modal-box">
+      <div class="modal-content">
+        <div class="icon-close modal-close" data-bind="click: endHonoraryMemberSelection"></div>
+        <div class="modal-frame modal-frame-large">
+          <div class="modal-label">Select your Honorary Member</div>
+          <div data-bind="with: $parent.supremeFilter">
+            <select data-bind="options: origins, optionsText: 'origin_label', value: selectedOrigin,"></select>
+            <select data-bind="options: roles, optionsText: 'role_label', value: selectedRole,"></select>
+          </div>
+          <div class="recruitment-list scrollable-list" data-bind="foreach: possibleHonoraryMembers">
+            <supreme-box params="supreme: $data"></supreme-box>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- /ko -->
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- /ko -->
 
+    <!-- ko if: isAboutBoxVisible -->
+    <div class="modal-box">
+      <div class="modal-content">
+        <div class="icon-close modal-close" data-bind="click: hideAboutBox"></div>
+        <div class="modal-frame modal-frame-large">
+          <div class="modal-label">About "Citizen Assemble !"</div>
+            <h3>A Team Builder</h3>
+            <div class="about-text"><strong>Citizen Assemble !</strong> is a Team Builder for the Miniatures Games <em>Pulp City</em>.
+              This tool will help you choose your Supremes and share your team with the World.
+              The rules of Recruitment are all present, and the list of characters is updated regularly.</div>
+            <div class="about-text">The pictures of the Supremes are from the <a href="http://www.pulp-city.com" target="_blank">Pulp City official website</a>.</div>
+            <h3>Open-Source Project</h3>
+            <div class="about-text"><strong>Citizen Assemble !</strong> is an Open-Source project, hosted on <a href="http://www.github.com/gulix/citizen-assemble" target="_blank">GitHub</a>.
+              It currently is on <strong>version 2.0.1</strong>. Feel free to join in to enhance the software !
+              You can also <a href="http://www.github.com/gulix/citizen-assemble/issues/new" target="_blank">post issues</a> if you encouter bugs, or if a functionality is missing.</div>
+            <div class="about-text"><strong>Citizen Assemble !</strong> uses the following open-source project :</div>
+            <ul class="about-text">
+              <li><a href="https://jquery.com/" targer="_blank">Jquery</a> (Javascript Framework)</li>
+              <li><a href="http://knockoutjs.com/" targer="_blank">Knockout</a> (Data management)</li>
+              <li><a href="https://lodash.com/" targer="_blank">Lodash</a> (Javascript Helpers)</li>
+              <li><a href="http://requirejs.org/" targer="_blank">RequireJS</a> (File management)</li>
+              <li><a href="https://github.com/bgrins/TinyColor" targer="_blank">TinyColor</a> (Color Helpers)</li>
+              <li><a href="https://icomoon.io/" targer="_blank">IcoMoon</a> (Fonts &amp; Symbols)</li>
+            </ul>
+            <div class="about-text"><strong>Citizen Assemble !</strong> also makes use of the following fonts, provided by Google Fonts :</div>
+            <ul class="about-text">
+              <li><a href="https://fonts.google.com/specimen/Oswald" targer="_blank">Oswald</a></li>
+              <li><a href="https://fonts.google.com/specimen/Bangers" targer="_blank">Bangers</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+    <!-- /ko -->
+
+  </div>
   <script src="js/vendor/require.min.js" data-main="js/main.js"></script>
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

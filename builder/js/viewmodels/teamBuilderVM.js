@@ -31,6 +31,7 @@ function teamBuilderVM()
   self.goBackIsVisible = ko.observable(false);
   self.teamCodeInput = ko.observable('');
   self.isAboutBoxVisible = ko.observable(false);
+  self.engineLoaded = ko.observable(false);
 
   /**********************************/
   /* Accessors & Computed Variables */
@@ -133,6 +134,8 @@ function teamBuilderVM()
   self.affiliations(AffiliationVM.getAllStartingAffiliations(self.selectAffiliation));
   self.supremeFilter(SupremeFilter.newFilter());
   self.teamCodeInput(UrlHelper.getTeamCodeFromUrl());
+
+  self.engineLoaded(true);
 }
 
 return {
