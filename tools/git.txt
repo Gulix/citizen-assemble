@@ -1,0 +1,5 @@
+Some useful git commands
+
+## Putting the current branch on gh-pages :
+When on the gh-pages branch
+git merge -no-ff -s recursive -X subtree=builder master
