@@ -139,7 +139,10 @@ function teamVM(affiliation)
     return url;
   })
 
-
+  self.canRecruitMinions = ko.pureComputed(function() {
+    return self.totalMinionsPoints() > 0;
+  });
+  
   /*************/
   /* Functions */
   /*************/

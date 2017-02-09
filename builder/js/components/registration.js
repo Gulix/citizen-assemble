@@ -12,6 +12,11 @@ define(['knockout'], function(ko) {
         template: { require: 'text!components/supreme-box/supreme-box.html' }
       });
 
+      ko.components.register('minion-box', {
+        viewModel: { require: 'components/minion-box/minion-box' },
+        template: { require: 'text!components/minion-box/minion-box.html' }
+      });
+
       ko.components.register('supremes-filter', {
         viewModel: { require: 'components/supremes-filter/supremes-filter' },
         template: { require: 'text!components/supremes-filter/supremes-filter.html' }

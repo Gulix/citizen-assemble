@@ -3,6 +3,7 @@ define(['knockout',
         'lodash',
         'viewmodels/affiliationVM',
         'viewmodels/supremeVM',
+        'viewmodels/minionVM',
         'viewmodels/teamVM',
         'viewmodels/supremeFilter',
         'scripts/teamCode',
@@ -12,6 +13,7 @@ function(ko,
          _,
          AffiliationVM,
          SupremeVM,
+         MinionVM,
          TeamVM,
          SupremeFilter,
          TeamCode,
@@ -28,6 +30,7 @@ function teamBuilderVM()
   self.supremesPool = ko.observableArray([]);
   self.team = ko.observable(null);
   self.supremeFilter = ko.observable(null);
+  self.minionsFilter = ko.observable(null);
   self.goBackIsVisible = ko.observable(false);
   self.teamCodeInput = ko.observable('');
   self.isAboutBoxVisible = ko.observable(false);
@@ -44,6 +47,12 @@ function teamBuilderVM()
   });
   self.recruitmentDisplayed = ko.pureComputed(function() {
     return self.supremesPool().length > 0;
+  });
+  self.minionsRecruitmentDisplayed = ko.pureComputed(function() {
+    if (self.team() != null) {
+      return self.team().canRecruitMinions();
+    }
+    return false;
   });
 
   /* Which Supremes can be recruited by the current Roster team ? */
@@ -75,6 +84,12 @@ function teamBuilderVM()
 
     // TODO: let the user choose the sort method
     return _.sortBy(supremes, [function(o) { return o.jsonData.name; }]);
+  });
+
+  /* Which Minions are recruitable ? */
+  self.recruitableMinions = ko.pureComputed(function() {
+    var minionsPool = MinionVM.loadAll();
+    return minionsPool;
   });
 
   /*************/
@@ -132,7 +147,8 @@ function teamBuilderVM()
   /* Object Initialization */
   /*************************/
   self.affiliations(AffiliationVM.getAllStartingAffiliations(self.selectAffiliation));
-  self.supremeFilter(SupremeFilter.newFilter());
+  self.supremeFilter(SupremeFilter.newSupremesFilter());
+  self.minionsFilter(SupremeFilter.newMinionsFilter());
   self.teamCodeInput(UrlHelper.getTeamCodeFromUrl());
 
   self.engineLoaded(true);

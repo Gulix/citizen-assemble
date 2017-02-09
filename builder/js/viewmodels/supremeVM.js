@@ -39,7 +39,7 @@ function supremeVM(jsonSupreme, recruit, dismiss)
       })) return 1;
     }
     return 0;
-  } // TODO : Will need to add the new Power of Androida / Twilight
+  }
 
   /*************/
   /* Functions */

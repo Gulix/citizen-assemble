@@ -6,12 +6,14 @@
     </div>
   </fieldset>
 
+  <!-- ko if: filter.displayOrigins -->
   <fieldset>
     <legend>Origins</legend>
     <div class="origins-filter" data-bind="foreach: filter.origins">
       <div data-bind="css: allCssClasses, click: toggle"></div>
     </div>
   </fieldset>
+  <!-- /ko -->
 
   <fieldset>
     <legend>Roles</legend>

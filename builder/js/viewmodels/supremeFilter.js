@@ -26,6 +26,8 @@ function supremeFilter()
   self.roles = ko.observableArray([]);
   self.textFilter = ko.observable('');
 
+  self.displayOrigins = true;
+
   /**********************************/
   /* Accessors & Computed Variables */
   /**********************************/
@@ -74,7 +76,12 @@ function supremeFilter()
 }
 
 return {
-    newFilter: function()
-      { return new supremeFilter(); }
+    newSupremesFilter: function()
+      { return new supremeFilter(); },
+    newMinionsFilter: function() {
+      var filter = new supremeFilter();
+      filter.displayOrigins = false;
+      return filter;
+    }
   }
 });

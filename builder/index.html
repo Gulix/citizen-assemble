@@ -88,6 +88,20 @@
     </div>
     <!-- /ko -->
 
+    <!-- ko if: minionsRecruitmentDisplayed -->
+    <div class="menu-bar">
+    </div>
+
+    <div class="supreme-selection global-container">
+      <h2>Recruit your Minions</h2>
+      <supremes-filter params="filter: minionsFilter"></supremes-filter>
+
+      <div class="recruitment-list" data-bind="foreach: recruitableMinions">
+        <minion-box params="minion: $data"></minion-box>
+      </div>
+    </div>
+    <!-- /ko -->
+
     <!-- ko if: myTeamDisplayed -->
     <!-- ko with: team -->
     <div class="modal-box" data-bind="visible: isTeamCodeVisible">

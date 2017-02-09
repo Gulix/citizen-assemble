@@ -1,0 +1,21 @@
+<div class="roster-supreme origin-minions" data-bind="attr: { style: supremeImgUrl }, event: { mouseover: showActions, mouseout: hideActions }">
+  <div class="supreme-icons">
+    <div data-bind="css: alignmentIconCss"></div>
+  </div>
+  <div data-bind="visible: !areActionsShown()">
+    <div class="supreme-recruit-values"><span class="label">##</span> <span data-bind="text: numberOfMiniatures"></span></div>
+  </div>
+    <div class="supreme-name" data-bind="visible: !areActionsShown()"><span data-bind="text: minionName"></span></div>
+  <div class="supreme-role" data-bind="text: roleAndLevel, visible: !areActionsShown()"></div>
+  <div class="hovered-supreme-panel" data-bind="visible: areActionsShown()">
+    <div class="supreme-name"><span data-bind="text: minionName"></span></div>
+    <div class="supreme-role" data-bind="text: roleAndLevel"></div>
+    <div class="supreme-actions">
+      <div class="supreme-actions-icons">
+        <div class="supreme-action supreme-info" title="Show Informations" data-bind="click: showInfos"><span class="icon icon-info"></span></div>
+        <div class="supreme-action" title="Recruit" data-bind="click: recruit, visible: isRecruitable"><span class="icon icon-recruit"></span></div>
+        <div class="supreme-action" title="Dismiss" data-bind="click: dismiss, visible: isDismissable"><span class="icon icon-dismiss"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
