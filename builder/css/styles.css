@@ -183,7 +183,7 @@ h3 {
 .roster-supreme {
   width: 189px;
   height: 150px;
-  margin: 10px;
+  margin: 8px;
   -webkit-border-radius: 10px 10px 0 0;
   border-radius: 10px 10px 0 0;
   border-style: solid;
@@ -534,6 +534,8 @@ h3 {
 
 .modal-frame-large {
   overflow-y: scroll;
+  height: 100%;
+  width: 100%;
 }
 
 .modal-label {

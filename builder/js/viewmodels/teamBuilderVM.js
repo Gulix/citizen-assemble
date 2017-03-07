@@ -97,6 +97,7 @@ function teamBuilderVM()
   self.loadTeamForAffiliation = function(affiliationVM) {
     self.affiliations([]);
     self.team(TeamVM.newTeamVM(affiliationVM));
+    self.team().setBuilder(self);
     self.supremesPool(SupremeVM.loadForAffiliation(affiliationVM, self.recruitSupreme, self.dismissSupreme));
   }
 

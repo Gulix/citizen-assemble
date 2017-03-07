@@ -137,14 +137,11 @@
     </div>
     <!-- ko if: isHonoraryMembersSelectable -->
     <div class="modal-box">
-      <div class="modal-content">
+      <div class="modal-content" id="honorary-member-selection-box">
         <div class="icon-close modal-close" data-bind="click: endHonoraryMemberSelection"></div>
         <div class="modal-frame modal-frame-large">
           <div class="modal-label">Select your Honorary Member</div>
-          <div data-bind="with: $parent.supremeFilter">
-            <select data-bind="options: origins, optionsText: 'origin_label', value: selectedOrigin,"></select>
-            <select data-bind="options: roles, optionsText: 'role_label', value: selectedRole,"></select>
-          </div>
+          <supremes-filter params="filter: $parent.supremeFilter"></supremes-filter>
           <div class="recruitment-list scrollable-list" data-bind="foreach: possibleHonoraryMembers">
             <supreme-box params="supreme: $data"></supreme-box>
           </div>
