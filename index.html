@@ -137,14 +137,11 @@
     </div>
     <!-- ko if: isHonoraryMembersSelectable -->
     <div class="modal-box">
-      <div class="modal-content">
+      <div class="modal-content" id="honorary-member-selection-box">
         <div class="icon-close modal-close" data-bind="click: endHonoraryMemberSelection"></div>
         <div class="modal-frame modal-frame-large">
           <div class="modal-label">Select your Honorary Member</div>
-          <div data-bind="with: $parent.supremeFilter">
-            <select data-bind="options: origins, optionsText: 'origin_label', value: selectedOrigin,"></select>
-            <select data-bind="options: roles, optionsText: 'role_label', value: selectedRole,"></select>
-          </div>
+          <supremes-filter params="filter: $parent.supremeFilter"></supremes-filter>
           <div class="recruitment-list scrollable-list" data-bind="foreach: possibleHonoraryMembers">
             <supreme-box params="supreme: $data"></supreme-box>
           </div>
@@ -168,7 +165,7 @@
             <div class="about-text">The pictures of the Supremes are from the <a href="http://www.pulp-city.com" target="_blank">Pulp City official website</a>.</div>
             <h3>Open-Source Project</h3>
             <div class="about-text"><strong>Citizen Assemble !</strong> is an Open-Source project, hosted on <a href="http://www.github.com/gulix/citizen-assemble" target="_blank">GitHub</a>.
-              It currently is on <strong>version 2.0.1</strong>. Feel free to join in to enhance the software !
+              It currently is on <strong>version 2.0.2</strong>. Feel free to join in to enhance the software !
               You can also <a href="http://www.github.com/gulix/citizen-assemble/issues/new" target="_blank">post issues</a> if you encouter bugs, or if a functionality is missing.</div>
             <div class="about-text"><strong>Citizen Assemble !</strong> uses the following open-source project :</div>
             <ul class="about-text">

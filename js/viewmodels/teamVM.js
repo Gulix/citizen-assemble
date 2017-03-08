@@ -1,10 +1,12 @@
-define(['knockout',
+define(['jQuery',
+        'knockout',
         'lodash',
         'viewmodels/supremeVM',
         'scripts/teamCode',
         'scripts/url'
        ],
-function(ko,
+function($,
+         ko,
          _,
          SupremeVM,
          TeamCode,
@@ -31,6 +33,8 @@ function teamVM(affiliation)
   // Honorary Members
   self.isHonoraryMembersSelectable = ko.observable(false);
   self.supremeGrantingHonorary = ko.observable(null);
+  // TeamBuilder
+  self.teamBuilderVM = null;
 
   /**********************************/
   /* Accessors & Computed Variables */
@@ -116,7 +120,10 @@ function teamVM(affiliation)
     }
 
     // User Filter
-    //supremes = self.supremeFilter().filter(supremes);
+    if (self.teamBuilderVM != null) {
+      supremes = self.teamBuilderVM.supremeFilter().filter(supremes);
+    }
+
 
     return _.sortBy(supremes, [function(o) { return o.jsonData.name; }]);
   })
@@ -232,6 +239,10 @@ function teamVM(affiliation)
   /* Honorary Member */
   self.chooseHonoraryMember = function(supremeVM) {
     self.isHonoraryMembersSelectable(true);
+    // Height of the box
+    var viewportHeight = $(window).height();
+    $('#honorary-member-selection-box').css('height', viewportHeight * 0.8);
+        
     self.supremeGrantingHonorary(supremeVM);
   }
   self.endHonoraryMemberSelection = function() {
@@ -259,6 +270,10 @@ function teamVM(affiliation)
   self.dismissHonoraryMember = function(supremeVM) {
     self.isHonoraryMemberSelected(false);
     self.dismissSupreme(supremeVM);
+  }
+
+  self.setBuilder = function(teamBuilderVM) {
+    self.teamBuilderVM = teamBuilderVM;
   }
 
   /*************************/
