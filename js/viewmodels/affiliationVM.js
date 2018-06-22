@@ -157,7 +157,10 @@ return {
       var factions = Factions.load();
       for (var iFaction = 0; iFaction < factions.length; iFaction++)
       {
-        affiliations.push(new affiliationVM(factions[iFaction], null, null, null, null, selectAffiliation));
+        if (factions[iFaction].displayed)
+        {
+          affiliations.push(new affiliationVM(factions[iFaction], null, null, null, null, selectAffiliation));
+        }        
       }
 
       return affiliations;
