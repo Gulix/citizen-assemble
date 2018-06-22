@@ -5,6 +5,7 @@ function factionVM(jsonFaction)
   var self = this;
 
   self.faction_key = jsonFaction.faction_key;
+  self.isDisplayed = jsonFaction.displayed;
   self.faction_label = ko.observable(jsonFaction.faction_label);
   self.faction_color = jsonFaction.faction_color;
   self.id = ko.observable(jsonFaction.id);
